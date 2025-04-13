@@ -1,0 +1,73 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqe70tmexb41l"]
+
+[ext_resource type="Texture2D" uid="uid://0i4tdcp0uvec" path="res://assets/casino/slot machine/slot text box.png" id="1_wscpg"]
+
+[node name="TextBox" type="Node2D"]
+
+[node name="CornerTL" type="Sprite2D" parent="."]
+position = Vector2(-28.5, -17.5)
+texture = ExtResource("1_wscpg")
+region_enabled = true
+region_rect = Rect2(0, 0, 7, 7)
+
+[node name="SideR" type="Sprite2D" parent="."]
+position = Vector2(30.9958, 0.1938)
+rotation = 1.57079
+scale = Vector2(4.05659, 1)
+texture = ExtResource("1_wscpg")
+region_enabled = true
+region_rect = Rect2(8, 0, 7, 7)
+
+[node name="SideB" type="Sprite2D" parent="."]
+position = Vector2(2.49906, 16.8456)
+rotation = 3.14159
+scale = Vector2(8.1453, 1)
+texture = ExtResource("1_wscpg")
+region_enabled = true
+region_rect = Rect2(8, 0, 7, 7)
+
+[node name="SideL" type="Sprite2D" parent="."]
+position = Vector2(-28.5, -0.3216)
+rotation = 1.57079
+scale = Vector2(3.90808, 1)
+texture = ExtResource("1_wscpg")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(8, 0, 7, 7)
+
+[node name="SideT" type="Sprite2D" parent="."]
+position = Vector2(1.25002, -16.5)
+scale = Vector2(7.5, 1)
+texture = ExtResource("1_wscpg")
+region_enabled = true
+region_rect = Rect2(8, 0, 7, 7)
+
+[node name="CornerTR" type="Sprite2D" parent="."]
+position = Vector2(31, -17.5)
+texture = ExtResource("1_wscpg")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(0, 0, 7, 7)
+
+[node name="CornerBL" type="Sprite2D" parent="."]
+position = Vector2(-29.5, 16.8465)
+rotation = -1.57079
+texture = ExtResource("1_wscpg")
+region_enabled = true
+region_rect = Rect2(0, 0, 7, 7)
+
+[node name="CornerBR" type="Sprite2D" parent="."]
+position = Vector2(30.9939, 17.8328)
+texture = ExtResource("1_wscpg")
+flip_h = true
+flip_v = true
+region_enabled = true
+region_rect = Rect2(0, 0, 7, 7)
+
+[node name="Sprite2D9" type="Sprite2D" parent="."]
+position = Vector2(-25, -13.0048)
+scale = Vector2(7.50126, 4.3878)
+texture = ExtResource("1_wscpg")
+centered = false
+region_enabled = true
+region_rect = Rect2(9, 8, 7, 6)

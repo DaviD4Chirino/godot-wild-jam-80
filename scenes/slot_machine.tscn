@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://buiiewgeyawbq"]
+
+[ext_resource type="Script" uid="uid://cy6lmoxxrigy8" path="res://scripts/slot_machine.gd" id="1_2e0ow"]
+[ext_resource type="Texture2D" uid="uid://d2kt0i6tf63l6" path="res://assets/casino/slot machine/slot machine side.png" id="2_2e0ow"]
+[ext_resource type="Texture2D" uid="uid://xc0c2w3lt671" path="res://assets/casino/slot machine/slot machine column.png" id="3_puwce"]
+[ext_resource type="Texture2D" uid="uid://bn1im235384f1" path="res://assets/casino/slot machine/slot machine side with lever1.png" id="4_h3s22"]
+[ext_resource type="Texture2D" uid="uid://dx5epnhj38nn0" path="res://assets/casino/slot machine/slot machine side with lever2.png" id="5_7v1fh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pputl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_h3s22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7v1fh")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xjw1r"]
+size = Vector2(44, 86)
+
+[node name="SlotMachine" type="Node2D"]
+script = ExtResource("1_2e0ow")
+column_sprite = ExtResource("3_puwce")
+columns = 5
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="SlotMachineSide" type="Sprite2D" parent="Sprites"]
+position = Vector2(0, 16)
+texture = ExtResource("2_2e0ow")
+centered = false
+
+[node name="Columns" type="Node2D" parent="Sprites"]
+unique_name_in_owner = true
+position = Vector2(17, 18)
+
+[node name="Lever" type="AnimatedSprite2D" parent="Sprites"]
+unique_name_in_owner = true
+position = Vector2(160, 0)
+sprite_frames = SubResource("SpriteFrames_pputl")
+centered = false
+offset = Vector2(17, 0)
+
+[node name="Area2D" type="Area2D" parent="Sprites/Lever"]
+position = Vector2(41, 51)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprites/Lever/Area2D"]
+position = Vector2(1, -8)
+shape = SubResource("RectangleShape2D_xjw1r")

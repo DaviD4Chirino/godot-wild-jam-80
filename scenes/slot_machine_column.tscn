@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbeafljpy15ow"]
+[gd_scene load_steps=6 format=3 uid="uid://cbeafljpy15ow"]
 
 [ext_resource type="Texture2D" uid="uid://xc0c2w3lt671" path="res://assets/casino/slot machine/slot machine column.png" id="1_7wgi6"]
 [ext_resource type="Script" uid="uid://cjl3c1ipfbcxm" path="res://scripts/slot_machine_column.gd" id="1_vuhcy"]
+[ext_resource type="PackedScene" uid="uid://5u52kmc67sr6" path="res://scenes/slot.tscn" id="3_5awgb"]
+[ext_resource type="Resource" uid="uid://bdmd54bpnki07" path="res://resources/slot/attack.tres" id="4_kl17h"]
+[ext_resource type="Resource" uid="uid://3rpjhp54h8py" path="res://resources/slot/shield.tres" id="5_4vys1"]
 
 [node name="SlotMachineColumn" type="Node2D"]
 script = ExtResource("1_vuhcy")
+column_id = null
 
 [node name="Sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -14,8 +18,18 @@ centered = false
 [node name="Slot0" type="Marker2D" parent="Sprite"]
 position = Vector2(16.5899, 9.74325)
 
+[node name="Slot" parent="Sprite/Slot0" instance=ExtResource("3_5awgb")]
+scale = Vector2(0.9, 0.9)
+data = ExtResource("4_kl17h")
+
 [node name="Slot1" type="Marker2D" parent="Sprite"]
 position = Vector2(16.5899, 32.6531)
 
+[node name="Slot" parent="Sprite/Slot1" instance=ExtResource("3_5awgb")]
+
 [node name="Slot2" type="Marker2D" parent="Sprite"]
-position = Vector2(16.5899, 58.7229)
+position = Vector2(16.5899, 57.7229)
+
+[node name="Slot" parent="Sprite/Slot2" instance=ExtResource("3_5awgb")]
+scale = Vector2(0.9, 0.9)
+data = ExtResource("5_4vys1")

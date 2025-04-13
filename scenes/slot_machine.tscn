@@ -1,10 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://buiiewgeyawbq"]
+[gd_scene load_steps=13 format=3 uid="uid://buiiewgeyawbq"]
 
 [ext_resource type="Script" uid="uid://cy6lmoxxrigy8" path="res://scripts/slot_machine.gd" id="1_2e0ow"]
 [ext_resource type="Texture2D" uid="uid://d2kt0i6tf63l6" path="res://assets/casino/slot machine/slot machine side.png" id="2_2e0ow"]
 [ext_resource type="PackedScene" uid="uid://cbeafljpy15ow" path="res://scenes/slot_machine_column.tscn" id="2_puwce"]
+[ext_resource type="Script" uid="uid://dkgdaa3p6jrjg" path="res://resources/slotColumnData.gd" id="3_h3s22"]
+[ext_resource type="Script" uid="uid://c61ak8ox27w1u" path="res://resources/slot/SlotData.gd" id="4_7v1fh"]
 [ext_resource type="Texture2D" uid="uid://bn1im235384f1" path="res://assets/casino/slot machine/slot machine side with lever1.png" id="4_h3s22"]
 [ext_resource type="Texture2D" uid="uid://dx5epnhj38nn0" path="res://assets/casino/slot machine/slot machine side with lever2.png" id="5_7v1fh"]
+[ext_resource type="Resource" uid="uid://3rpjhp54h8py" path="res://resources/slot/shield.tres" id="5_pputl"]
+[ext_resource type="Resource" uid="uid://bdmd54bpnki07" path="res://resources/slot/attack.tres" id="6_dgsef"]
+
+[sub_resource type="Resource" id="Resource_pputl"]
+script = ExtResource("3_h3s22")
+tokens = Array[ExtResource("4_7v1fh")]([ExtResource("5_pputl"), ExtResource("6_dgsef")])
+metadata/_custom_type_script = "uid://dkgdaa3p6jrjg"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pputl"]
 animations = [{
@@ -31,8 +40,9 @@ size = Vector2(44, 86)
 [node name="SlotMachine" type="Node2D"]
 script = ExtResource("1_2e0ow")
 column_scene = ExtResource("2_puwce")
-columns = 1
+columns = 2
 roll_duration = 3.0
+inventory = Array[ExtResource("3_h3s22")]([SubResource("Resource_pputl"), SubResource("Resource_pputl"), SubResource("Resource_pputl"), SubResource("Resource_pputl"), SubResource("Resource_pputl")])
 
 [node name="Sprites" type="Node2D" parent="."]
 
@@ -47,7 +57,7 @@ position = Vector2(17, 18)
 
 [node name="Lever" type="AnimatedSprite2D" parent="Sprites"]
 unique_name_in_owner = true
-position = Vector2(34, 0)
+position = Vector2(66, 0)
 sprite_frames = SubResource("SpriteFrames_pputl")
 centered = false
 offset = Vector2(17, 0)

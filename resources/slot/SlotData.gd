@@ -1,5 +1,5 @@
 extends Resource
-class_name SlotData
+class_name Token
 
 
 @export var icon: Texture2D

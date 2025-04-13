@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://5u52kmc67sr6"]
+
+[ext_resource type="SpriteFrames" uid="uid://dh5gaycd0au41" path="res://resources/sprite frames/slot_icons.tres" id="1_4v6ba"]
+
+[node name="Slot" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.03, 0.03)
+sprite_frames = ExtResource("1_4v6ba")
+centered = false

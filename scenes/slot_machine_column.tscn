@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbeafljpy15ow"]
+
+[ext_resource type="Texture2D" uid="uid://xc0c2w3lt671" path="res://assets/casino/slot machine/slot machine column.png" id="1_7wgi6"]
+[ext_resource type="Script" uid="uid://cjl3c1ipfbcxm" path="res://scripts/slot_machine_column.gd" id="1_vuhcy"]
+
+[node name="SlotMachineColumn" type="Node2D"]
+script = ExtResource("1_vuhcy")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("1_7wgi6")
+centered = false
+
+[node name="Slot0" type="Marker2D" parent="Sprite"]
+position = Vector2(16.5899, 9.74325)
+
+[node name="Slot1" type="Marker2D" parent="Sprite"]
+position = Vector2(16.5899, 32.6531)
+
+[node name="Slot2" type="Marker2D" parent="Sprite"]
+position = Vector2(16.5899, 58.7229)

@@ -1,0 +1,32 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://dh5gaycd0au41"]
+
+[ext_resource type="Texture2D" uid="uid://d3apriy85bckw" path="res://assets/icons/shield.png" id="1_2h508"]
+[ext_resource type="Texture2D" uid="uid://pvnbwm1xhgpe" path="res://assets/icons/plain-circle.png" id="1_vyu23"]
+[ext_resource type="Texture2D" uid="uid://bo2em7dash0qf" path="res://assets/icons/gladius.png" id="1_y2fa0"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_y2fa0")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vyu23")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_2h508")
+}],
+"loop": false,
+"name": &"shield",
+"speed": 5.0
+}]

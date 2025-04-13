@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Template"
+config/name="Godot Wild Jam 80"
+config/version="0.0.1"
 run/main_scene="res://scenes/screens/main_menu.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"

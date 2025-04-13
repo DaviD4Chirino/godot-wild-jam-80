@@ -1,10 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://5u52kmc67sr6"]
+[gd_scene load_steps=5 format=3 uid="uid://5u52kmc67sr6"]
 
-[ext_resource type="SpriteFrames" uid="uid://dh5gaycd0au41" path="res://resources/sprite frames/slot_icons.tres" id="1_4v6ba"]
+[ext_resource type="Script" uid="uid://ic6akbjmnk1d" path="res://scripts/slot.gd" id="1_ic0fu"]
+[ext_resource type="Texture2D" uid="uid://bo2em7dash0qf" path="res://assets/icons/gladius.png" id="2_5f2j7"]
+[ext_resource type="Script" uid="uid://c61ak8ox27w1u" path="res://resources/slot/SlotData.gd" id="3_sjnr7"]
+
+[sub_resource type="Resource" id="Resource_5f2j7"]
+script = ExtResource("3_sjnr7")
+icon = ExtResource("2_5f2j7")
+metadata/_custom_type_script = "uid://c61ak8ox27w1u"
 
 [node name="Slot" type="Node2D"]
+script = ExtResource("1_ic0fu")
+data = SubResource("Resource_5f2j7")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Icon" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 scale = Vector2(0.03, 0.03)
-sprite_frames = ExtResource("1_4v6ba")
+texture = ExtResource("2_5f2j7")
 centered = false

@@ -1,0 +1,101 @@
+[gd_scene load_steps=14 format=3 uid="uid://d2d65r6gy5sye"]
+
+[ext_resource type="Script" uid="uid://8omnwp36363" path="res://scenes/screens/config/audio_config.gd" id="1_6254l"]
+[ext_resource type="PackedScene" uid="uid://qf6ti2ct3yb7" path="res://scenes/screens/config/audio_slider.tscn" id="2_lftpm"]
+[ext_resource type="Script" uid="uid://e1650eicvoku" path="res://resources/ControlNodesSounds.gd" id="3_07tmx"]
+[ext_resource type="Script" uid="uid://dkwvavx1gakw" path="res://resources/AudioStreamData.gd" id="4_857fn"]
+[ext_resource type="AudioStream" uid="uid://dejsml81i3np7" path="res://assets/audio/ui/tick_002.ogg" id="5_qroc3"]
+
+[sub_resource type="Resource" id="Resource_ccy0j"]
+script = ExtResource("4_857fn")
+signal_to_connect = 4
+stream = ExtResource("5_qroc3")
+bus = 0
+
+[sub_resource type="Resource" id="Resource_pwc2s"]
+script = ExtResource("3_07tmx")
+sounds = Array[ExtResource("4_857fn")]([SubResource("Resource_ccy0j")])
+
+[sub_resource type="Resource" id="Resource_fibqq"]
+script = ExtResource("4_857fn")
+signal_to_connect = 4
+stream = ExtResource("5_qroc3")
+bus = 1
+
+[sub_resource type="Resource" id="Resource_awx3l"]
+script = ExtResource("3_07tmx")
+sounds = Array[ExtResource("4_857fn")]([SubResource("Resource_fibqq")])
+
+[sub_resource type="Resource" id="Resource_avp8d"]
+script = ExtResource("4_857fn")
+signal_to_connect = 4
+stream = ExtResource("5_qroc3")
+bus = 2
+
+[sub_resource type="Resource" id="Resource_tj2jb"]
+script = ExtResource("3_07tmx")
+sounds = Array[ExtResource("4_857fn")]([SubResource("Resource_avp8d")])
+
+[sub_resource type="Resource" id="Resource_re43u"]
+script = ExtResource("4_857fn")
+signal_to_connect = 4
+stream = ExtResource("5_qroc3")
+bus = 3
+
+[sub_resource type="Resource" id="Resource_fs02l"]
+script = ExtResource("3_07tmx")
+sounds = Array[ExtResource("4_857fn")]([SubResource("Resource_re43u")])
+
+[node name="AudioConfig" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_6254l")
+
+[node name="Master" parent="." instance=ExtResource("2_lftpm")]
+layout_mode = 2
+
+[node name="AudioBusName" parent="Master/HBoxContainer" index="0"]
+text = "Master:"
+
+[node name="VolumeControl" parent="Master" index="1"]
+audio_streams = SubResource("Resource_pwc2s")
+
+[node name="Music" parent="." instance=ExtResource("2_lftpm")]
+layout_mode = 2
+bus = 1
+
+[node name="AudioBusName" parent="Music/HBoxContainer" index="0"]
+text = "Music:"
+
+[node name="VolumeControl" parent="Music" index="1"]
+audio_streams = SubResource("Resource_awx3l")
+
+[node name="SFX" parent="." instance=ExtResource("2_lftpm")]
+layout_mode = 2
+bus = 2
+
+[node name="AudioBusName" parent="SFX/HBoxContainer" index="0"]
+text = "Sfx:"
+
+[node name="VolumeControl" parent="SFX" index="1"]
+audio_streams = SubResource("Resource_tj2jb")
+
+[node name="UI" parent="." instance=ExtResource("2_lftpm")]
+layout_mode = 2
+bus = 3
+
+[node name="AudioBusName" parent="UI/HBoxContainer" index="0"]
+text = "Ui:"
+
+[node name="VolumeControl" parent="UI" index="1"]
+audio_streams = SubResource("Resource_fs02l")
+
+[editable path="Master"]
+[editable path="Music"]
+[editable path="SFX"]
+[editable path="UI"]

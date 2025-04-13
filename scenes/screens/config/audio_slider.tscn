@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://qf6ti2ct3yb7"]
+
+[ext_resource type="Script" uid="uid://kbp62bajdb0n" path="res://scenes/screens/config/audio_slider.gd" id="1_pwl6r"]
+[ext_resource type="Script" uid="uid://bm2ywecb3pjii" path="res://classes/custom/CustomHSlider.gd" id="2_3ecwa"]
+[ext_resource type="Script" uid="uid://e1650eicvoku" path="res://resources/ControlNodesSounds.gd" id="3_b30mq"]
+[ext_resource type="Script" uid="uid://dkwvavx1gakw" path="res://resources/AudioStreamData.gd" id="4_kg3eg"]
+[ext_resource type="AudioStream" uid="uid://dejsml81i3np7" path="res://assets/audio/ui/tick_002.ogg" id="5_pi7b5"]
+
+[sub_resource type="Resource" id="Resource_cxtlj"]
+script = ExtResource("4_kg3eg")
+signal_to_connect = 4
+stream = ExtResource("5_pi7b5")
+bus = 2
+
+[sub_resource type="Resource" id="Resource_e7gkg"]
+script = ExtResource("3_b30mq")
+sounds = Array[ExtResource("4_kg3eg")]([SubResource("Resource_cxtlj")])
+
+[node name="AudioSlider" type="VBoxContainer" node_paths=PackedStringArray("BusName", "VolumeValue", "VolumeSlider")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 43.0
+grow_horizontal = 2
+script = ExtResource("1_pwl6r")
+BusName = NodePath("HBoxContainer/AudioBusName")
+VolumeValue = NodePath("HBoxContainer/VolumePercentage")
+VolumeSlider = NodePath("VolumeControl")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="AudioBusName" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Master"
+
+[node name="VolumePercentage" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "100%"
+
+[node name="VolumeControl" type="HSlider" parent="."]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.8
+script = ExtResource("2_3ecwa")
+audio_streams = SubResource("Resource_e7gkg")
+
+[connection signal="value_changed" from="VolumeControl" to="." method="_on_volume_control_value_changed"]

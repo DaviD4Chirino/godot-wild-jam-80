@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bx40dl2et5fuu"]
+
+[ext_resource type="Script" uid="uid://d083hnak2dc" path="res://classes/Level.gd" id="1_l8aqm"]
+[ext_resource type="Script" uid="uid://dyvy0tsbhiii1" path="res://components/GameState.gd" id="2_ofymm"]
+[ext_resource type="PackedScene" uid="uid://ds4whqb8apmwn" path="res://scenes/screens/pause_menu.tscn" id="2_xx3c8"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_l8aqm")
+
+[node name="GameState" type="Node" parent="." node_paths=PackedStringArray("pause_menu")]
+process_mode = 3
+script = ExtResource("2_ofymm")
+pause_menu = NodePath("pause_menu")
+
+[node name="pause_menu" parent="GameState" instance=ExtResource("2_xx3c8")]
+visible = false

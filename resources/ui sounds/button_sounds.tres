@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ControlNodeSounds" load_steps=5 format=3 uid="uid://gq35i5ometpf"]
+
+[ext_resource type="Script" uid="uid://e1650eicvoku" path="res://resources/ControlNodesSounds.gd" id="1_7sm8j"]
+[ext_resource type="Script" uid="uid://dkwvavx1gakw" path="res://resources/AudioStreamData.gd" id="2_1vgox"]
+
+[sub_resource type="Resource" id="Resource_6llmq"]
+script = ExtResource("2_1vgox")
+signal_to_connect = 15
+bus = 3
+
+[sub_resource type="Resource" id="Resource_1whhs"]
+script = ExtResource("2_1vgox")
+signal_to_connect = 0
+bus = 3
+
+[resource]
+script = ExtResource("1_7sm8j")
+sounds = Array[ExtResource("2_1vgox")]([SubResource("Resource_6llmq"), SubResource("Resource_1whhs")])

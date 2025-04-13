@@ -4,7 +4,7 @@ Controlled Caos
 ## Priority:
 
 + [ ] Roulette
-	+ [ ] Expansible columns
+	+ [X] ~~*Expansible columns*~~ **2025-04-13**
 	+ [ ] Jackpot detection
 	+ [ ] Multiplier
 	+ [ ] Reroll

@@ -7,6 +7,8 @@ extends SlotMachine
 
 @export var roll_duration: float = 5.0
 
+var mouse_in_lever: bool = false
+
 func _ready():
 	generate_columns(columns)
 
@@ -38,3 +40,23 @@ func generate_columns(amt: int) -> void:
 		column.position.x += size_x
 		%Lever.position.x = (size_x + (column_sprite.get_size().x))
 		%Columns.add_child(column)
+
+
+func _input(event: InputEvent):
+	if event.is_action_released(&"MB1"):
+		if mouse_in_lever:
+			if %Lever.is_playing(): return
+			
+			%Lever.play("rolling")
+			await get_tree().create_timer(roll_duration).timeout
+			%Lever.play("default")
+
+
+func _on_area_2d_mouse_entered() -> void:
+	mouse_in_lever = true;
+	print(mouse_in_lever)
+
+
+func _on_area_2d_mouse_exited() -> void:
+	mouse_in_lever = false;
+	print(mouse_in_lever)

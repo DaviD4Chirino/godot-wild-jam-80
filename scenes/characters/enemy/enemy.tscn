@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3ssvjrslki2o"]
+
+[ext_resource type="Script" uid="uid://jqitimhfjh1p" path="res://classes/Character.gd" id="1_40cp4"]
+[ext_resource type="Texture2D" uid="uid://bmq3ltjgj52gq" path="res://icon.svg" id="2_7jlhe"]
+[ext_resource type="Script" uid="uid://dwmsnbu08ogly" path="res://components/interaction/Hurtbox.gd" id="3_pwjhn"]
+[ext_resource type="Script" uid="uid://dw5rivrr5yh8f" path="res://components/Health.gd" id="4_pu3g4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pwjhn"]
+size = Vector2(36.3441, 34.8207)
+
+[node name="Enemy" type="Node2D"]
+script = ExtResource("1_40cp4")
+metadata/_custom_type_script = "uid://jqitimhfjh1p"
+
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_7jlhe")
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("3_pwjhn")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://dwmsnbu08ogly"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0.126314, 0.515961)
+shape = SubResource("RectangleShape2D_pwjhn")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("4_pu3g4")
+max_health = 100
+metadata/_custom_type_script = "uid://dw5rivrr5yh8f"

@@ -4,18 +4,18 @@ extends Slot
 @export var empty_icon: Texture2D
 
 func _ready():
-	if !data || !data.icon:
-		printerr("Token is empty or data.icon is empty")
+	if !token || !token.icon:
+		printerr("Token is empty or token.icon is empty")
 		return
 
-	%Icon.texture = data.icon
+	%Icon.texture = token.icon
 
 
-func set_data(val: Token) -> void:
+func set_token(val: Token) -> void:
 	super (val)
 
-	if !data || !data.icon:
+	if !token || !token.icon:
 		%Icon.texture = empty_icon
 		return
 
-	%Icon.texture = data.icon
+	%Icon.texture = token.icon

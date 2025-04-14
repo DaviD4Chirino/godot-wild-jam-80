@@ -3,8 +3,8 @@ extends Node2D
 class_name Slot
 
 
-@export var data: Token: set = set_data
+@export var token: Token: set = set_token
 
 
-func set_data(val: Token) -> void:
-	data = val
+func set_token(val: Token) -> void:
+	token = val

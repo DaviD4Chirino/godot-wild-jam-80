@@ -1,15 +1,21 @@
 @tool
 extends Node2D
 
-@export var tokens: Array[Token]
+@export var center_slot: Slot
+
+@export var tokens: Array[Token] = []
 
 ## The position of the column, base 0
 @export var column_id: int = -1
 
+## The token at the center of the the column
 var selected_token: Token
 
-
 @export var spinning: bool = false: set = set_spinning
+
+
+func _ready() -> void:
+	if tokens.size() > 0: spin()
 
 func get_size() -> Vector2:
 	return %Sprite.texture.get_size()
@@ -22,7 +28,7 @@ func stop_spinning() -> void:
 
 func spin() -> void:
 	for slot_node: Slot in %Slots.get_children():
-		slot_node.data = tokens.pick_random()
+		slot_node.token = tokens.pick_random()
 
 
 func set_spinning(val: bool) -> void:
@@ -32,6 +38,7 @@ func set_spinning(val: bool) -> void:
 		%SpinTimer.start()
 	if !spinning:
 		%SpinTimer.stop()
+		selected_token = center_slot.token
 
 func _on_spin_timer_timeout() -> void:
 	spin()

@@ -7,4 +7,6 @@
 script = ExtResource("1_5bibp")
 title = "Defence"
 icon = ExtResource("1_yb0k1")
+display_string = "The player got [x] shield!"
+debug_multiplier = 5.0
 metadata/_custom_type_script = "uid://c61ak8ox27w1u"

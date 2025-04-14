@@ -45,12 +45,12 @@ font_size = 32
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
-[node name="SlotMachine" type="Node2D" node_paths=PackedStringArray("columns_node", "lever_node")]
+[node name="SlotMachine" type="Node2D" node_paths=PackedStringArray("columns_node", "lever_node", "multiplier_label")]
 script = ExtResource("1_2e0ow")
 column_scene = ExtResource("2_puwce")
 columns_node = NodePath("SlotSprites/Columns")
 lever_node = NodePath("SlotSprites/Lever")
-columns = 5
+multiplier_label = NodePath("TextBox/MultiplierLabel")
 roll_duration = 2.0
 inventory = Array[ExtResource("3_h3s22")]([SubResource("Resource_h3s22"), SubResource("Resource_h3s22"), SubResource("Resource_h3s22"), SubResource("Resource_h3s22"), SubResource("Resource_h3s22")])
 
@@ -67,7 +67,7 @@ position = Vector2(17, 18)
 
 [node name="Lever" type="AnimatedSprite2D" parent="SlotSprites"]
 unique_name_in_owner = true
-position = Vector2(162, 0)
+position = Vector2(98, 0)
 sprite_frames = SubResource("SpriteFrames_pputl")
 centered = false
 offset = Vector2(17, 0)
@@ -82,7 +82,7 @@ shape = SubResource("RectangleShape2D_xjw1r")
 [node name="TextBox" parent="." instance=ExtResource("10_dgsef")]
 position = Vector2(98.7224, 120.65)
 
-[node name="Label" type="Label" parent="TextBox"]
+[node name="MultiplierLabel" type="Label" parent="TextBox"]
 offset_left = -28.0
 offset_top = -19.0
 offset_right = 31.0

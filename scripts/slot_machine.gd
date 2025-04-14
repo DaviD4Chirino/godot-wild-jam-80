@@ -4,6 +4,8 @@ extends SlotMachine
 @export_group("Nodes")
 @export var columns_node: Node2D
 @export var lever_node: AnimatedSprite2D
+@export var multiplier_label: Label
+@export_group("")
 
 @export_range(1, 5, 1) var columns: int = 3: set = set_columns;
 
@@ -15,6 +17,8 @@ extends SlotMachine
 var mouse_in_lever: bool = false
 var winning_tokens: Array[Token] = []: get = get_winning_tokens
 
+var global_multiplier: int = 1: set = set_global_multiplier
+
 
 func _ready():
 	generate_columns(columns)
@@ -23,9 +27,20 @@ func _ready():
 
 func _on_rolled_ended(_winning_tokens: Array[Token]) -> void:
 	var grouped_tokens: Dictionary[String, Variant] = group_tokens(_winning_tokens)
-	print_debug(grouped_tokens)
+	var jackpot: bool = is_jackpot(grouped_tokens)
 
-	print(is_jackpot(grouped_tokens))
+	if jackpot:
+		global_multiplier += 1
+
+	print("Jackpot!" if jackpot else "not jackpot")
+
+	for token: Variant in grouped_tokens.values():
+		var duplicated_token: Token = (token["token"] as Token).duplicate()
+		# this is conditional
+		# duplicated_token.debug_multiplier *= (token["count"] * global_multiplier)
+		duplicated_token.debug_multiplier *= (token["count"] * global_multiplier)
+		print(duplicated_token.get_display_string())
+
 
 func _on_rolled_column(column_id: int, winner_token: Token) -> void:
 	print("column %s ended rolling, with the winner token being: %s" % [column_id, winner_token.title])
@@ -35,6 +50,7 @@ func _input(event: InputEvent):
 	if event.is_action_released(&"MB1"):
 		if mouse_in_lever:
 			if lever_node.is_playing(): return
+			global_multiplier = 1
 
 			lever_node.play("rolling")
 			if columns_node:
@@ -51,10 +67,15 @@ func _input(event: InputEvent):
 			lever_node.play("default")
 			SignalBus.rolling_ended.emit(winning_tokens)
 
-# { "Attack":{"token":Token,"count":0} }
-func group_tokens(tokens: Array[Token]) -> Dictionary[String, Variant]:
-	var dictionary: Dictionary[String, Variant] = {}
 
+func update_multiplier_label() -> void:
+	if !multiplier_label: return
+	multiplier_label.text = "x%s" % global_multiplier
+	pass
+
+# { "Attack":{"token":Token,"count":0} }
+static func group_tokens(tokens: Array[Token]) -> Dictionary[String, Variant]:
+	var dictionary: Dictionary[String, Variant] = {}
 
 	for token in tokens:
 		if dictionary.has(token.title):
@@ -84,6 +105,10 @@ func is_jackpot(_winning_tokens: Dictionary[String, Variant]) -> bool:
 			return true
 	
 	return false
+
+func set_global_multiplier(val: int) -> void:
+	global_multiplier = val
+	update_multiplier_label()
 
 func get_column(column_id: int) -> Node:
 	assert(columns_node, "columns_node is null")

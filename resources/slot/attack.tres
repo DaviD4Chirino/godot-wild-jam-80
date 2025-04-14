@@ -7,4 +7,6 @@
 script = ExtResource("1_nplyd")
 title = "Attack"
 icon = ExtResource("1_yovss")
+display_string = "The player dealth [x] of damage"
+debug_multiplier = 10.0
 metadata/_custom_type_script = "uid://c61ak8ox27w1u"

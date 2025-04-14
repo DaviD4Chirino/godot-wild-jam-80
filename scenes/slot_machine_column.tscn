@@ -33,7 +33,7 @@ token = ExtResource("5_4vys1")
 [node name="Slot2" parent="Slots" instance=ExtResource("3_5awgb")]
 position = Vector2(16.5899, 57.7229)
 scale = Vector2(0.7, 0.7)
-token = ExtResource("4_kl17h")
+token = ExtResource("5_4vys1")
 
 [node name="SpinTimer" type="Timer" parent="."]
 unique_name_in_owner = true

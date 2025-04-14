@@ -40,35 +40,36 @@ size = Vector2(44, 86)
 [node name="SlotMachine" type="Node2D" node_paths=PackedStringArray("columns_node", "lever_node")]
 script = ExtResource("1_2e0ow")
 column_scene = ExtResource("2_puwce")
-columns_node = NodePath("Sprites/Columns")
-lever_node = NodePath("Sprites/Lever")
-roll_duration = 3.0
+columns_node = NodePath("SlotSprites/Columns")
+lever_node = NodePath("SlotSprites/Lever")
+columns = 5
+roll_duration = 2.0
 inventory = Array[ExtResource("3_h3s22")]([SubResource("Resource_h3s22"), SubResource("Resource_h3s22"), SubResource("Resource_h3s22"), SubResource("Resource_h3s22"), SubResource("Resource_h3s22")])
 
-[node name="Sprites" type="Node2D" parent="."]
+[node name="SlotSprites" type="Node2D" parent="."]
 
-[node name="SlotMachineSide" type="Sprite2D" parent="Sprites"]
+[node name="SlotMachineSide" type="Sprite2D" parent="SlotSprites"]
 position = Vector2(0, 16)
 texture = ExtResource("2_2e0ow")
 centered = false
 
-[node name="Columns" type="Node2D" parent="Sprites"]
+[node name="Columns" type="Node2D" parent="SlotSprites"]
 unique_name_in_owner = true
 position = Vector2(17, 18)
 
-[node name="Lever" type="AnimatedSprite2D" parent="Sprites"]
+[node name="Lever" type="AnimatedSprite2D" parent="SlotSprites"]
 unique_name_in_owner = true
 position = Vector2(162, 0)
 sprite_frames = SubResource("SpriteFrames_pputl")
 centered = false
 offset = Vector2(17, 0)
 
-[node name="Area2D" type="Area2D" parent="Sprites/Lever"]
+[node name="Area2D" type="Area2D" parent="SlotSprites/Lever"]
 position = Vector2(41, 51)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprites/Lever/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlotSprites/Lever/Area2D"]
 position = Vector2(1, -8)
 shape = SubResource("RectangleShape2D_xjw1r")
 
-[connection signal="mouse_entered" from="Sprites/Lever/Area2D" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Sprites/Lever/Area2D" to="." method="_on_area_2d_mouse_exited"]
+[connection signal="mouse_entered" from="SlotSprites/Lever/Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="SlotSprites/Lever/Area2D" to="." method="_on_area_2d_mouse_exited"]

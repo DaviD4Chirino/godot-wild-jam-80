@@ -17,7 +17,11 @@ var winning_tokens: Array[Token] = []: get = get_winning_tokens
 
 func _ready():
 	generate_columns(columns)
+	SignalBus.rolled_column.connect(_on_rolled_column)
 
+func _on_rolled_column(column_id: int, winner_token: Token) -> void:
+	print("column %s ended rolling, with the winner token being: %s" % [column_id, winner_token.title])
+	pass
 
 func _input(event: InputEvent):
 	if event.is_action_released(&"MB1"):
@@ -43,7 +47,9 @@ func start_spinning_column(column_id: int) -> void:
 	get_column(column_id).start_spinning()
 
 func stop_spinning_column(column_id: int) -> void:
-	get_column(column_id).stop_spinning()
+	var column = get_column(column_id)
+	column.stop_spinning()
+	SignalBus.rolled_column.emit(column_id, column.winner_token)
 
 func get_column(column_id: int) -> Node:
 	assert(columns_node, "columns_node is null")

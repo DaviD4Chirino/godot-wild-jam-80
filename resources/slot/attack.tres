@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="SlotData" load_steps=3 format=3 uid="uid://bdmd54bpnki07"]
+[gd_resource type="Resource" script_class="Token" load_steps=3 format=3 uid="uid://bdmd54bpnki07"]
 
 [ext_resource type="Script" uid="uid://c61ak8ox27w1u" path="res://resources/slot/SlotData.gd" id="1_nplyd"]
 [ext_resource type="Texture2D" uid="uid://bo2em7dash0qf" path="res://assets/icons/gladius.png" id="1_yovss"]
 
 [resource]
 script = ExtResource("1_nplyd")
+title = "Attack"
 icon = ExtResource("1_yovss")
 metadata/_custom_type_script = "uid://c61ak8ox27w1u"

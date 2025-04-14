@@ -23,6 +23,7 @@ var global_multiplier: int = 1: set = set_global_multiplier
 func _ready():
 	super ()
 	generate_columns(columns)
+	if Engine.is_editor_hint(): return
 	SignalBus.rolled_column.connect(_on_rolled_column)
 	SignalBus.rolling_ended.connect(_on_rolled_ended)
 

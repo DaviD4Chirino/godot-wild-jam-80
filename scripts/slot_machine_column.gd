@@ -13,6 +13,7 @@ var winner_token: Token
 
 @export var spinning: bool = false: set = set_spinning
 
+var roll_count = 0
 
 func _ready() -> void:
 	if tokens.size() > 0: spin()

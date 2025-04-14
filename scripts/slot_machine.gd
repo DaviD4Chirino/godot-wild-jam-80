@@ -21,6 +21,7 @@ var global_multiplier: int = 1: set = set_global_multiplier
 
 
 func _ready():
+	super ()
 	generate_columns(columns)
 	SignalBus.rolled_column.connect(_on_rolled_column)
 	SignalBus.rolling_ended.connect(_on_rolled_ended)
@@ -40,6 +41,8 @@ func _on_rolled_ended(_winning_tokens: Array[Token]) -> void:
 		# duplicated_token.debug_multiplier *= (token["count"] * global_multiplier)
 		duplicated_token.debug_multiplier *= (token["count"] * global_multiplier)
 		print(duplicated_token.get_display_string())
+	# await get_tree().create_timer(0.5).timeout
+	# roll_column(0)
 
 
 func _on_rolled_column(column_id: int, winner_token: Token) -> void:
@@ -89,12 +92,19 @@ static func group_tokens(tokens: Array[Token]) -> Dictionary[String, Variant]:
 
 	return dictionary
 
+func roll_column(column_id) -> void:
+	start_spinning_column(column_id)
+	await get_tree().create_timer(0.3).timeout
+	stop_spinning_column(column_id)
+	SignalBus.rolling_ended.emit(winning_tokens)
+
 func start_spinning_column(column_id: int) -> void:
 	get_column(column_id).start_spinning()
 
 func stop_spinning_column(column_id: int) -> void:
 	var column = get_column(column_id)
 	column.stop_spinning()
+	column.roll_count += 1
 	SignalBus.rolled_column.emit(column_id, column.winner_token)
 
 func is_jackpot(_winning_tokens: Dictionary[String, Variant]) -> bool:

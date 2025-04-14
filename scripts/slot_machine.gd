@@ -1,11 +1,12 @@
 @tool
 extends SlotMachine
 @export var column_scene: PackedScene
-@export_group("Nodes")
+@export_category("Nodes")
 @export var columns_node: Node2D
 @export var lever_node: AnimatedSprite2D
 @export var multiplier_label: Label
-@export_group("")
+@export var sprites_node: Node2D
+@export_category("")
 
 @export_range(1, 5, 1) var columns: int = 3: set = set_columns;
 
@@ -160,6 +161,7 @@ func generate_columns(amt: int) -> void:
 		column.position.x += size_x
 		column.column_id = i
 		lever_node.position.x = (size_x + (column.get_size().x))
+		sprites_node.position.x = (- (size_x * 0.5))
 		columns_node.add_child(column)
 
 func get_winning_tokens() -> Array[Token]:

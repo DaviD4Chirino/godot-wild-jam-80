@@ -67,10 +67,20 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="CustomButton" type="Button" parent="VBoxContainer/MarginContainer/Control"]
+[node name="RollButton" type="Button" parent="VBoxContainer/MarginContainer/Control"]
 layout_mode = 2
-text = "Play"
+text = "Roll"
 script = ExtResource("4_kl8ac")
 metadata/_custom_type_script = "uid://dr2kj4hvy2dkm"
 
-[connection signal="button_up" from="VBoxContainer/MarginContainer/Control/CustomButton" to="VBoxContainer/Characters/TurnQueue" method="play_turn"]
+[node name="History" type="PanelContainer" parent="VBoxContainer/MarginContainer/Control"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CustomButton" type="Button" parent="VBoxContainer/MarginContainer/Control"]
+layout_mode = 2
+text = "Options"
+script = ExtResource("4_kl8ac")
+metadata/_custom_type_script = "uid://dr2kj4hvy2dkm"
+
+[connection signal="button_up" from="VBoxContainer/MarginContainer/Control/RollButton" to="VBoxContainer/Characters/TurnQueue" method="play_turn"]

@@ -11,9 +11,9 @@ func initialize() -> void:
 
 func play_turn() -> void:
 	active_character.start_turn()
+	await active_character.turn_ended
 	var new_index = (active_character.get_index() + 1) % get_child_count()
 	active_character = get_child(new_index)
-	await active_character.turn_ended
 
 
 func _input(event):

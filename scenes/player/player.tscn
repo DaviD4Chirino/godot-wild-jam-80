@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://drkxfntv1x338"]
+
+[ext_resource type="Script" uid="uid://cav4ooij6bqqu" path="res://classes/Player.gd" id="1_8afob"]
+[ext_resource type="PackedScene" uid="uid://buiiewgeyawbq" path="res://scenes/slot_machine.tscn" id="2_dovo2"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_8afob")
+metadata/_custom_type_script = "uid://cav4ooij6bqqu"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SlotMachine" parent="CanvasLayer" instance=ExtResource("2_dovo2")]
+position = Vector2(117.09, 68.9233)
+columns = 5

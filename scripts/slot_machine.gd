@@ -15,14 +15,17 @@ extends SlotMachine
 var mouse_in_lever: bool = false
 var winning_tokens: Array[Token] = []: get = get_winning_tokens
 
+
 func _ready():
 	generate_columns(columns)
 	SignalBus.rolled_column.connect(_on_rolled_column)
 	SignalBus.rolling_ended.connect(_on_rolled_ended)
 
 func _on_rolled_ended(_winning_tokens: Array[Token]) -> void:
-	print_debug(group_tokens(_winning_tokens))
-	pass
+	var grouped_tokens: Dictionary[String, Variant] = group_tokens(_winning_tokens)
+	print_debug(grouped_tokens)
+
+	print(is_jackpot(grouped_tokens))
 
 func _on_rolled_column(column_id: int, winner_token: Token) -> void:
 	print("column %s ended rolling, with the winner token being: %s" % [column_id, winner_token.title])
@@ -72,6 +75,15 @@ func stop_spinning_column(column_id: int) -> void:
 	var column = get_column(column_id)
 	column.stop_spinning()
 	SignalBus.rolled_column.emit(column_id, column.winner_token)
+
+func is_jackpot(_winning_tokens: Dictionary[String, Variant]) -> bool:
+	if _winning_tokens.is_empty(): return false
+
+	for value in _winning_tokens.values():
+		if value["count"] == columns:
+			return true
+	
+	return false
 
 func get_column(column_id: int) -> Node:
 	assert(columns_node, "columns_node is null")

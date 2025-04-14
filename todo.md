@@ -5,7 +5,7 @@ Controlled Caos
 
 + [ ] Roulette
 	+ [X] ~~*Expansible columns*~~ **2025-04-13**
-	+ [ ] Jackpot detection
+	+ [X] ~~*Jackpot detection*~~ **2025-04-13**
 	+ [ ] Multiplier
 	+ [ ] Reroll
 		* It should be capable of rerolling even by enemies (A global access)

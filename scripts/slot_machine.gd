@@ -18,6 +18,11 @@ var winning_tokens: Array[Token] = []: get = get_winning_tokens
 func _ready():
 	generate_columns(columns)
 	SignalBus.rolled_column.connect(_on_rolled_column)
+	SignalBus.rolling_ended.connect(_on_rolled_ended)
+
+func _on_rolled_ended(_winning_tokens: Array[Token]) -> void:
+	print_debug(group_tokens(_winning_tokens))
+	pass
 
 func _on_rolled_column(column_id: int, winner_token: Token) -> void:
 	print("column %s ended rolling, with the winner token being: %s" % [column_id, winner_token.title])
@@ -41,7 +46,24 @@ func _input(event: InputEvent):
 				await get_tree().create_timer(0.3).timeout
 
 			lever_node.play("default")
-			
+			SignalBus.rolling_ended.emit(winning_tokens)
+
+# { "Attack":{"token":Token,"count":0} }
+func group_tokens(tokens: Array[Token]) -> Dictionary[String, Variant]:
+	var dictionary: Dictionary[String, Variant] = {}
+
+
+	for token in tokens:
+		if dictionary.has(token.title):
+			dictionary[token.title]["count"] += 1
+			continue
+		
+		dictionary[token.title] = {
+			"token": token,
+			"count": 1
+		}
+
+	return dictionary
 
 func start_spinning_column(column_id: int) -> void:
 	get_column(column_id).start_spinning()

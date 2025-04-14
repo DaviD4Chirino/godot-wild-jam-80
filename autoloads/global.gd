@@ -1,7 +1,7 @@
 extends Node
 ##Autoload global script, access it as g
 
-var playground: Node2D
+var current_level: Control
 var player: Player = null
 var slot_machine: SlotMachine = null
 

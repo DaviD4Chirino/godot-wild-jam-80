@@ -9,7 +9,6 @@ extends SlotMachine
 @export_category("")
 
 @export_range(1, 5, 1) var columns: int = 3: set = set_columns;
-
 @export var roll_duration: float = 5.0
 
 @export_group("Slots")

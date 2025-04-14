@@ -1,8 +1,10 @@
 extends Character
+class_name Enemy
 
+@export var abilities: Array[Ability]
 
 func play_turn():
 	super ()
-	print("Enemy %s dealt 10dmg" % name)
+	abilities.pick_random().trigger(self)
 	await get_tree().physics_frame
 	end_turn()

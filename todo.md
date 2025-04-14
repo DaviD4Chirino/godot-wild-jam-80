@@ -3,13 +3,13 @@ Controlled Caos
 
 ## Priority:
 
-+ [ ] Roulette
++ [X] ~~*Roulette*~~ **2025-04-14**
 	+ [X] ~~*Expansible columns*~~ **2025-04-13**
-	+ [ ] Jackpot detection
-	+ [ ] Multiplier
-	+ [ ] Reroll
+	+ [X] ~~*Jackpot detection*~~ **2025-04-13**
+	+ [X] ~~*Multiplier*~~ **2025-04-14**
+	+ [X] ~~*Reroll*~~ **2025-04-14**
 		* It should be capable of rerolling even by enemies (A global access)
-	+ [ ] Tokens
+	+ [X] ~~*Tokens*~~ **2025-04-14**
 		* Each slot should have its own value marked as idk "can_be_multiplied"
 + [ ] Combat System
 	* An turn based combat

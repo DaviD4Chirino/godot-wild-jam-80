@@ -36,10 +36,10 @@ gdscript/warnings/unused_signal=0
 
 [display]
 
-window/size/viewport_width=800
-window/size/viewport_height=600
-window/size/window_width_override=800
-window/size/window_height_override=600
+window/size/viewport_width=320
+window/size/viewport_height=180
+window/size/window_width_override=320
+window/size/window_height_override=180
 window/stretch/mode="canvas_items"
 
 [dotnet]
@@ -53,6 +53,10 @@ enabled=PackedStringArray("res://addons/awesome_custom_cursor/plugin.cfg", "res:
 [filesystem]
 
 import/fbx/enabled=false
+
+[gui]
+
+theme/custom_font="uid://dus5cnwla2cqe"
 
 [input]
 

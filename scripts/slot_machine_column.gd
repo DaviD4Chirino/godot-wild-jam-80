@@ -17,7 +17,7 @@ func get_size() -> Vector2:
 func start_spinning() -> void:
 	spinning = true
 
-func finish_spinning() -> void:
+func stop_spinning() -> void:
 	spinning = false
 
 func spin() -> void:

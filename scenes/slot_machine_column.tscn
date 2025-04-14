@@ -22,11 +22,11 @@ unique_name_in_owner = true
 [node name="Slot0" parent="Slots" instance=ExtResource("3_5awgb")]
 position = Vector2(16.5899, 9.74325)
 scale = Vector2(0.9, 0.9)
-data = ExtResource("5_4vys1")
+data = ExtResource("4_kl17h")
 
 [node name="Slot1" parent="Slots" instance=ExtResource("3_5awgb")]
 position = Vector2(16.5899, 32.6531)
-data = ExtResource("4_kl17h")
+data = ExtResource("5_4vys1")
 
 [node name="Slot2" parent="Slots" instance=ExtResource("3_5awgb")]
 position = Vector2(16.5899, 57.7229)

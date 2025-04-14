@@ -7,10 +7,10 @@
 [ext_resource type="Script" uid="uid://c61ak8ox27w1u" path="res://resources/slot/SlotData.gd" id="4_7v1fh"]
 [ext_resource type="Texture2D" uid="uid://bn1im235384f1" path="res://assets/casino/slot machine/slot machine side with lever1.png" id="4_h3s22"]
 [ext_resource type="Texture2D" uid="uid://dx5epnhj38nn0" path="res://assets/casino/slot machine/slot machine side with lever2.png" id="5_7v1fh"]
-[ext_resource type="Resource" uid="uid://3rpjhp54h8py" path="res://resources/slot/shield.tres" id="5_pputl"]
-[ext_resource type="Resource" uid="uid://bdmd54bpnki07" path="res://resources/slot/attack.tres" id="6_dgsef"]
+[ext_resource type="Resource" uid="uid://bdmd54bpnki07" path="res://resources/slot/attack.tres" id="5_pputl"]
+[ext_resource type="Resource" uid="uid://3rpjhp54h8py" path="res://resources/slot/shield.tres" id="6_dgsef"]
 
-[sub_resource type="Resource" id="Resource_pputl"]
+[sub_resource type="Resource" id="Resource_h3s22"]
 script = ExtResource("3_h3s22")
 tokens = Array[ExtResource("4_7v1fh")]([ExtResource("5_pputl"), ExtResource("6_dgsef")])
 metadata/_custom_type_script = "uid://dkgdaa3p6jrjg"
@@ -37,12 +37,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xjw1r"]
 size = Vector2(44, 86)
 
-[node name="SlotMachine" type="Node2D"]
+[node name="SlotMachine" type="Node2D" node_paths=PackedStringArray("columns_node", "lever_node")]
 script = ExtResource("1_2e0ow")
 column_scene = ExtResource("2_puwce")
-columns = 5
+columns_node = NodePath("Sprites/Columns")
+lever_node = NodePath("Sprites/Lever")
 roll_duration = 3.0
-inventory = Array[ExtResource("3_h3s22")]([SubResource("Resource_pputl"), SubResource("Resource_pputl"), SubResource("Resource_pputl"), SubResource("Resource_pputl"), SubResource("Resource_pputl")])
+inventory = Array[ExtResource("3_h3s22")]([SubResource("Resource_h3s22"), SubResource("Resource_h3s22"), SubResource("Resource_h3s22"), SubResource("Resource_h3s22"), SubResource("Resource_h3s22")])
 
 [node name="Sprites" type="Node2D" parent="."]
 

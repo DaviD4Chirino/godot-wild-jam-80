@@ -13,6 +13,7 @@ extends SlotMachine
 @export var inventory: Array[SlotColumnData] = []
 
 var mouse_in_lever: bool = false
+var winning_tokens: Array[Token] = []: get = get_winning_tokens
 
 func _ready():
 	generate_columns(columns)
@@ -62,7 +63,6 @@ func set_columns(val: int) -> void:
 
 	generate_columns(columns)
 	
-
 func generate_columns(amt: int) -> void:
 	if !columns_node || !lever_node:
 		printerr("columns_node or lever_node is not set")
@@ -86,9 +86,18 @@ func generate_columns(amt: int) -> void:
 		lever_node.position.x = (size_x + (column.get_size().x))
 		columns_node.add_child(column)
 
+func get_winning_tokens() -> Array[Token]:
+	if !columns_node: return []
+
+	var tokens: Array[Token] = []
+
+	for column in columns_node.get_children():
+		tokens.append(column.winner_token)
+
+	return tokens
+
 func _on_area_2d_mouse_entered() -> void:
 	mouse_in_lever = true;
-
 
 func _on_area_2d_mouse_exited() -> void:
 	mouse_in_lever = false;

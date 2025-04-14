@@ -9,7 +9,7 @@ extends Node2D
 @export var column_id: int = -1
 
 ## The token at the center of the the column
-var selected_token: Token
+var winner_token: Token
 
 @export var spinning: bool = false: set = set_spinning
 
@@ -38,7 +38,10 @@ func set_spinning(val: bool) -> void:
 		%SpinTimer.start()
 	if !spinning:
 		%SpinTimer.stop()
-		selected_token = center_slot.token
+		winner_token = center_slot.token
+
+
+	pass
 
 func _on_spin_timer_timeout() -> void:
 	spin()

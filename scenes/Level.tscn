@@ -1,11 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://bx40dl2et5fuu"]
+[gd_scene load_steps=7 format=3 uid="uid://bx40dl2et5fuu"]
 
-[ext_resource type="Script" uid="uid://d083hnak2dc" path="res://classes/Level.gd" id="1_l8aqm"]
+[ext_resource type="Script" uid="uid://ci1l4cvpsnf2x" path="res://scripts/level.gd" id="1_kl8ac"]
 [ext_resource type="Script" uid="uid://dyvy0tsbhiii1" path="res://components/GameState.gd" id="2_ofymm"]
 [ext_resource type="PackedScene" uid="uid://ds4whqb8apmwn" path="res://scenes/screens/pause_menu.tscn" id="2_xx3c8"]
+[ext_resource type="PackedScene" uid="uid://c6286t6mlemok" path="res://scenes/turn system/turn_queue.tscn" id="4_dke22"]
+[ext_resource type="Script" uid="uid://dr2kj4hvy2dkm" path="res://classes/custom/CustomButton.gd" id="4_kl8ac"]
+[ext_resource type="PackedScene" uid="uid://c3ssvjrslki2o" path="res://scenes/characters/enemy/enemy.tscn" id="5_4qegb"]
 
-[node name="Level" type="Node2D"]
-script = ExtResource("1_l8aqm")
+[node name="Level" type="Control" node_paths=PackedStringArray("turn_queue")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kl8ac")
+turn_queue = NodePath("VBoxContainer/Characters/TurnQueue")
+metadata/_custom_type_script = "uid://d083hnak2dc"
 
 [node name="GameState" type="Node" parent="." node_paths=PackedStringArray("pause_menu")]
 process_mode = 3
@@ -14,3 +25,52 @@ pause_menu = NodePath("pause_menu")
 
 [node name="pause_menu" parent="GameState" instance=ExtResource("2_xx3c8")]
 visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Stats" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Characters" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TurnQueue" parent="VBoxContainer/Characters" instance=ExtResource("4_dke22")]
+
+[node name="Enemy" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
+position = Vector2(249.132, 54.278)
+
+[node name="Enemy2" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
+position = Vector2(153.616, 86.1439)
+
+[node name="Enemy3" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
+position = Vector2(49.0909, 56.3636)
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="CustomButton" type="Button" parent="VBoxContainer/MarginContainer/Control"]
+layout_mode = 2
+text = "Play"
+script = ExtResource("4_kl8ac")
+metadata/_custom_type_script = "uid://dr2kj4hvy2dkm"
+
+[connection signal="button_up" from="VBoxContainer/MarginContainer/Control/CustomButton" to="VBoxContainer/Characters/TurnQueue" method="play_turn"]

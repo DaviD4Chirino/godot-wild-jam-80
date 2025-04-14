@@ -12,11 +12,11 @@ Controlled Caos
 	+ [X] ~~*Tokens*~~ **2025-04-14**
 		* Each slot should have its own value marked as idk "can_be_multiplied"
 + [ ] Combat System
-	* An turn based combat
+	* [X] ~~*An turn based combat*~~ **2025-04-14**
 	+ [X] ~~*Health, and general win/lose condition*~~ **2025-04-14** (I already had one)
 	+ [ ] Attacks
 		* Try to reuse as much from slot if possible
-	+ [ ] Enemy
+	+ [X] ~~*Enemy*~~ **2025-04-14**
 		+ [ ] Attacks Patterns
 			* The idea is they have a "mana" system so they don´t spam the strongest attack
 	+ [ ] Player attack

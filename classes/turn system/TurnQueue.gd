@@ -10,6 +10,12 @@ func initialize() -> void:
 
 
 func play_turn() -> void:
-	await active_character.turn_ended
+	active_character.start_turn()
 	var new_index = (active_character.get_index() + 1) % get_child_count()
 	active_character = get_child(new_index)
+	await active_character.turn_ended
+
+
+func _input(event):
+	if event.is_action_pressed("ACTION_ACCEPT"):
+		play_turn()

@@ -1,24 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6286t6mlemok"]
+[gd_scene load_steps=2 format=3 uid="uid://c6286t6mlemok"]
 
-[ext_resource type="Texture2D" uid="uid://bmq3ltjgj52gq" path="res://icon.svg" id="1_p7hvd"]
 [ext_resource type="Script" uid="uid://cu6sswp16nakc" path="res://classes/turn system/TurnQueue.gd" id="1_xowo5"]
-[ext_resource type="Texture2D" uid="uid://bo2em7dash0qf" path="res://assets/icons/gladius.png" id="2_xowo5"]
-[ext_resource type="Texture2D" uid="uid://d3apriy85bckw" path="res://assets/icons/shield.png" id="3_661p2"]
 
 [node name="TurnQueue" type="Node2D"]
 script = ExtResource("1_xowo5")
-
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(11.9756, 71.5615)
-scale = Vector2(0.146154, 0.146154)
-texture = ExtResource("1_p7hvd")
-
-[node name="Gladius" type="Sprite2D" parent="."]
-position = Vector2(13.406, 14.1241)
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("2_xowo5")
-
-[node name="Shield" type="Sprite2D" parent="."]
-position = Vector2(10.4957, 45.0235)
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("3_661p2")

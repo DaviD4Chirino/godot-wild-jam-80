@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://pqc7d3ein35c" path="res://resources/abilities/DealDamage.gd" id="3_ogw38"]
 [ext_resource type="Script" uid="uid://dwmsnbu08ogly" path="res://components/interaction/Hurtbox.gd" id="3_pwjhn"]
 [ext_resource type="Script" uid="uid://dw5rivrr5yh8f" path="res://components/Health.gd" id="4_pu3g4"]
-[ext_resource type="Shader" uid="uid://bu5ow3s5yyrwy" path="res://shaders/shock_damage.gdshader" id="5_ogw38"]
 [ext_resource type="PackedScene" uid="uid://8fqaokb0b7uc" path="res://scenes/characters/enemy/enemy_sprite.tscn" id="5_uqhpy"]
 [ext_resource type="PackedScene" uid="uid://b5sv034xibyb6" path="res://scenes/selected_outline.tscn" id="8_44pfb"]
 [ext_resource type="Shader" uid="uid://d3jqukymx7kwv" path="res://shaders/animated_outline.gdshader" id="9_72liy"]
@@ -19,9 +18,54 @@ metadata/_custom_type_script = "uid://pqc7d3ein35c"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pwjhn"]
 size = Vector2(36.3441, 34.8207)
 
+[sub_resource type="Shader" id="Shader_44pfb"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+/**
+Color to use for the shock.
+*/
+uniform vec3 shock_color : source_color = vec3(1.0, 0.0, 0.0);
+/**
+Initial amplitude of the shock. This will start at this amplitude and
+gradually attenuate.
+*/
+uniform float amplitude = 30.0;
+/**
+How fast should it move side to side, more frequency means it'll move more quickly
+side to side.
+*/
+uniform float frequecy = 10.0;
+/**
+Boolean to trigger the shock effect.
+Set this to true to start the effect.
+*/
+uniform bool trigger_shock = false;
+
+/**
+Manual time progression for the shock effect.
+This should be incremented externally from code while `trigger_shock` is true.
+*/
+uniform float shock_time = 0.0;
+
+void vertex() {
+	float exponent = mod(shock_time, 3.0);
+	VERTEX.x += amplitude * exp(-3.0 * exponent) * sin(frequecy * exponent);
+}
+
+void fragment() {
+	if (trigger_shock) {
+		float exponent = mod(shock_time, 3.0);
+		vec3 normal_color = texture(TEXTURE, UV).rgb;
+		COLOR.rgb = normal_color + shock_color * exp(-3.0 * exponent);
+	} else {
+		COLOR = texture(TEXTURE, UV);
+	}
+}"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_icfsp"]
 resource_local_to_scene = true
-shader = ExtResource("5_ogw38")
+shader = SubResource("Shader_44pfb")
 shader_parameter/shock_color = Color(1, 0, 0, 1)
 shader_parameter/amplitude = 60.0
 shader_parameter/frequecy = 15.0

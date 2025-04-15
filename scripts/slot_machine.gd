@@ -40,12 +40,13 @@ func _on_rolled_ended(_winning_tokens: Array[Token]) -> void:
 	print("Jackpot!" if jackpot else "not jackpot")
 
 	for token: Variant in grouped_tokens.values():
-		var duplicated_token: Token = (token["token"] as Token).duplicate()
+		var duplicated_token: Token = (token["token"] as Token).duplicate(true)
 		# this is conditional
 		# duplicated_token.debug_multiplier *= (token["count"] * global_multiplier)
-		duplicated_token.debug_multiplier *= (token["count"] * global_multiplier)
+		duplicated_token.ability.value *= (token["count"] * global_multiplier)
 		print(duplicated_token.get_display_string())
-		Enemy.target_enemy.hp.damage(int(duplicated_token.debug_multiplier))
+		duplicated_token.ability.trigger(self, Enemy.target_enemy)
+
 	# await get_tree().create_timer(0.5).timeout
 	# roll_column(0)
 	roll_end.emit()

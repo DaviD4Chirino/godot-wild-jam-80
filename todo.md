@@ -21,9 +21,9 @@ Controlled Caos
 	+ [X] ~~*Enemy*~~ **2025-04-14**
 		+ [ ] Attacks Patterns
 			* The idea is they have a "mana" system so they don´t spam the strongest attack
-	+ [ ] Player attack
+	+ [X] ~~*Player attack*~~ **2025-04-15**
 		+ [X] ~~*Select the enemy*~~ **2025-04-15**
-		+ [ ] Apply the results of the roll to that enemy 2025-04-15
+		+ [X] ~~*Apply the results of the roll to that enemy*~~ **2025-04-15** 
 			* Depends of the token to do what they want to do
 + [ ] Map Navigation
 	+ [ ] Enemy Placement

@@ -1,15 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://drkxfntv1x338"]
+[gd_scene load_steps=4 format=3 uid="uid://drkxfntv1x338"]
 
 [ext_resource type="Script" uid="uid://duwndh8xwiqng" path="res://scripts/characters/player/player.gd" id="1_dovo2"]
 [ext_resource type="PackedScene" uid="uid://buiiewgeyawbq" path="res://scenes/slot_machine.tscn" id="2_dovo2"]
+[ext_resource type="Script" uid="uid://dw5rivrr5yh8f" path="res://components/Health.gd" id="3_gmlin"]
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("hp")]
 script = ExtResource("1_dovo2")
+hp = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://cav4ooij6bqqu"
 
 [node name="SlotMachine" parent="." instance=ExtResource("2_dovo2")]
 position = Vector2(117.09, 68.9233)
 columns = 5
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_gmlin")
+max_health = 100
+metadata/_custom_type_script = "uid://dw5rivrr5yh8f"
 
 [connection signal="roll_end" from="SlotMachine" to="." method="_emit_roll_end"]
 [connection signal="roll_start" from="SlotMachine" to="." method="_emit_roll_start"]

@@ -9,8 +9,8 @@
 
 [sub_resource type="Resource" id="Resource_i0x2j"]
 script = ExtResource("3_ogw38")
-damage_amount = 15.0
 cost = 0.0
+value = 0.0
 metadata/_custom_type_script = "uid://pqc7d3ein35c"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pwjhn"]

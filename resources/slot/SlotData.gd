@@ -7,6 +7,7 @@ class_name Token
 
 @export var display_string: String = "The [x] will be replaced by the multiplier"
 
+@export var ability: Ability
 
 @export var debug_multiplier: float
 
@@ -17,4 +18,4 @@ func set_display_string(val: String) -> void:
 	pass
 
 func get_display_string() -> String:
-	return display_string.replacen("[x]", str(debug_multiplier))
+	return display_string.replacen("[x]", str(ability.value))

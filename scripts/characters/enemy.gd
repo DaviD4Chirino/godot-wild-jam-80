@@ -15,7 +15,7 @@ func _ready() -> void:
 
 func play_turn():
 	super ()
-	abilities.pick_random().trigger(self)
+	abilities.pick_random().trigger(self, g.player)
 	await get_tree().physics_frame
 	end_turn()
 

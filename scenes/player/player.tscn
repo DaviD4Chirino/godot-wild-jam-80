@@ -11,7 +11,6 @@ metadata/_custom_type_script = "uid://cav4ooij6bqqu"
 
 [node name="SlotMachine" parent="." instance=ExtResource("2_dovo2")]
 position = Vector2(117.09, 68.9233)
-columns = 5
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_gmlin")

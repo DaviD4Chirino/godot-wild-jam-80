@@ -17,8 +17,6 @@ extends SlotMachine
 var mouse_in_lever: bool = false
 var winning_tokens: Array[Token] = []: get = get_winning_tokens
 
-var global_multiplier: int = 1: set = set_global_multiplier
-
 
 signal roll_start
 signal roll_end
@@ -28,30 +26,20 @@ func _ready():
 	generate_columns(columns)
 	if Engine.is_editor_hint(): return
 	SignalBus.rolled_column.connect(_on_rolled_column)
-	SignalBus.rolling_ended.connect(_on_rolled_ended)
+	SignalBus.multiplier_changed.connect(_on_multiplier_changed)
 
-func _on_rolled_ended(_winning_tokens: Array[Token]) -> void:
+func manage_end_of_roll(_winning_tokens: Array[Token]) -> void:
 	var grouped_tokens: Dictionary[String, Variant] = group_tokens(_winning_tokens)
 	var jackpot: bool = is_jackpot(grouped_tokens)
 
 	if jackpot:
-		global_multiplier += 1
+		self.global_multiplier += 1
 
 	print("Jackpot!" if jackpot else "not jackpot")
 
-	for token: Variant in grouped_tokens.values():
-		var duplicated_token: Token = (token["token"] as Token).duplicate(true)
-		# this is conditional
-		# duplicated_token.debug_multiplier *= (token["count"] * global_multiplier)
-		duplicated_token.ability.value *= (token["count"] * global_multiplier)
-		print(duplicated_token.get_display_string())
-		duplicated_token.ability.trigger(self, Enemy.target_enemy)
-
-	# await get_tree().create_timer(0.5).timeout
-	# roll_column(0)
-	roll_end.emit()
-
-
+func _on_multiplier_changed(_current_multiplier: float) -> void:
+	update_multiplier_label()
+	
 func _on_rolled_column(column_id: int, winner_token: Token) -> void:
 	print("column %s ended rolling, with the winner token being: %s" % [column_id, winner_token.title])
 	pass
@@ -75,29 +63,15 @@ func _input(event: InputEvent):
 				await get_tree().create_timer(0.3).timeout
 
 			lever_node.play("default")
+			manage_end_of_roll(winning_tokens)
+			roll_end.emit()
 			SignalBus.rolling_ended.emit(winning_tokens)
 
 
 func update_multiplier_label() -> void:
 	if !multiplier_label: return
-	multiplier_label.text = "x%s" % global_multiplier
-	pass
+	multiplier_label.text = "x%d" % global_multiplier
 
-# { "Attack":{"token":Token,"count":0} }
-static func group_tokens(tokens: Array[Token]) -> Dictionary[String, Variant]:
-	var dictionary: Dictionary[String, Variant] = {}
-
-	for token in tokens:
-		if dictionary.has(token.title):
-			dictionary[token.title]["count"] += 1
-			continue
-		
-		dictionary[token.title] = {
-			"token": token,
-			"count": 1
-		}
-
-	return dictionary
 
 func roll_column(column_id) -> void:
 	start_spinning_column(column_id)
@@ -114,18 +88,6 @@ func stop_spinning_column(column_id: int) -> void:
 	column.roll_count += 1
 	SignalBus.rolled_column.emit(column_id, column.winner_token)
 
-func is_jackpot(_winning_tokens: Dictionary[String, Variant]) -> bool:
-	if _winning_tokens.is_empty(): return false
-
-	for value in _winning_tokens.values():
-		if value["count"] == columns:
-			return true
-	
-	return false
-
-func set_global_multiplier(val: int) -> void:
-	global_multiplier = val
-	update_multiplier_label()
 
 func get_column(column_id: int) -> Node:
 	assert(columns_node, "columns_node is null")

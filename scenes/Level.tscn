@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dbeecasi0psfg" path="res://assets/icons/cancel.png" id="7_2eouu"]
 [ext_resource type="PackedScene" uid="uid://ceulqibd47nbx" path="res://scenes/back_drop.tscn" id="8_faw0r"]
 
-[node name="Level" type="Control" node_paths=PackedStringArray("node_roll_button", "turn_queue")]
+[node name="Level" type="Control" node_paths=PackedStringArray("node_roll_button", "node_controls", "node_turn_timer", "turn_queue")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +19,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_kl8ac")
-node_roll_button = NodePath("VBoxContainer/MarginContainer/Control/RollButton")
+node_roll_button = NodePath("VBoxContainer/Controls/Control/RollButton")
+node_controls = NodePath("VBoxContainer/Controls")
+node_turn_timer = NodePath("TurnTimer")
 turn_queue = NodePath("VBoxContainer/Characters/TurnQueue")
 metadata/_custom_type_script = "uid://d083hnak2dc"
 
@@ -51,12 +53,12 @@ mouse_filter = 2
 
 [node name="TurnQueue" parent="VBoxContainer/Characters" instance=ExtResource("4_dke22")]
 
+[node name="Enemy" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
+position = Vector2(86.7353, 53.7821)
+
 [node name="Player" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_faw0r")]
 visible = false
 position = Vector2(0, -4)
-
-[node name="Enemy" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
-position = Vector2(86.7353, 53.7821)
 
 [node name="Enemy2" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
 position = Vector2(152.294, 88.4579)
@@ -64,7 +66,7 @@ position = Vector2(152.294, 88.4579)
 [node name="Enemy3" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
 position = Vector2(214.628, 51.3223)
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="Controls" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 2
@@ -74,24 +76,24 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 metadata/_edit_use_anchors_ = true
 
-[node name="Control" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+[node name="Control" type="HBoxContainer" parent="VBoxContainer/Controls"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="RollButton" type="Button" parent="VBoxContainer/MarginContainer/Control"]
+[node name="RollButton" type="Button" parent="VBoxContainer/Controls/Control"]
 layout_mode = 2
 text = "Roll"
 script = ExtResource("4_kl8ac")
 metadata/_custom_type_script = "uid://dr2kj4hvy2dkm"
 
-[node name="History" type="PanelContainer" parent="VBoxContainer/MarginContainer/Control"]
+[node name="History" type="PanelContainer" parent="VBoxContainer/Controls/Control"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CustomButton" type="Button" parent="VBoxContainer/MarginContainer/Control"]
+[node name="CustomButton" type="Button" parent="VBoxContainer/Controls/Control"]
 layout_mode = 2
 text = "Options"
 script = ExtResource("4_kl8ac")
@@ -118,11 +120,16 @@ script = ExtResource("4_kl8ac")
 metadata/_custom_type_script = "uid://dr2kj4hvy2dkm"
 metadata/_edit_use_anchors_ = true
 
+[node name="TurnTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.2
+
 [connection signal="roll_end" from="VBoxContainer/Characters/TurnQueue/Player" to="Dismiss" method="show"]
 [connection signal="roll_start" from="VBoxContainer/Characters/TurnQueue/Player" to="Dismiss" method="hide"]
-[connection signal="button_up" from="VBoxContainer/MarginContainer/Control/RollButton" to="VBoxContainer/Characters/TurnQueue/Player" method="show"]
-[connection signal="button_up" from="VBoxContainer/MarginContainer/Control/RollButton" to="BackDrop" method="show"]
-[connection signal="button_up" from="VBoxContainer/MarginContainer/Control/RollButton" to="Dismiss" method="show"]
+[connection signal="button_up" from="VBoxContainer/Controls/Control/RollButton" to="VBoxContainer/Characters/TurnQueue/Player" method="show"]
+[connection signal="button_up" from="VBoxContainer/Controls/Control/RollButton" to="BackDrop" method="show"]
+[connection signal="button_up" from="VBoxContainer/Controls/Control/RollButton" to="Dismiss" method="show"]
 [connection signal="pressed" from="Dismiss" to="VBoxContainer/Characters/TurnQueue/Player" method="hide"]
 [connection signal="pressed" from="Dismiss" to="BackDrop" method="hide"]
 [connection signal="pressed" from="Dismiss" to="Dismiss" method="hide"]
+[connection signal="timeout" from="TurnTimer" to="." method="_on_turn_timer_timeout"]

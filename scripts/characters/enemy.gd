@@ -4,8 +4,14 @@ class_name Enemy
 static var target_enemy: Enemy
 
 @export var abilities: Array[Ability]
+@export var node_progress_bar: ProgressBar
 
 var mouse_in: bool = false
+
+func _ready() -> void:
+	node_progress_bar.max_value = hp.max_health
+	node_progress_bar.value = hp.max_health
+	hp.changed.connect(_on_health_component_hp_changed)
 
 func play_turn():
 	super ()
@@ -20,9 +26,13 @@ func _input(event: InputEvent) -> void:
 
 func target_self() -> void:
 	target_enemy = self
+	SignalBus.enemy_selected.emit(target_enemy)
 
 func set_mouse_in_true() -> void:
 	mouse_in = true
 
 func set_mouse_in_false() -> void:
 	mouse_in = false
+
+func _on_health_component_hp_changed(health: int) -> void:
+	node_progress_bar.value = health

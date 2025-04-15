@@ -45,7 +45,7 @@ func _on_rolled_ended(_winning_tokens: Array[Token]) -> void:
 		# duplicated_token.debug_multiplier *= (token["count"] * global_multiplier)
 		duplicated_token.debug_multiplier *= (token["count"] * global_multiplier)
 		print(duplicated_token.get_display_string())
-		print(Enemy.target_enemy.name)
+		Enemy.target_enemy.hp.damage(int(duplicated_token.debug_multiplier))
 	# await get_tree().create_timer(0.5).timeout
 	# roll_column(0)
 	roll_end.emit()

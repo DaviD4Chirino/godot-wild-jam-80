@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dbeecasi0psfg" path="res://assets/icons/cancel.png" id="7_2eouu"]
 [ext_resource type="PackedScene" uid="uid://ceulqibd47nbx" path="res://scenes/back_drop.tscn" id="8_faw0r"]
 
-[node name="Level" type="Control" node_paths=PackedStringArray("turn_queue")]
+[node name="Level" type="Control" node_paths=PackedStringArray("node_roll_button", "turn_queue")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,6 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_kl8ac")
+node_roll_button = NodePath("VBoxContainer/MarginContainer/Control/RollButton")
 turn_queue = NodePath("VBoxContainer/Characters/TurnQueue")
 metadata/_custom_type_script = "uid://d083hnak2dc"
 
@@ -102,6 +103,7 @@ layout_mode = 1
 mouse_filter = 1
 
 [node name="Dismiss" type="Button" parent="."]
+unique_name_in_owner = true
 visible = false
 z_index = 4
 z_as_relative = false

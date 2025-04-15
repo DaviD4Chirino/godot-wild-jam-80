@@ -11,12 +11,16 @@ signal game_restarted
 signal level_restarted
 ##
 
-# Region without a description:
 #region Slot Machine Signal
 signal rolled_column(column_id: int, winner_token: Token)
 signal rolling_ended(winning_tokens: Array[Token])
 
 #endregion
+
+#region: Enemy Signals
+signal enemy_selected(enemy: Enemy)
+#endregion
+
 ##use this to check if the signal was emitted
 func test_signal():
 	print("test signal")

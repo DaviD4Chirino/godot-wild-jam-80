@@ -3,10 +3,12 @@ extends Node2D
 class_name TurnQueue
 
 var active_character: Character
+static var combat_round: int = 0
 
 func initialize() -> void:
 	assert(get_child_count() > 0, "Theres no children in TurnQueue")
 	active_character = get_child(0)
+	combat_round = 0
 
 
 func play_turn() -> void:
@@ -14,6 +16,9 @@ func play_turn() -> void:
 	await active_character.turn_ended
 	var new_index = (active_character.get_index() + 1) % get_child_count()
 	active_character = get_child(new_index)
+	
+	if new_index == 0:
+		combat_round += 1
 
 
 func _input(event):

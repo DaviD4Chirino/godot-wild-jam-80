@@ -4,5 +4,5 @@ class_name Ability
 
 ## The[@param Node] is the caller
 @warning_ignore("unused_parameter")
-func trigger(node: Node) -> void:
+func trigger(node: Node, target: Character) -> void:
 	pass

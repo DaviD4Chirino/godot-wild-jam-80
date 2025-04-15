@@ -42,6 +42,7 @@ func _on_rolled_ended(_winning_tokens: Array[Token]) -> void:
 		# duplicated_token.debug_multiplier *= (token["count"] * global_multiplier)
 		duplicated_token.debug_multiplier *= (token["count"] * global_multiplier)
 		print(duplicated_token.get_display_string())
+		print(Enemy.target_enemy.name)
 	# await get_tree().create_timer(0.5).timeout
 	# roll_column(0)
 
@@ -62,7 +63,6 @@ func _input(event: InputEvent):
 					child.start_spinning()
 
 			await get_tree().create_timer(roll_duration).timeout
-			
 
 			for i: int in columns_node.get_children().size():
 				stop_spinning_column(i)

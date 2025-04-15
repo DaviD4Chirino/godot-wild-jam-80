@@ -16,9 +16,10 @@ metadata/_custom_type_script = "uid://pqc7d3ein35c"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pwjhn"]
 size = Vector2(36.3441, 34.8207)
 
-[node name="Enemy" type="Node2D"]
+[node name="Enemy" type="Node2D" node_paths=PackedStringArray("hp") groups=["enemy"]]
 script = ExtResource("1_pwjhn")
 abilities = Array[ExtResource("2_uqhpy")]([SubResource("Resource_i0x2j")])
+hp = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://jqitimhfjh1p"
 
 [node name="Icon" type="Sprite2D" parent="."]
@@ -40,3 +41,5 @@ max_health = 100
 metadata/_custom_type_script = "uid://dw5rivrr5yh8f"
 
 [connection signal="turn_started" from="." to="." method="play_turn"]
+[connection signal="mouse_entered" from="Hurtbox" to="." method="set_mouse_in_true"]
+[connection signal="mouse_exited" from="Hurtbox" to="." method="set_mouse_in_false"]

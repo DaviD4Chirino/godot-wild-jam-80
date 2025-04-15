@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://c3ssvjrslki2o"]
 
 [ext_resource type="Script" uid="uid://0c0t8wrw8nyd" path="res://scripts/characters/enemy.gd" id="1_pwjhn"]
-[ext_resource type="Texture2D" uid="uid://bmq3ltjgj52gq" path="res://icon.svg" id="2_7jlhe"]
 [ext_resource type="Script" uid="uid://bhgr18ia7f85g" path="res://resources/abilities/Ability.gd" id="2_uqhpy"]
 [ext_resource type="Script" uid="uid://pqc7d3ein35c" path="res://resources/abilities/DealDamage.gd" id="3_ogw38"]
 [ext_resource type="Script" uid="uid://dwmsnbu08ogly" path="res://components/interaction/Hurtbox.gd" id="3_pwjhn"]
 [ext_resource type="Script" uid="uid://dw5rivrr5yh8f" path="res://components/Health.gd" id="4_pu3g4"]
+[ext_resource type="PackedScene" uid="uid://8fqaokb0b7uc" path="res://scenes/characters/enemy/enemy_sprite.tscn" id="5_uqhpy"]
 
 [sub_resource type="Resource" id="Resource_i0x2j"]
 script = ExtResource("3_ogw38")
@@ -23,10 +23,6 @@ node_progress_bar = NodePath("ProgressBar")
 hp = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://jqitimhfjh1p"
 
-[node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_7jlhe")
-
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("3_pwjhn")
 health_component = NodePath("../HealthComponent")
@@ -35,6 +31,8 @@ metadata/_custom_type_script = "uid://dwmsnbu08ogly"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0.126314, 0.515961)
 shape = SubResource("RectangleShape2D_pwjhn")
+
+[node name="EnemySprite" parent="." instance=ExtResource("5_uqhpy")]
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_pu3g4")

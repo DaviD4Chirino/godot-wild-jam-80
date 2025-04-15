@@ -122,10 +122,12 @@ metadata/_edit_use_anchors_ = true
 
 [node name="TurnTimer" type="Timer" parent="."]
 process_callback = 0
-wait_time = 0.2
+wait_time = 0.5
 
 [connection signal="roll_end" from="VBoxContainer/Characters/TurnQueue/Player" to="Dismiss" method="show"]
 [connection signal="roll_start" from="VBoxContainer/Characters/TurnQueue/Player" to="Dismiss" method="hide"]
+[connection signal="turn_ended" from="VBoxContainer/Characters/TurnQueue/Player" to="BackDrop" method="hide"]
+[connection signal="turn_ended" from="VBoxContainer/Characters/TurnQueue/Player" to="Dismiss" method="hide"]
 [connection signal="button_up" from="VBoxContainer/Controls/Control/RollButton" to="VBoxContainer/Characters/TurnQueue/Player" method="show"]
 [connection signal="button_up" from="VBoxContainer/Controls/Control/RollButton" to="BackDrop" method="show"]
 [connection signal="button_up" from="VBoxContainer/Controls/Control/RollButton" to="Dismiss" method="show"]

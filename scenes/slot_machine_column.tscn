@@ -23,17 +23,17 @@ unique_name_in_owner = true
 [node name="Slot0" parent="Slots" instance=ExtResource("3_5awgb")]
 position = Vector2(16.5899, 9.74325)
 scale = Vector2(0.7, 0.7)
-token = ExtResource("5_4vys1")
+token = ExtResource("4_kl17h")
 
 [node name="Slot1" parent="Slots" instance=ExtResource("3_5awgb")]
 unique_name_in_owner = true
 position = Vector2(16.5899, 32.6531)
-token = ExtResource("5_4vys1")
+token = ExtResource("4_kl17h")
 
 [node name="Slot2" parent="Slots" instance=ExtResource("3_5awgb")]
 position = Vector2(16.5899, 57.7229)
 scale = Vector2(0.7, 0.7)
-token = ExtResource("4_kl17h")
+token = ExtResource("5_4vys1")
 
 [node name="SpinTimer" type="Timer" parent="."]
 unique_name_in_owner = true

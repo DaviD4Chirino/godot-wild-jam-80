@@ -7,6 +7,24 @@ static var target_enemy: Enemy
 @export var node_progress_bar: ProgressBar
 
 var mouse_in: bool = false
+var shock_time: float = 0.0
+var shock_active: bool = false
+
+func _physics_process(delta: float) -> void:
+	if shock_active:
+		shock_time += delta
+		$Material.set_shader_param("shock_time", shock_time)
+	else:
+		shock_time = 0.0
+		$Material.set_shader_param("shock_time", shock_time)
+
+func trigger_shock_effect():
+	shock_active = true
+	$Material.set_shader_param("trigger_shock", true)
+
+func stop_shock_effect():
+	shock_active = false
+	$Material.set_shader_param("trigger_shock", false)
 
 func _ready() -> void:
 	node_progress_bar.max_value = hp.max_health

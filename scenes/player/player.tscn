@@ -17,5 +17,6 @@ script = ExtResource("3_gmlin")
 max_health = 100
 metadata/_custom_type_script = "uid://dw5rivrr5yh8f"
 
+[connection signal="turn_ended" from="." to="." method="hide"]
 [connection signal="roll_end" from="SlotMachine" to="." method="_emit_roll_end"]
 [connection signal="roll_start" from="SlotMachine" to="." method="_emit_roll_start"]

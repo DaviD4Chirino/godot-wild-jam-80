@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bx40dl2et5fuu"]
+[gd_scene load_steps=10 format=3 uid="uid://bx40dl2et5fuu"]
 
 [ext_resource type="Script" uid="uid://ci1l4cvpsnf2x" path="res://scripts/level.gd" id="1_kl8ac"]
 [ext_resource type="Script" uid="uid://dyvy0tsbhiii1" path="res://components/GameState.gd" id="2_ofymm"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://dr2kj4hvy2dkm" path="res://classes/custom/CustomButton.gd" id="4_kl8ac"]
 [ext_resource type="PackedScene" uid="uid://c3ssvjrslki2o" path="res://scenes/characters/enemy/enemy.tscn" id="5_4qegb"]
 [ext_resource type="PackedScene" uid="uid://drkxfntv1x338" path="res://scenes/player/player.tscn" id="5_faw0r"]
+[ext_resource type="Texture2D" uid="uid://dbeecasi0psfg" path="res://assets/icons/cancel.png" id="7_2eouu"]
+[ext_resource type="PackedScene" uid="uid://ceulqibd47nbx" path="res://scenes/back_drop.tscn" id="8_faw0r"]
 
 [node name="Level" type="Control" node_paths=PackedStringArray("turn_queue")]
 layout_mode = 3
@@ -49,16 +51,17 @@ mouse_filter = 2
 [node name="TurnQueue" parent="VBoxContainer/Characters" instance=ExtResource("4_dke22")]
 
 [node name="Player" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_faw0r")]
-position = Vector2(86.358, 84.2543)
+visible = false
+position = Vector2(0, -4)
 
 [node name="Enemy" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
-position = Vector2(17.3138, 12.4598)
+position = Vector2(86.7353, 53.7821)
 
 [node name="Enemy2" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
-position = Vector2(57.2524, 11.5984)
+position = Vector2(152.294, 88.4579)
 
 [node name="Enemy3" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
-position = Vector2(97.2727, 9.99997)
+position = Vector2(214.628, 51.3223)
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -93,4 +96,31 @@ text = "Options"
 script = ExtResource("4_kl8ac")
 metadata/_custom_type_script = "uid://dr2kj4hvy2dkm"
 
-[connection signal="button_up" from="VBoxContainer/MarginContainer/Control/RollButton" to="VBoxContainer/Characters/TurnQueue" method="play_turn"]
+[node name="BackDrop" parent="." instance=ExtResource("8_faw0r")]
+visible = false
+layout_mode = 1
+mouse_filter = 1
+
+[node name="Dismiss" type="Button" parent="."]
+visible = false
+z_index = 4
+z_as_relative = false
+layout_mode = 0
+offset_left = 3.87917
+offset_top = 7.83013
+offset_right = 43.8792
+offset_bottom = 47.8301
+mouse_filter = 1
+icon = ExtResource("7_2eouu")
+script = ExtResource("4_kl8ac")
+metadata/_custom_type_script = "uid://dr2kj4hvy2dkm"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="roll_end" from="VBoxContainer/Characters/TurnQueue/Player" to="Dismiss" method="show"]
+[connection signal="roll_start" from="VBoxContainer/Characters/TurnQueue/Player" to="Dismiss" method="hide"]
+[connection signal="button_up" from="VBoxContainer/MarginContainer/Control/RollButton" to="VBoxContainer/Characters/TurnQueue/Player" method="show"]
+[connection signal="button_up" from="VBoxContainer/MarginContainer/Control/RollButton" to="BackDrop" method="show"]
+[connection signal="button_up" from="VBoxContainer/MarginContainer/Control/RollButton" to="Dismiss" method="show"]
+[connection signal="pressed" from="Dismiss" to="VBoxContainer/Characters/TurnQueue/Player" method="hide"]
+[connection signal="pressed" from="Dismiss" to="BackDrop" method="hide"]
+[connection signal="pressed" from="Dismiss" to="Dismiss" method="hide"]

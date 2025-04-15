@@ -7,17 +7,9 @@
 script = ExtResource("1_dovo2")
 metadata/_custom_type_script = "uid://cav4ooij6bqqu"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="BackDrop" type="ColorRect" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-color = Color(0.247059, 0.247059, 0.247059, 0.588235)
-
-[node name="SlotMachine" parent="CanvasLayer" instance=ExtResource("2_dovo2")]
+[node name="SlotMachine" parent="." instance=ExtResource("2_dovo2")]
 position = Vector2(117.09, 68.9233)
 columns = 5
+
+[connection signal="roll_end" from="SlotMachine" to="." method="_emit_roll_end"]
+[connection signal="roll_start" from="SlotMachine" to="." method="_emit_roll_start"]

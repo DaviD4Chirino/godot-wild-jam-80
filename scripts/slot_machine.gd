@@ -20,6 +20,9 @@ var winning_tokens: Array[Token] = []: get = get_winning_tokens
 var global_multiplier: int = 1: set = set_global_multiplier
 
 
+signal roll_start
+signal roll_end
+
 func _ready():
 	super ()
 	generate_columns(columns)
@@ -45,6 +48,7 @@ func _on_rolled_ended(_winning_tokens: Array[Token]) -> void:
 		print(Enemy.target_enemy.name)
 	# await get_tree().create_timer(0.5).timeout
 	# roll_column(0)
+	roll_end.emit()
 
 
 func _on_rolled_column(column_id: int, winner_token: Token) -> void:
@@ -58,6 +62,7 @@ func _input(event: InputEvent):
 			global_multiplier = 1
 
 			lever_node.play("rolling")
+			roll_start.emit()
 			if columns_node:
 				for child: Node2D in columns_node.get_children():
 					child.start_spinning()

@@ -46,6 +46,7 @@ outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
 [node name="SlotMachine" type="Node2D" node_paths=PackedStringArray("columns_node", "lever_node", "multiplier_label", "sprites_node")]
+z_index = 5
 script = ExtResource("1_2e0ow")
 column_scene = ExtResource("2_puwce")
 columns_node = NodePath("SlotSprites/Columns")

@@ -14,14 +14,17 @@ Controlled Caos
 + [ ] Combat System
 	* [X] ~~*An turn based combat*~~ **2025-04-14**
 	+ [X] ~~*Health, and general win/lose condition*~~ **2025-04-14** (I already had one)
-	+ [ ] Attacks
+	+ [X] ~~*Attacks*~~ **2025-04-14**` (renamed Abilities)
 		* Try to reuse as much from slot if possible
+		+ [X] ~~*List of events:*~~ **2025-04-14**
+			+ [X] ~~*When its their turn, they will call "trigger"*~~ **2025-04-14**
 	+ [X] ~~*Enemy*~~ **2025-04-14**
 		+ [ ] Attacks Patterns
 			* The idea is they have a "mana" system so they don´t spam the strongest attack
-	+ [ ] Player attack
-		+ [ ] Select the enemy
-		+ [ ] Apply the results of the roll to that enemy
+	+ [X] ~~*Player attack*~~ **2025-04-15**
+		+ [X] ~~*Select the enemy*~~ **2025-04-15**
+		+ [X] ~~*Apply the results of the roll to that enemy*~~ **2025-04-15** 
+			* Depends of the token to do what they want to do
 + [ ] Map Navigation
 	+ [ ] Enemy Placement
 	+ [ ] Boss 

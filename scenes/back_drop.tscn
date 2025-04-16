@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://ceulqibd47nbx"]
+
+[ext_resource type="Script" uid="uid://dca7n151w031f" path="res://scripts/back_drop.gd" id="1_bxgey"]
+
+[node name="BackDrop" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.247059, 0.247059, 0.247059, 0.588235)
+script = ExtResource("1_bxgey")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

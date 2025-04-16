@@ -1,12 +1,20 @@
-[gd_resource type="Resource" script_class="Token" load_steps=3 format=3 uid="uid://3rpjhp54h8py"]
+[gd_resource type="Resource" script_class="Token" load_steps=5 format=3 uid="uid://3rpjhp54h8py"]
 
 [ext_resource type="Script" uid="uid://c61ak8ox27w1u" path="res://resources/slot/SlotData.gd" id="1_5bibp"]
+[ext_resource type="Script" uid="uid://pqc7d3ein35c" path="res://resources/abilities/DealDamage.gd" id="1_lpq2g"]
 [ext_resource type="Texture2D" uid="uid://d3apriy85bckw" path="res://assets/icons/shield.png" id="1_yb0k1"]
+
+[sub_resource type="Resource" id="Resource_wr451"]
+script = ExtResource("1_lpq2g")
+cost = 0.0
+value = 5.0
+metadata/_custom_type_script = "uid://pqc7d3ein35c"
 
 [resource]
 script = ExtResource("1_5bibp")
 title = "Defence"
 icon = ExtResource("1_yb0k1")
 display_string = "The player got [x] shield!"
+ability = SubResource("Resource_wr451")
 debug_multiplier = 5.0
 metadata/_custom_type_script = "uid://c61ak8ox27w1u"

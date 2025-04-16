@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5sv034xibyb6"]
+
+[ext_resource type="Shader" uid="uid://d3jqukymx7kwv" path="res://shaders/animated_outline.gdshader" id="1_qi0hg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fwk46"]
+resource_local_to_scene = true
+shader = ExtResource("1_qi0hg")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/direction = 1.0
+shader_parameter/frequency = 15.0
+shader_parameter/speed = 5.0
+shader_parameter/radius = 1.0
+shader_parameter/line_thickness = 0.05
+
+[node name="SelectedOutline" type="ColorRect"]
+material = SubResource("ShaderMaterial_fwk46")
+metadata/_edit_use_anchors_ = true

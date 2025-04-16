@@ -54,6 +54,10 @@ enabled=PackedStringArray("res://addons/awesome_custom_cursor/plugin.cfg", "res:
 
 import/fbx/enabled=false
 
+[global_group]
+
+enemy=""
+
 [gui]
 
 theme/custom_font="uid://dus5cnwla2cqe"

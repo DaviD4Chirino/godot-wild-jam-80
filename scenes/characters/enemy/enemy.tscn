@@ -1,20 +1,50 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3ssvjrslki2o"]
+[gd_scene load_steps=14 format=3 uid="uid://c3ssvjrslki2o"]
 
 [ext_resource type="Script" uid="uid://0c0t8wrw8nyd" path="res://scripts/characters/enemy.gd" id="1_pwjhn"]
-[ext_resource type="Texture2D" uid="uid://bmq3ltjgj52gq" path="res://icon.svg" id="2_7jlhe"]
+[ext_resource type="Script" uid="uid://bhgr18ia7f85g" path="res://resources/abilities/Ability.gd" id="2_uqhpy"]
+[ext_resource type="Script" uid="uid://pqc7d3ein35c" path="res://resources/abilities/DealDamage.gd" id="3_ogw38"]
 [ext_resource type="Script" uid="uid://dwmsnbu08ogly" path="res://components/interaction/Hurtbox.gd" id="3_pwjhn"]
 [ext_resource type="Script" uid="uid://dw5rivrr5yh8f" path="res://components/Health.gd" id="4_pu3g4"]
+[ext_resource type="Shader" uid="uid://bu5ow3s5yyrwy" path="res://shaders/shock_damage.gdshader" id="5_ogw38"]
+[ext_resource type="PackedScene" uid="uid://8fqaokb0b7uc" path="res://scenes/characters/enemy/enemy_sprite.tscn" id="5_uqhpy"]
+[ext_resource type="PackedScene" uid="uid://b5sv034xibyb6" path="res://scenes/selected_outline.tscn" id="8_44pfb"]
+[ext_resource type="Shader" uid="uid://d3jqukymx7kwv" path="res://shaders/animated_outline.gdshader" id="9_72liy"]
+
+[sub_resource type="Resource" id="Resource_i0x2j"]
+script = ExtResource("3_ogw38")
+cost = 0.0
+value = 0.0
+metadata/_custom_type_script = "uid://pqc7d3ein35c"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pwjhn"]
 size = Vector2(36.3441, 34.8207)
 
-[node name="Enemy" type="Node2D"]
-script = ExtResource("1_pwjhn")
-metadata/_custom_type_script = "uid://jqitimhfjh1p"
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_icfsp"]
+resource_local_to_scene = true
+shader = ExtResource("5_ogw38")
+shader_parameter/shock_color = Color(1, 0, 0, 1)
+shader_parameter/amplitude = 60.0
+shader_parameter/frequecy = 15.0
+shader_parameter/trigger_shock = false
+shader_parameter/shock_time = 0.0
 
-[node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_7jlhe")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ubuwf"]
+resource_local_to_scene = true
+shader = ExtResource("9_72liy")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/direction = 1.0
+shader_parameter/frequency = 15.0
+shader_parameter/speed = 5.0
+shader_parameter/radius = 1.0
+shader_parameter/line_thickness = 0.05
+
+[node name="Enemy" type="Node2D" node_paths=PackedStringArray("node_outline_color_rect", "node_progress_bar", "hp") groups=["enemy"]]
+script = ExtResource("1_pwjhn")
+abilities = Array[ExtResource("2_uqhpy")]([SubResource("Resource_i0x2j")])
+node_outline_color_rect = NodePath("SelectedOutline")
+node_progress_bar = NodePath("ProgressBar")
+hp = NodePath("HealthComponent")
+metadata/_custom_type_script = "uid://jqitimhfjh1p"
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("3_pwjhn")
@@ -25,9 +55,32 @@ metadata/_custom_type_script = "uid://dwmsnbu08ogly"
 position = Vector2(0.126314, 0.515961)
 shape = SubResource("RectangleShape2D_pwjhn")
 
+[node name="EnemySprite" parent="." instance=ExtResource("5_uqhpy")]
+material = SubResource("ShaderMaterial_icfsp")
+
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_pu3g4")
 max_health = 100
 metadata/_custom_type_script = "uid://dw5rivrr5yh8f"
 
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -43.0
+offset_top = 23.0
+offset_right = 51.0
+offset_bottom = 45.0
+theme_override_font_sizes/font_size = 12
+step = 0.1
+
+[node name="SelectedOutline" parent="." instance=ExtResource("8_44pfb")]
+visible = false
+material = SubResource("ShaderMaterial_ubuwf")
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(25, 25)
+
 [connection signal="turn_started" from="." to="." method="play_turn"]
+[connection signal="mouse_entered" from="Hurtbox" to="." method="set_mouse_in_true"]
+[connection signal="mouse_exited" from="Hurtbox" to="." method="set_mouse_in_false"]

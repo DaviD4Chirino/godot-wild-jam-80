@@ -44,7 +44,7 @@ signal healed(amount: int)
 signal healed_fully()
 
 ## Emitted when damage takes place.  Passes in the actual amount of damage.
-signal damaged(amount: float)
+signal damaged(amount: int)
 
 ## Emitted when health reaches 0.
 signal died()
@@ -57,7 +57,7 @@ signal invulnerability_ended
 
 ## Apply an amount of healing.  If [i]will_revive[/i] is true, the health can be
 ## from a "dead" state.
-func heal(amount: int, will_revive: bool=false) -> void:
+func heal(amount: int, will_revive: bool = false) -> void:
 	if is_dead() and not will_revive: return
 
 	var old_heath: int = health

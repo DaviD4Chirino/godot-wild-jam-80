@@ -44,14 +44,14 @@ func _on_rolled_column(column_id: int, winner_token: Token) -> void:
 	print("column %s ended rolling, with the winner token being: %s" % [column_id, winner_token.title])
 	pass
 
-func _input(event: InputEvent):
-	if event.is_action_released(&"MB1"):
-		if mouse_in_lever:
-			pull_lever()
+# func _input(event: InputEvent):
+# 	if event.is_action_released(&"MB1"):
+# 		if mouse_in_lever:
+# 			pull_lever()
 
 func pull_lever() -> void:
 	if lever_node.is_playing(): return
-	global_multiplier = 1
+	
 
 	lever_node.play("rolling")
 	roll_start.emit()
@@ -69,6 +69,7 @@ func pull_lever() -> void:
 	manage_end_of_roll(winning_tokens)
 	roll_end.emit()
 	SignalBus.rolling_ended.emit(winning_tokens)
+	global_multiplier = 1
 
 func update_multiplier_label() -> void:
 	if !multiplier_label: return
@@ -148,3 +149,8 @@ func _on_area_2d_mouse_entered() -> void:
 
 func _on_area_2d_mouse_exited() -> void:
 	mouse_in_lever = false;
+
+
+func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_released(&"MB1"):
+		pull_lever()

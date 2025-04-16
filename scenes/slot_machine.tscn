@@ -47,6 +47,7 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="SlotMachine" type="Node2D" node_paths=PackedStringArray("columns_node", "lever_node", "multiplier_label", "sprites_node")]
 z_index = 5
+position = Vector2(101.041, 64.35)
 script = ExtResource("1_2e0ow")
 column_scene = ExtResource("2_puwce")
 columns_node = NodePath("SlotSprites/Columns")
@@ -81,6 +82,17 @@ position = Vector2(41, 51)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SlotSprites/Lever/Area2D"]
 position = Vector2(1, -8)
 shape = SubResource("RectangleShape2D_xjw1r")
+
+[node name="TextureButton" type="TextureButton" parent="SlotSprites"]
+visible = false
+z_index = 5
+offset_left = 98.0
+offset_right = 145.0
+offset_bottom = 86.0
+mouse_default_cursor_shape = 6
+texture_normal = ExtResource("4_h3s22")
+texture_pressed = ExtResource("5_7v1fh")
+texture_disabled = ExtResource("5_7v1fh")
 
 [node name="TextBox" parent="." instance=ExtResource("10_dgsef")]
 position = Vector2(34.5, 67.583)

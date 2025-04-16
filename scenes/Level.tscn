@@ -53,18 +53,18 @@ mouse_filter = 2
 
 [node name="TurnQueue" parent="VBoxContainer/Characters" instance=ExtResource("4_dke22")]
 
-[node name="Enemy" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
-position = Vector2(86.7353, 53.7821)
-
 [node name="Player" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_faw0r")]
 visible = false
 position = Vector2(0, -4)
 
+[node name="Enemy" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
+position = Vector2(49, 41)
+
 [node name="Enemy2" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
-position = Vector2(152.294, 88.4579)
+position = Vector2(137.059, 64.4376)
 
 [node name="Enemy3" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
-position = Vector2(214.628, 51.3223)
+position = Vector2(232, 47)
 
 [node name="Controls" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -122,7 +122,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="TurnTimer" type="Timer" parent="."]
 process_callback = 0
-wait_time = 0.5
 
 [connection signal="roll_end" from="VBoxContainer/Characters/TurnQueue/Player" to="Dismiss" method="show"]
 [connection signal="roll_start" from="VBoxContainer/Characters/TurnQueue/Player" to="Dismiss" method="hide"]

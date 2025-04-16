@@ -20,6 +20,8 @@ func _ready() -> void:
 
 func play_turn():
 	super ()
+	# So it takes a bit to finish animations and stuff
+	await get_tree().create_timer(0.5).timeout
 	abilities.pick_random().trigger(self, g.player)
 	await get_tree().physics_frame
 	end_turn()
@@ -30,6 +32,7 @@ func _input(event: InputEvent) -> void:
 			target_self()
 
 func target_self() -> void:
+	if TurnQueue.active_character is not Player: return
 	target_enemy = self
 	SignalBus.enemy_selected.emit(target_enemy)
 

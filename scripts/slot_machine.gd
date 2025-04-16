@@ -47,26 +47,28 @@ func _on_rolled_column(column_id: int, winner_token: Token) -> void:
 func _input(event: InputEvent):
 	if event.is_action_released(&"MB1"):
 		if mouse_in_lever:
-			if lever_node.is_playing(): return
-			global_multiplier = 1
+			pull_lever()
 
-			lever_node.play("rolling")
-			roll_start.emit()
-			if columns_node:
-				for child: Node2D in columns_node.get_children():
-					child.start_spinning()
+func pull_lever() -> void:
+	if lever_node.is_playing(): return
+	global_multiplier = 1
 
-			await get_tree().create_timer(roll_duration).timeout
+	lever_node.play("rolling")
+	roll_start.emit()
+	if columns_node:
+		for child: Node2D in columns_node.get_children():
+			child.start_spinning()
 
-			for i: int in columns_node.get_children().size():
-				stop_spinning_column(i)
-				await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(roll_duration).timeout
 
-			lever_node.play("default")
-			manage_end_of_roll(winning_tokens)
-			roll_end.emit()
-			SignalBus.rolling_ended.emit(winning_tokens)
+	for i: int in columns_node.get_children().size():
+		stop_spinning_column(i)
+		await get_tree().create_timer(0.3).timeout
 
+	lever_node.play("default")
+	manage_end_of_roll(winning_tokens)
+	roll_end.emit()
+	SignalBus.rolling_ended.emit(winning_tokens)
 
 func update_multiplier_label() -> void:
 	if !multiplier_label: return

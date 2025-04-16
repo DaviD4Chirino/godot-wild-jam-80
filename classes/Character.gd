@@ -8,6 +8,7 @@ class_name Character
 ## Emitted externally by TurnQueue
 signal turn_started
 signal turn_ended
+signal playing_turn
 signal died
 signal hurt
 
@@ -16,7 +17,8 @@ func start_turn() -> void:
 	turn_started.emit()
 
 func play_turn() -> void:
-	pass
+	playing_turn.emit()
+	
 
 ## Call super() at the end
 func end_turn() -> void:

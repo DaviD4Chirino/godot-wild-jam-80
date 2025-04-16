@@ -7,18 +7,13 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i0x2j"]
 resource_local_to_scene = true
-shader = ExtResource("1_05r7v")
-shader_parameter/shock_color = Color(1, 0, 0, 1)
-shader_parameter/amplitude = 60.0
-shader_parameter/frequecy = 15.0
-shader_parameter/trigger_shock = false
-shader_parameter/shock_time = 0.0
+shader = ExtResource("4_atbt1")
+shader_parameter/active = false
 
 [node name="EnemySprite" type="Sprite2D"]
 material = SubResource("ShaderMaterial_i0x2j")
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_atbt1")
 script = ExtResource("3_fwk46")
-current_shader = 0
 shader_flash = ExtResource("4_atbt1")
 shader_shock = ExtResource("1_05r7v")

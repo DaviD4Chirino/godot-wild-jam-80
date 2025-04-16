@@ -26,9 +26,10 @@ Controlled Caos
 		+ [X] ~~*Apply the results of the roll to that enemy*~~ **2025-04-15** 
 			* Depends of the token to do what they want to do
 + [ ] Map Navigation
-	+ [ ] Enemy Placement
-	+ [ ] Boss 
-	+ [ ] Next Level
+	+ [ ] Walkable (Clickable) tiles
+		+ [ ] Enemy Placement
+		+ [ ] Boss 
+		+ [ ] Next Level
 
 At this point we have a simple gameplay loop
 

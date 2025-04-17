@@ -1,3 +1,68 @@
-[gd_scene format=3 uid="uid://cwlbhqcaj46dw"]
+[gd_scene load_steps=12 format=4 uid="uid://cwlbhqcaj46dw"]
 
-[node name="Dungeon" type="Node2D"]
+[ext_resource type="Script" uid="uid://dfhslcil80s15" path="res://scripts/dungeon.gd" id="1_wail4"]
+[ext_resource type="Script" uid="uid://b05dlk7h6qmj6" path="res://addons/gaea/generators/2D/walker_generator/walker_generator.gd" id="2_s5a2w"]
+[ext_resource type="Script" uid="uid://miqtnlesquej" path="res://addons/gaea/modifiers/2D/modifier_2d.gd" id="3_w0mg0"]
+[ext_resource type="Script" uid="uid://nyvk8kanyduh" path="res://addons/gaea/renderers/2D/tilemap_gaea_renderer.gd" id="3_yc5ro"]
+[ext_resource type="Script" uid="uid://dhivredsnpmqw" path="res://addons/gaea/generators/2D/walker_generator/walker_generator_settings.gd" id="4_pbld3"]
+[ext_resource type="PackedScene" uid="uid://dwn0mui5r0dro" path="res://scenes/dungeon/room.tscn" id="4_yc5ro"]
+[ext_resource type="Script" uid="uid://dhgy6grejr2d7" path="res://addons/gaea/tile_info/tilemap_tile_info.gd" id="5_pbld3"]
+
+[sub_resource type="Resource" id="Resource_q0ye3"]
+script = ExtResource("5_pbld3")
+type = 0
+tilemap_layer = 0
+source_id = 0
+atlas_coord = Vector2i(0, 0)
+alternative_tile = 1
+id = ""
+layer = 0
+metadata/_custom_type_script = "uid://dhgy6grejr2d7"
+
+[sub_resource type="Resource" id="Resource_wyxho"]
+resource_name = "Settings"
+script = ExtResource("4_pbld3")
+tile = SubResource("Resource_q0ye3")
+fullness_check = 0
+max_tiles = 30
+constrain_world_size = false
+max_walkers = 5
+new_dir_chance = 0.5
+new_walker_chance = 0.05
+destroy_walker_chance = 0.05
+room_chances = {
+Vector2i(2, 2): 0.5,
+Vector2i(3, 3): 0.1
+}
+modifiers = Array[ExtResource("3_w0mg0")]([])
+metadata/_custom_type_script = "uid://dhivredsnpmqw"
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_7f72c"]
+scenes/1/scene = ExtResource("4_yc5ro")
+
+[sub_resource type="TileSet" id="TileSet_w0mg0"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetScenesCollectionSource_7f72c")
+
+[node name="Dungeon" type="Node2D" node_paths=PackedStringArray("tile_map_layer")]
+script = ExtResource("1_wail4")
+tile_map_layer = NodePath("TilemapGaeaRenderer/TileMapLayer")
+
+[node name="WalkerGenerator" type="Node" parent="."]
+script = ExtResource("2_s5a2w")
+settings = SubResource("Resource_wyxho")
+tile_size = Vector2i(32, 32)
+metadata/_custom_type_script = "uid://b05dlk7h6qmj6"
+
+[node name="TilemapGaeaRenderer" type="Node" parent="." node_paths=PackedStringArray("tile_map_layers", "generator")]
+script = ExtResource("3_yc5ro")
+tile_map_layers = [NodePath("TileMapLayer")]
+generator = NodePath("../WalkerGenerator")
+metadata/_custom_type_script = "uid://nyvk8kanyduh"
+
+[node name="TileMapLayer" type="TileMapLayer" parent="TilemapGaeaRenderer"]
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAQAAAP//AAAAAAAAAQABAP//AAAAAAAAAQABAAAAAAAAAAAAAQABAAEAAAAAAAAAAQACAAAAAAAAAAAAAQACAAEAAAAAAAAAAQAAAAEAAAAAAAAAAQAAAAIAAAAAAAAAAQADAAAAAAAAAAAAAQADAAEAAAAAAAAAAQAEAAAAAAAAAAAAAQAEAAEAAAAAAAAAAQD+/wEAAAAAAAAAAQD+/wIAAAAAAAAAAQD+/wMAAAAAAAAAAQD//wEAAAAAAAAAAQD//wIAAAAAAAAAAQD//wMAAAAAAAAAAQD//wQAAAAAAAAAAQAAAAMAAAAAAAAAAQAAAAQAAAAAAAAAAQABAP7/AAAAAAAAAQABAAMAAAAAAAAAAQABAAQAAAAAAAAAAQACAP7/AAAAAAAAAQACAP//AAAAAAAAAQADAP7/AAAAAAAAAQADAP//AAAAAAAAAQAEAP7/AAAAAAAAAQAEAP//AAAAAAAAAQA=")
+tile_set = SubResource("TileSet_w0mg0")
+
+[connection signal="generation_finished" from="WalkerGenerator" to="." method="_on_walker_generator_generation_finished"]
+[connection signal="generation_started" from="WalkerGenerator" to="." method="_on_walker_generator_generation_started"]

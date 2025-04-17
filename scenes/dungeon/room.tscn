@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwn0mui5r0dro"]
+
+[ext_resource type="Script" uid="uid://pb6cwwldt5ne" path="res://classes/Room.gd" id="1_ci1bl"]
+[ext_resource type="Texture2D" uid="uid://uyd3fa2dcf0f" path="res://assets/dungeon tiles/dungeon-tiles3.png" id="2_7kl47"]
+[ext_resource type="Texture2D" uid="uid://bohutr13v31rf" path="res://assets/dungeon tiles/dungeon-tiles2.png" id="2_j3r5e"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7kl47"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7kl47")
+}],
+"loop": true,
+"name": &"explored",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_j3r5e")
+}],
+"loop": true,
+"name": &"unexplored",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7kl47"]
+size = Vector2(32, 32)
+
+[node name="Room" type="Area2D"]
+script = ExtResource("1_ci1bl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7kl47")
+animation = &"unexplored"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7kl47")

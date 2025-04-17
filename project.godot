@@ -48,7 +48,7 @@ project/assembly_name="Template"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/awesome_custom_cursor/plugin.cfg", "res://addons/awesome_input_icons/plugin.cfg", "res://addons/awesome_scene_manager/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/gd-blender-3d-shortcuts/plugin.cfg", "res://addons/save_system/plugin.cfg", "res://addons/sound_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/awesome_custom_cursor/plugin.cfg", "res://addons/awesome_input_icons/plugin.cfg", "res://addons/awesome_scene_manager/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/gaea/plugin.cfg", "res://addons/gd-blender-3d-shortcuts/plugin.cfg", "res://addons/save_system/plugin.cfg", "res://addons/sound_manager/plugin.cfg")
 
 [filesystem]
 

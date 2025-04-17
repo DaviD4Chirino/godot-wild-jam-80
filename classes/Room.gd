@@ -19,7 +19,7 @@ class_name Room
 
 ## Size of the sprite
 var size: Vector2i = Vector2i(32, 32)
-var local_position: Vector2i = Vector2i.ZERO
+var id: Vector2i = Vector2i.ZERO
 
 var neighbors: Dictionary[Vector2i, Room] = {
 	Vector2i.UP: null,
@@ -46,9 +46,6 @@ var room_positions: Dictionary[String, Vector2i] = {
 	"trbl": Vector2i(1, 1),
 }
 
-# -1 = unplaced
-var id: int = -1
-
 var is_full: bool:
 	get:
 		if (neighbors[Vector2i.UP] == null) && \
@@ -57,6 +54,7 @@ var is_full: bool:
 		(neighbors[Vector2i.RIGHT] == null):
 			return true
 		return false
+
 
 ## Returns an array with the keys of the empty neighbors
 func get_empty_neighbors() -> Array[Dictionary]:
@@ -72,5 +70,5 @@ func get_empty_neighbors() -> Array[Dictionary]:
 
 func set_region(val: Vector2i) -> void:
 	region = val
-
-	sprite.region_rect = Rect2(region.x * 32, region.y * 32, 32, 32)
+	if sprite:
+		sprite.region_rect = Rect2(region.x * 32, region.y * 32, 32, 32)

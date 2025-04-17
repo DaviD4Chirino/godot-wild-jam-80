@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://cwlbhqcaj46dw"]
+[gd_scene load_steps=13 format=4 uid="uid://cwlbhqcaj46dw"]
 
 [ext_resource type="Script" uid="uid://dfhslcil80s15" path="res://scripts/dungeon.gd" id="1_wail4"]
 [ext_resource type="Script" uid="uid://b05dlk7h6qmj6" path="res://addons/gaea/generators/2D/walker_generator/walker_generator.gd" id="2_s5a2w"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dhivredsnpmqw" path="res://addons/gaea/generators/2D/walker_generator/walker_generator_settings.gd" id="4_pbld3"]
 [ext_resource type="PackedScene" uid="uid://dwn0mui5r0dro" path="res://scenes/dungeon/room.tscn" id="4_yc5ro"]
 [ext_resource type="Script" uid="uid://dhgy6grejr2d7" path="res://addons/gaea/tile_info/tilemap_tile_info.gd" id="5_pbld3"]
+[ext_resource type="Script" uid="uid://dri6i8g3c8t70" path="res://scripts/register_scene_tile_map.gd" id="8_wyxho"]
 
 [sub_resource type="Resource" id="Resource_q0ye3"]
 script = ExtResource("5_pbld3")
@@ -27,9 +28,9 @@ fullness_check = 0
 max_tiles = 30
 constrain_world_size = false
 max_walkers = 5
-new_dir_chance = 0.5
-new_walker_chance = 0.05
-destroy_walker_chance = 0.05
+new_dir_chance = 0.0
+new_walker_chance = 0.5
+destroy_walker_chance = 0.0
 room_chances = {
 Vector2i(2, 2): 0.5,
 Vector2i(3, 3): 0.1
@@ -57,12 +58,14 @@ metadata/_custom_type_script = "uid://b05dlk7h6qmj6"
 [node name="TilemapGaeaRenderer" type="Node" parent="." node_paths=PackedStringArray("tile_map_layers", "generator")]
 script = ExtResource("3_yc5ro")
 tile_map_layers = [NodePath("TileMapLayer")]
+terrain_gap_fix = true
 generator = NodePath("../WalkerGenerator")
 metadata/_custom_type_script = "uid://nyvk8kanyduh"
 
 [node name="TileMapLayer" type="TileMapLayer" parent="TilemapGaeaRenderer"]
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAQAAAP//AAAAAAAAAQABAP//AAAAAAAAAQABAAAAAAAAAAAAAQABAAEAAAAAAAAAAQACAAAAAAAAAAAAAQACAAEAAAAAAAAAAQAAAAEAAAAAAAAAAQAAAAIAAAAAAAAAAQADAAAAAAAAAAAAAQADAAEAAAAAAAAAAQAEAAAAAAAAAAAAAQAEAAEAAAAAAAAAAQD+/wEAAAAAAAAAAQD+/wIAAAAAAAAAAQD+/wMAAAAAAAAAAQD//wEAAAAAAAAAAQD//wIAAAAAAAAAAQD//wMAAAAAAAAAAQD//wQAAAAAAAAAAQAAAAMAAAAAAAAAAQAAAAQAAAAAAAAAAQABAP7/AAAAAAAAAQABAAMAAAAAAAAAAQABAAQAAAAAAAAAAQACAP7/AAAAAAAAAQACAP//AAAAAAAAAQADAP7/AAAAAAAAAQADAP//AAAAAAAAAQAEAP7/AAAAAAAAAQAEAP//AAAAAAAAAQA=")
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAQAAAP//AAAAAAAAAQD/////AAAAAAAAAQD//wAAAAAAAAAAAQAAAAEAAAAAAAAAAQAAAAIAAAAAAAAAAQD7//3/AAAAAAAAAQD7//7/AAAAAAAAAQD8//3/AAAAAAAAAQD8//7/AAAAAAAAAQD9//7/AAAAAAAAAQD+//7/AAAAAAAAAQD///n/AAAAAAAAAQD///r/AAAAAAAAAQD///v/AAAAAAAAAQD///3/AAAAAAAAAQD///7/AAAAAAAAAQD//wEAAAAAAAAAAQAAAPn/AAAAAAAAAQAAAPr/AAAAAAAAAQAAAPv/AAAAAAAAAQAAAPz/AAAAAAAAAQAAAP3/AAAAAAAAAQAAAP7/AAAAAAAAAQABAP3/AAAAAAAAAQABAP7/AAAAAAAAAQACAP3/AAAAAAAAAQACAP7/AAAAAAAAAQADAP3/AAAAAAAAAQADAP7/AAAAAAAAAQAEAP3/AAAAAAAAAQAEAP7/AAAAAAAAAQA=")
 tile_set = SubResource("TileSet_w0mg0")
+script = ExtResource("8_wyxho")
 
 [connection signal="generation_finished" from="WalkerGenerator" to="." method="_on_walker_generator_generation_finished"]
 [connection signal="generation_started" from="WalkerGenerator" to="." method="_on_walker_generator_generation_started"]

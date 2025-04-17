@@ -57,6 +57,7 @@ import/fbx/enabled=false
 [global_group]
 
 enemy=""
+dungeon_room=""
 
 [gui]
 

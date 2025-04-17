@@ -34,9 +34,9 @@ func generate_map() -> Array[Array]:
 
 	#region: modify the rooms
 	
-	# setup_boss_room()
-	# setup_random_room_weights()
-	# setup_room_types()
+	setup_boss_room()
+	setup_random_room_weights()
+	setup_room_types()
 	
 	#endregion
 	
@@ -63,8 +63,80 @@ func generate_map() -> Array[Array]:
 
 	return map
 
+func setup_boss_room() -> void:
+	var middle: int = floori(rooms_per_floor * 0.5)
+	var boss_room: Room = map[floors - 1][middle] as Room
+
+	for j: int in rooms_per_floor:
+		var current_room: Room = map[floors - 2][j] as Room
+
+		if current_room.next_rooms:
+			current_room.next_rooms.clear()
+			current_room.next_rooms.append(boss_room)
+
+	boss_room.type = Room.Types.BOSS
+
+func setup_random_room_weights() -> void:
+	random_room_type_weight[Room.Types.BATTLE] = room_type_weight[Room.Types.BATTLE]
+	random_room_type_weight[Room.Types.CAMPFIRE] = room_type_weight[Room.Types.CAMPFIRE] + room_type_weight[Room.Types.BATTLE]
+	random_room_type_weight[Room.Types.SHOP] = room_type_weight[Room.Types.CAMPFIRE] + \
+		room_type_weight[Room.Types.BATTLE] + \
+		room_type_weight[Room.Types.SHOP]
+	
+	random_room_type_total_weight = random_room_type_weight[Room.Types.SHOP]
+
+func setup_room_types() -> void:
+	# First floor is all battles
+	for room: Room in map[0]:
+		if room.next_rooms.size() > 0:
+			room.type = Room.Types.BATTLE
+
+	# Half floor
+	for room: Room in map[int(floors * 0.5)]:
+		if room.next_rooms.size() > 0:
+			room.type = Room.Types.SHOP
+
+	# Floor before boss
+	for room: Room in map[floors - 2]:
+		if room.next_rooms.size() > 0:
+			room.type = Room.Types.CAMPFIRE
+
+	#Rest of rooms
+	for floor: Array[Room] in map:
+		for room: Room in floor:
+			for next_room: Room in room.next_rooms:
+				if next_room.type == Room.Types.NONE:
+					_set_room_randomly(next_room)
+					pass
+
+func _set_room_randomly(room_to_set: Room) -> void:
+	#region: Rules
+	var campfire_below_4: bool = true
+	var consecutive_campfire: bool = true
+	var consecutive_shop: bool = true
+	var campfire_on_13: bool = true
+	#endregion
+
+	var type_candidate: Room.Types
+
+	while campfire_below_4 || consecutive_campfire || consecutive_shop || campfire_on_13:
+		type_candidate = _get_random_room_type_by_weight()
+
+		var is_campfire: bool = type_candidate == Room.Types.CAMPFIRE
+		var has_campfire_parent: bool = _room_has_parent_of_type(room_to_set, Room.Types.CAMPFIRE)
+		var is_shop: bool = type_candidate == Room.Types.SHOP
+		var has_shop_parent: bool = _room_has_parent_of_type(room_to_set, Room.Types.SHOP)
+
+		campfire_below_4 = is_campfire && room_to_set.row < 3
+		consecutive_campfire = is_campfire && has_campfire_parent
+		consecutive_shop = is_shop && has_shop_parent
+		campfire_on_13 = is_campfire && room_to_set.row == floors - 2
+	
+	room_to_set.type = type_candidate
+
 
 #region: Generate the map functions
+
 func generate_grid() -> Array[Array]:
 	var result: Array[Array] = []
 

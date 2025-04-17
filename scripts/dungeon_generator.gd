@@ -1,4 +1,56 @@
-extends Node2D
+extends Node
+class_name DungeonGenerator
+
+@export var floors: int = 15
+@export var rooms_per_floor: int = 5
+## distance between points
+@export var distance: Vector2 = Vector2(25, 30)
+@export var room_offset: float = 5.0
+@export var room_type_weight: Dictionary[Room.Types, float] = {
+	Room.Types.BATTLE: 0.6,
+	Room.Types.SHOP: 0.3,
+	Room.Types.CAMPFIRE: 0.1,
+}
+
+var random_room_type_weight: Dictionary[Room.Types, float] = {
+	Room.Types.BATTLE: 0.0,
+	Room.Types.SHOP: 0.0,
+	Room.Types.CAMPFIRE: 0.0,
+}
+var random_room_type_total_weight: float = 0.0
+
+## Array of Arrays of Room
+static var map: Array[Array] = []
+
+
+func generate_map() -> Array[Array]:
+	map = generate_grid()
+	return map
+
+func generate_grid() -> Array[Array]:
+	var result: Array[Array] = []
+
+	for i: int in floors:
+		var adjacent_room: Array[Room] = []
+
+		for j: int in rooms_per_floor:
+			var new_room: Room = Room.new()
+			var offset: Vector2 = Vector2(randf(), randf()) * room_offset
+
+			new_room.position = Vector2(j * distance.x, i * distance.y) + offset
+
+			new_room.row = i
+			new_room.column = j
+			new_room.next_rooms = []
+
+			if i == floors - 1:
+				new_room.position.y = (i + 1) * -distance.y
+			
+			adjacent_room.append(new_room)
+		
+		result.append(adjacent_room)
+
+	return result
 
 # @export var tile_map_layer: TileMapLayer
 

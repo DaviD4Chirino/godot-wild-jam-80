@@ -1,8 +1,13 @@
+@tool
 extends Node
 class_name DungeonGenerator
 
+@export_tool_button("Generate") var generate_button = generate_map
+
+
 @export var floors: int = 15
 @export var rooms_per_floor: int = 5
+@export var paths: int = 6
 ## distance between points
 @export var distance: Vector2 = Vector2(25, 30)
 @export var room_offset: float = 5.0
@@ -25,6 +30,17 @@ static var map: Array[Array] = []
 
 func generate_map() -> Array[Array]:
 	map = generate_grid()
+	var random_starting_points: Array[int] = get_random_starting_points()
+	
+	print("Random Starting Points:\t%s" % [random_starting_points])
+
+	
+	var i: int = 0
+	for _floor in map:
+		print("floor %s:\t%s" % [i, _floor])
+		i += 1
+		pass
+
 	return map
 
 func generate_grid() -> Array[Array]:
@@ -51,6 +67,20 @@ func generate_grid() -> Array[Array]:
 		result.append(adjacent_room)
 
 	return result
+
+func get_random_starting_points() -> Array[int]:
+	var y_coordinates: Array[int] = []
+	var unique_points: int = 0
+
+	while unique_points < 2:
+		for i: int in paths:
+			var starting_point: int = randi_range(0, rooms_per_floor - 1)
+
+			if not y_coordinates.has(starting_point):
+				unique_points += 1
+				y_coordinates.append(starting_point)
+
+	return y_coordinates
 
 # @export var tile_map_layer: TileMapLayer
 

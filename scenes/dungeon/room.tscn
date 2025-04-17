@@ -1,18 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwn0mui5r0dro"]
+[gd_scene load_steps=4 format=3 uid="uid://dwn0mui5r0dro"]
 
 [ext_resource type="Script" uid="uid://pb6cwwldt5ne" path="res://classes/Room.gd" id="1_ci1bl"]
 [ext_resource type="Texture2D" uid="uid://cjvyqo8re7l4e" path="res://assets/dungeon tiles/dungeon tileset unexplored.png" id="2_7kl47"]
-[ext_resource type="Texture2D" uid="uid://buk6l7yfbe6rl" path="res://assets/dungeon tiles/dungeon tileset explored.png" id="2_j3r5e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7kl47"]
 size = Vector2(32, 32)
 
-[node name="Room" type="Area2D" node_paths=PackedStringArray("sprite") groups=["dungeon_room"]]
+[node name="Room" type="Area2D" groups=["dungeon_room"]]
 disable_mode = 2
 script = ExtResource("1_ci1bl")
-unexplored_tile_set = ExtResource("2_7kl47")
-explored_tile_set = ExtResource("2_j3r5e")
-sprite = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_7kl47")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cwlbhqcaj46dw"]
+[gd_scene load_steps=13 format=4 uid="uid://cwlbhqcaj46dw"]
 
 [ext_resource type="Script" uid="uid://dfhslcil80s15" path="res://scripts/dungeon.gd" id="1_wail4"]
 [ext_resource type="Script" uid="uid://b05dlk7h6qmj6" path="res://addons/gaea/generators/2D/walker_generator/walker_generator.gd" id="2_s5a2w"]
@@ -25,12 +25,12 @@ resource_name = "Settings"
 script = ExtResource("4_pbld3")
 tile = SubResource("Resource_q0ye3")
 fullness_check = 0
-max_tiles = 30
+max_tiles = 10
 constrain_world_size = false
 max_walkers = 5
-new_dir_chance = 0.0
-new_walker_chance = 0.5
-destroy_walker_chance = 0.0
+new_dir_chance = 0.5
+new_walker_chance = 0.05
+destroy_walker_chance = 0.05
 room_chances = {
 Vector2i(2, 2): 0.5,
 Vector2i(3, 3): 0.1
@@ -45,9 +45,8 @@ scenes/1/scene = ExtResource("4_yc5ro")
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetScenesCollectionSource_7f72c")
 
-[node name="Dungeon" type="Node2D" node_paths=PackedStringArray("tile_map_layer")]
+[node name="Dungeon" type="Node2D"]
 script = ExtResource("1_wail4")
-tile_map_layer = NodePath("TilemapGaeaRenderer/TileMapLayer")
 
 [node name="WalkerGenerator" type="Node" parent="."]
 script = ExtResource("2_s5a2w")
@@ -58,16 +57,13 @@ metadata/_custom_type_script = "uid://b05dlk7h6qmj6"
 [node name="TilemapGaeaRenderer" type="Node" parent="." node_paths=PackedStringArray("tile_map_layers", "generator")]
 script = ExtResource("3_yc5ro")
 tile_map_layers = [NodePath("TileMapLayer")]
-clear_tile_map_on_draw = false
-erase_empty_tiles = false
+terrain_gap_fix = true
 generator = NodePath("../WalkerGenerator")
 metadata/_custom_type_script = "uid://nyvk8kanyduh"
 
 [node name="TileMapLayer" type="TileMapLayer" parent="TilemapGaeaRenderer"]
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAQAAAP//AAAAAAAAAQD/////AAAAAAAAAQD//wAAAAAAAAAAAQAAAAEAAAAAAAAAAQABAP//AAAAAAAAAQABAAAAAAAAAAAAAQABAAEAAAAAAAAAAQACAP//AAAAAAAAAQACAAAAAAAAAAAAAQACAAEAAAAAAAAAAQA=")
 tile_set = SubResource("TileSet_w0mg0")
 script = ExtResource("8_wyxho")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-
-[connection signal="generation_finished" from="WalkerGenerator" to="." method="_on_walker_generator_generation_finished"]
-[connection signal="generation_started" from="WalkerGenerator" to="." method="_on_walker_generator_generation_started"]

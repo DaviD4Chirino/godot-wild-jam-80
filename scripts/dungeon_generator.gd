@@ -17,7 +17,7 @@ class_name DungeonGenerator
 	Room.Types.CAMPFIRE: 0.1,
 }
 
-var random_room_type_weight: Dictionary[Room.Types, float] = {
+var random_room_type_weights: Dictionary[Room.Types, float] = {
 	Room.Types.BATTLE: 0.0,
 	Room.Types.SHOP: 0.0,
 	Room.Types.CAMPFIRE: 0.0,
@@ -77,13 +77,13 @@ func setup_boss_room() -> void:
 	boss_room.type = Room.Types.BOSS
 
 func setup_random_room_weights() -> void:
-	random_room_type_weight[Room.Types.BATTLE] = room_type_weight[Room.Types.BATTLE]
-	random_room_type_weight[Room.Types.CAMPFIRE] = room_type_weight[Room.Types.CAMPFIRE] + room_type_weight[Room.Types.BATTLE]
-	random_room_type_weight[Room.Types.SHOP] = room_type_weight[Room.Types.CAMPFIRE] + \
+	random_room_type_weights[Room.Types.BATTLE] = room_type_weight[Room.Types.BATTLE]
+	random_room_type_weights[Room.Types.CAMPFIRE] = room_type_weight[Room.Types.CAMPFIRE] + room_type_weight[Room.Types.BATTLE]
+	random_room_type_weights[Room.Types.SHOP] = room_type_weight[Room.Types.CAMPFIRE] + \
 		room_type_weight[Room.Types.BATTLE] + \
 		room_type_weight[Room.Types.SHOP]
 	
-	random_room_type_total_weight = random_room_type_weight[Room.Types.SHOP]
+	random_room_type_total_weight = random_room_type_weights[Room.Types.SHOP]
 
 func setup_room_types() -> void:
 	# First floor is all battles
@@ -102,8 +102,8 @@ func setup_room_types() -> void:
 			room.type = Room.Types.CAMPFIRE
 
 	#Rest of rooms
-	for floor: Array[Room] in map:
-		for room: Room in floor:
+	for _floor: Array[Room] in map:
+		for room: Room in _floor:
 			for next_room: Room in room.next_rooms:
 				if next_room.type == Room.Types.NONE:
 					_set_room_randomly(next_room)
@@ -134,6 +134,41 @@ func _set_room_randomly(room_to_set: Room) -> void:
 	
 	room_to_set.type = type_candidate
 
+
+func _room_has_parent_of_type(room: Room, type: Room.Types) -> bool:
+	var parents: Array[Room] = []
+
+	#Left parent
+	if room.column > 0 && room.row > 0:
+		var parent_candidate: Room = map[room.row - 1][room.column - 1] as Room
+		if parent_candidate.next_rooms.has(room):
+			parents.append(parent_candidate)
+	
+	#Parent Below
+	if room.row > 0:
+		var parent_candidate: Room = map[room.row - 1][room.column] as Room
+		if parent_candidate.next_rooms.has(room):
+			parents.append(parent_candidate)
+	
+	#Right Parent
+	if room.column < rooms_per_floor && room.row > 0:
+		var parent_candidate: Room = map[room.row - 1][room.column + 1] as Room
+		if parent_candidate.next_rooms.has(room):
+			parents.append(parent_candidate)
+
+	for parent: Room in parents:
+		if parent.type == type:
+			return true
+
+	return false
+
+func _get_random_room_type_by_weight() -> Room.Types:
+	var roll: float = randf_range(0.0, random_room_type_total_weight)
+	for type: Room.Types in random_room_type_weights:
+		if random_room_type_weights[type] > roll:
+			return type
+			
+	return Room.Types.BATTLE
 
 #region: Generate the map functions
 

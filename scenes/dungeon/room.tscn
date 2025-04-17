@@ -8,8 +8,8 @@
 size = Vector2(32, 32)
 
 [node name="Room" type="Area2D" node_paths=PackedStringArray("sprite") groups=["dungeon_room"]]
+disable_mode = 2
 script = ExtResource("1_ci1bl")
-region = Vector2i(1, 1)
 unexplored_tile_set = ExtResource("2_7kl47")
 explored_tile_set = ExtResource("2_j3r5e")
 sprite = NodePath("Sprite2D")
@@ -20,4 +20,4 @@ shape = SubResource("RectangleShape2D_7kl47")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_7kl47")
 region_enabled = true
-region_rect = Rect2(32, 32, 32, 32)
+region_rect = Rect2(0, 0, 32, 32)

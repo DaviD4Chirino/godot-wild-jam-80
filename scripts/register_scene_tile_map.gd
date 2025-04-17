@@ -1,7 +1,7 @@
 extends TileMapLayer
 class_name SceneTileMapLayer
 
-var scene_coords: Dictionary[Vector2i, Node] = {}
+static var scene_coords: Dictionary[Vector2i, Node] = {}
 
 func _enter_tree():
   child_entered_tree.connect(_register_child)
@@ -11,6 +11,7 @@ func _register_child(child):
   await child.ready
   var coords = local_to_map(to_local(child.global_position))
   scene_coords[coords] = child
+  
   child.set_meta("tile_coords", coords)
 
 func _unregister_child(child):

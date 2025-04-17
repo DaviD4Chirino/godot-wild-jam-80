@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://cwlbhqcaj46dw"]
+[gd_scene load_steps=13 format=3 uid="uid://cwlbhqcaj46dw"]
 
 [ext_resource type="Script" uid="uid://dfhslcil80s15" path="res://scripts/dungeon.gd" id="1_wail4"]
 [ext_resource type="Script" uid="uid://b05dlk7h6qmj6" path="res://addons/gaea/generators/2D/walker_generator/walker_generator.gd" id="2_s5a2w"]
@@ -58,14 +58,16 @@ metadata/_custom_type_script = "uid://b05dlk7h6qmj6"
 [node name="TilemapGaeaRenderer" type="Node" parent="." node_paths=PackedStringArray("tile_map_layers", "generator")]
 script = ExtResource("3_yc5ro")
 tile_map_layers = [NodePath("TileMapLayer")]
-terrain_gap_fix = true
+clear_tile_map_on_draw = false
+erase_empty_tiles = false
 generator = NodePath("../WalkerGenerator")
 metadata/_custom_type_script = "uid://nyvk8kanyduh"
 
 [node name="TileMapLayer" type="TileMapLayer" parent="TilemapGaeaRenderer"]
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAQAAAP//AAAAAAAAAQD/////AAAAAAAAAQD//wAAAAAAAAAAAQAAAAEAAAAAAAAAAQAAAAIAAAAAAAAAAQD7//3/AAAAAAAAAQD7//7/AAAAAAAAAQD8//3/AAAAAAAAAQD8//7/AAAAAAAAAQD9//7/AAAAAAAAAQD+//7/AAAAAAAAAQD///n/AAAAAAAAAQD///r/AAAAAAAAAQD///v/AAAAAAAAAQD///3/AAAAAAAAAQD///7/AAAAAAAAAQD//wEAAAAAAAAAAQAAAPn/AAAAAAAAAQAAAPr/AAAAAAAAAQAAAPv/AAAAAAAAAQAAAPz/AAAAAAAAAQAAAP3/AAAAAAAAAQAAAP7/AAAAAAAAAQABAP3/AAAAAAAAAQABAP7/AAAAAAAAAQACAP3/AAAAAAAAAQACAP7/AAAAAAAAAQADAP3/AAAAAAAAAQADAP7/AAAAAAAAAQAEAP3/AAAAAAAAAQAEAP7/AAAAAAAAAQA=")
 tile_set = SubResource("TileSet_w0mg0")
 script = ExtResource("8_wyxho")
+
+[node name="Camera2D" type="Camera2D" parent="."]
 
 [connection signal="generation_finished" from="WalkerGenerator" to="." method="_on_walker_generator_generation_finished"]
 [connection signal="generation_started" from="WalkerGenerator" to="." method="_on_walker_generator_generation_started"]

@@ -29,9 +29,10 @@ var neighbors: Dictionary[Vector2i, Room] = {
 }
 # clockwise [t r b l]
 var room_positions: Dictionary[String, Vector2i] = {
+	"": Vector2i(1, 1),
 	"r": Vector2i(3, 0),
-	"d": Vector2i(4, 0),
-	"u": Vector2i(3, 1),
+	"b": Vector2i(4, 0),
+	"t": Vector2i(3, 1),
 	"l": Vector2i(4, 1),
 
 	"rb": Vector2i.ZERO,
@@ -40,11 +41,15 @@ var room_positions: Dictionary[String, Vector2i] = {
 	"tr": Vector2i(0, 2),
 
 	"rbl": Vector2i(1, 0),
-	"tbr": Vector2i(2, 1),
+	"tbl": Vector2i(2, 1),
 	"trl": Vector2i(1, 2),
 	"trb": Vector2i(0, 1),
 	"trbl": Vector2i(1, 1),
+
+	"tb": Vector2i(4, 2),
+	"rl": Vector2i(3, 2),
 }
+
 
 var is_full: bool:
 	get:
@@ -55,6 +60,25 @@ var is_full: bool:
 			return true
 		return false
 
+func neighbor_string() -> String:
+	var string: String = ""
+
+	if neighbors[Vector2i.UP] != null:
+		string += "t"
+	if neighbors[Vector2i.RIGHT] != null:
+		string += "r"
+	if neighbors[Vector2i.DOWN] != null:
+		string += "b"
+	if neighbors[Vector2i.LEFT] != null:
+		string += "l"
+
+	return string
+
+# func _ready() -> void:
+# 	update_sprite_coordinates()
+
+func update_sprite_coordinates() -> void:
+	self.region = room_positions[neighbor_string()]
 
 ## Returns an array with the keys of the empty neighbors
 func get_empty_neighbors() -> Array[Dictionary]:
@@ -72,3 +96,6 @@ func set_region(val: Vector2i) -> void:
 	region = val
 	if sprite:
 		sprite.region_rect = Rect2(region.x * 32, region.y * 32, 32, 32)
+	
+	print("region updated")
+	print("sprite: ", sprite)

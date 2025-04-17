@@ -31,9 +31,17 @@ static var map: Array[Array] = []
 func generate_map() -> Array[Array]:
 	map = generate_grid()
 	var starting_points: Array[int] = get_random_starting_points()
-	
-	print("Random Starting Points:\t%s" % [starting_points])
 
+	#region: modify the rooms
+	
+	# setup_boss_room()
+	# setup_random_room_weights()
+	# setup_room_types()
+	
+	#endregion
+	
+
+	#region: Dungeon debug prints
 	for j: int in starting_points:
 		var current_j: int = j
 		for i: int in floors - 1:
@@ -49,11 +57,14 @@ func generate_map() -> Array[Array]:
 		)
 
 		print("used rooms:\t%s" % [used_rooms])
-		
+
 	print("Random Starting Points:\t%s" % [starting_points])
+	#endregion
 
 	return map
 
+
+#region: Generate the map functions
 func generate_grid() -> Array[Array]:
 	var result: Array[Array] = []
 
@@ -125,7 +136,7 @@ func _would_cross_existing_path(i: int, j: int, room: Room) -> bool:
 			if next_room.column > room.column:
 				return true
 	return false
-
+#endregion
 # @export var tile_map_layer: TileMapLayer
 
 # func generate() -> void:

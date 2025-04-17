@@ -4,3 +4,4 @@
 
 [node name="Dungeon" type="Node"]
 script = ExtResource("1_wail4")
+paths = 3

@@ -30,10 +30,15 @@ static var map: Array[Array] = []
 
 func generate_map() -> Array[Array]:
 	map = generate_grid()
-	var random_starting_points: Array[int] = get_random_starting_points()
+	var starting_points: Array[int] = get_random_starting_points()
 	
-	print("Random Starting Points:\t%s" % [random_starting_points])
+	print("Random Starting Points:\t%s" % [starting_points])
 
+	for j: int in starting_points:
+		var current_j: int = j
+		for i: int in floors - 1:
+			current_j = setup_connection(i, current_j)
+		pass
 	
 	var i: int = 0
 	for _floor in map:
@@ -78,9 +83,36 @@ func get_random_starting_points() -> Array[int]:
 
 			if not y_coordinates.has(starting_point):
 				unique_points += 1
-				y_coordinates.append(starting_point)
+			y_coordinates.append(starting_point)
 
 	return y_coordinates
+
+func setup_connection(i: int, j: int) -> int:
+	var next_room: Room
+	var current_room: Room = map[i][j] as Room
+
+	
+	return 0
+
+func _would_cross_existing_path(i: int, j: int, room: Room) -> bool:
+	var right_neighbor: Room
+	var left_neighbor: Room
+
+	if j > 0:
+		left_neighbor = map[i][j]
+	
+	if j < rooms_per_floor - 1:
+		right_neighbor = map[i][j + 1]
+
+	if right_neighbor && room.column > j:
+		for next_room: Room in right_neighbor.next_rooms:
+			if next_room.column < room.column:
+				return true
+	if left_neighbor && room.column < j:
+		for next_room: Room in left_neighbor.next_rooms:
+			if next_room.column > room.column:
+				return true
+	return false
 
 # @export var tile_map_layer: TileMapLayer
 

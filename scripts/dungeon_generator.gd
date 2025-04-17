@@ -38,13 +38,19 @@ func generate_map() -> Array[Array]:
 		var current_j: int = j
 		for i: int in floors - 1:
 			current_j = setup_connection(i, current_j)
-		pass
 	
 	var i: int = 0
 	for _floor in map:
 		print("floor %s:\t%s" % [i, _floor])
 		i += 1
-		pass
+
+		var used_rooms = _floor.filter(
+			func(room: Room): return room.next_rooms.size() > 0
+		)
+
+		print("used rooms:\t%s" % [used_rooms])
+		
+	print("Random Starting Points:\t%s" % [starting_points])
 
 	return map
 
@@ -91,8 +97,14 @@ func setup_connection(i: int, j: int) -> int:
 	var next_room: Room
 	var current_room: Room = map[i][j] as Room
 
+	@warning_ignore("unassigned_variable")
+	while !next_room || _would_cross_existing_path(i, j, next_room):
+		var random_j: int = clampi(randi_range(j - 1, j + 1), 0, rooms_per_floor - 1)
+
+		next_room = map[i + 1][random_j]
 	
-	return 0
+	current_room.next_rooms.append(next_room)
+	return next_room.column
 
 func _would_cross_existing_path(i: int, j: int, room: Room) -> bool:
 	var right_neighbor: Room

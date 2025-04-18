@@ -5,3 +5,8 @@
 [node name="Dungeon" type="Node"]
 script = ExtResource("1_wail4")
 paths = 3
+room_type_weight = Dictionary[int, float]({
+1: 90.0,
+2: 15.0,
+3: 20.0
+})

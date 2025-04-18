@@ -12,9 +12,9 @@ class_name DungeonGenerator
 @export var distance: Vector2 = Vector2(25, 30)
 @export var room_offset: float = 5.0
 @export var room_type_weight: Dictionary[Room.Types, float] = {
-	Room.Types.BATTLE: 0.6,
-	Room.Types.SHOP: 0.3,
-	Room.Types.CAMPFIRE: 0.1,
+	Room.Types.BATTLE: 20,
+	Room.Types.SHOP: 30,
+	Room.Types.CAMPFIRE: 10,
 }
 
 var random_room_type_weights: Dictionary[Room.Types, float] = {
@@ -33,6 +33,10 @@ func generate_map() -> Array[Array]:
 	var starting_points: Array[int] = get_random_starting_points()
 
 	#region: modify the rooms
+	for j: int in starting_points:
+		var current_j: int = j
+		for i: int in floors - 1:
+			current_j = setup_connection(i, current_j)
 	
 	setup_boss_room()
 	setup_random_room_weights()
@@ -42,10 +46,6 @@ func generate_map() -> Array[Array]:
 	
 
 	#region: Dungeon debug prints
-	for j: int in starting_points:
-		var current_j: int = j
-		for i: int in floors - 1:
-			current_j = setup_connection(i, current_j)
 	
 	var i: int = 0
 	for _floor in map:
@@ -78,8 +78,12 @@ func setup_boss_room() -> void:
 
 func setup_random_room_weights() -> void:
 	random_room_type_weights[Room.Types.BATTLE] = room_type_weight[Room.Types.BATTLE]
-	random_room_type_weights[Room.Types.CAMPFIRE] = room_type_weight[Room.Types.CAMPFIRE] + room_type_weight[Room.Types.BATTLE]
-	random_room_type_weights[Room.Types.SHOP] = room_type_weight[Room.Types.CAMPFIRE] + \
+
+	random_room_type_weights[Room.Types.CAMPFIRE] = \
+		room_type_weight[Room.Types.CAMPFIRE] + room_type_weight[Room.Types.BATTLE]
+
+	random_room_type_weights[Room.Types.SHOP] = \
+		room_type_weight[Room.Types.CAMPFIRE] + \
 		room_type_weight[Room.Types.BATTLE] + \
 		room_type_weight[Room.Types.SHOP]
 	
@@ -94,7 +98,7 @@ func setup_room_types() -> void:
 	# Half floor
 	for room: Room in map[int(floors * 0.5)]:
 		if room.next_rooms.size() > 0:
-			room.type = Room.Types.SHOP
+			room.type = Room.Types.TREASURE
 
 	# Floor before boss
 	for room: Room in map[floors - 2]:
@@ -106,8 +110,8 @@ func setup_room_types() -> void:
 		for room: Room in _floor:
 			for next_room: Room in room.next_rooms:
 				if next_room.type == Room.Types.NONE:
+					print("next_room.type == Room.Types.NONE")
 					_set_room_randomly(next_room)
-					pass
 
 func _set_room_randomly(room_to_set: Room) -> void:
 	#region: Rules
@@ -134,7 +138,6 @@ func _set_room_randomly(room_to_set: Room) -> void:
 	
 	room_to_set.type = type_candidate
 
-
 func _room_has_parent_of_type(room: Room, type: Room.Types) -> bool:
 	var parents: Array[Room] = []
 
@@ -151,7 +154,7 @@ func _room_has_parent_of_type(room: Room, type: Room.Types) -> bool:
 			parents.append(parent_candidate)
 	
 	#Right Parent
-	if room.column < rooms_per_floor && room.row > 0:
+	if room.column < rooms_per_floor - 1 && room.row > 0:
 		var parent_candidate: Room = map[room.row - 1][room.column + 1] as Room
 		if parent_candidate.next_rooms.has(room):
 			parents.append(parent_candidate)
@@ -167,7 +170,7 @@ func _get_random_room_type_by_weight() -> Room.Types:
 	for type: Room.Types in random_room_type_weights:
 		if random_room_type_weights[type] > roll:
 			return type
-			
+
 	return Room.Types.BATTLE
 
 #region: Generate the map functions

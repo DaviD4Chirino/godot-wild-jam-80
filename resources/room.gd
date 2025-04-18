@@ -6,6 +6,7 @@ enum Types {
 	BATTLE,
 	SHOP,
 	CAMPFIRE,
+	TREASURE,
 	BOSS,
 }
 

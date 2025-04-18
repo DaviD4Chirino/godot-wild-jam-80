@@ -4,7 +4,6 @@ class_name DungeonGenerator
 
 @export_tool_button("Generate") var generate_button = generate_map
 
-
 @export var floors: int = 15
 @export var rooms_per_floor: int = 5
 @export var paths: int = 6

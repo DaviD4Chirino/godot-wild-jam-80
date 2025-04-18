@@ -21,10 +21,22 @@ func update() -> void:
 	if icons_per_type.has(data.type):
 		sprite_node.texture = icons_per_type[data.type]
 
-	#region: point the lines to the neighbors
-	
-	
-	#endregion
+	# #region: point the lines to the neighbors
+
+	# if !lines_node: return
+
+	# for child in lines_node.get_children():
+	# 	child.call_deferred("queue_free")
+
+	# for next_room: Room in data.next_rooms:
+	# 	if next_room.type == Room.Types.NONE: continue
+	# 	var new_line: Line2D = lines_template_node.duplicate()
+
+	# 	new_line.add_point(next_room.position)
+
+	# 	lines_node.call_deferred("add_child", new_line)
+		
+	# #endregion
 	
 
 #region: setters and getter

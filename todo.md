@@ -27,8 +27,9 @@ Controlled Caos
 			* Depends of the token to do what they want to do
 + [ ] Map Navigation
 	+ [ ] Walkable (Clickable) tiles
-		+ [ ] Enemy Placement
-		+ [ ] Boss 
+		+ [X] ~~*Enemy Tile Placement*~~ **2025-04-18** 
+		+ [X] ~~*Boss Tile Placement*~~ **2025-04-18**
+		+ [X] ~~*Shop Tile Placement*~~ **2025-04-18**
 		+ [ ] Next Level
 
 At this point we have a simple gameplay loop

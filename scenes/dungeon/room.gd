@@ -6,21 +6,25 @@ class_name RoomScene
 
 @export_group("Nodes")
 @export var sprite_node: Sprite2D
-@export var line_node: Line2D
+@export var lines_node: Node2D
+## instead of remaking new lines, it will duplicate this
+@export var lines_template_node: Line2D
 
 func _ready() -> void:
 	if !data: return
-
-	if !data.is_connected(&"changed", _on_data_changed):
-		data.changed.connect(_on_data_changed)
-
-	if icons_per_type.has(data.type):
-		sprite_node.texture = icons_per_type[data.type]
+	update()
 
 
 func update() -> void:
+	if !data.is_connected(&"changed", _on_data_changed):
+		data.changed.connect(_on_data_changed)
 	if icons_per_type.has(data.type):
 		sprite_node.texture = icons_per_type[data.type]
+
+	#region: point the lines to the neighbors
+	
+	
+	#endregion
 	
 
 #region: setters and getter
@@ -28,11 +32,7 @@ func update() -> void:
 func set_data(val: Room) -> void:
 	data = val
 	if !data: return
-	if !data.is_connected(&"changed", _on_data_changed):
-		data.changed.connect(_on_data_changed)
-
-	if icons_per_type.has(data.type):
-		sprite_node.texture = icons_per_type[data.type]
+	update()
 
 #endregion
 

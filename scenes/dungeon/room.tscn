@@ -50,3 +50,5 @@ width = 2.0
 
 [node name="Sprite" type="Sprite2D" parent="Visuals"]
 texture = ExtResource("5_gv7lr")
+
+[node name="Lines" type="Node2D" parent="Visuals"]

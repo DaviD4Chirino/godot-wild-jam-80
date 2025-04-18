@@ -23,7 +23,6 @@ metadata/_custom_type_script = "uid://cqv8h3m06f3f6"
 radius = 16.0
 
 [node name="Room" type="Area2D" node_paths=PackedStringArray("sprite_node", "line_node")]
-position = Vector2(38, 26)
 script = ExtResource("1_j3r5e")
 data = SubResource("Resource_eomb7")
 icons_per_type = Dictionary[int, Texture2D]({

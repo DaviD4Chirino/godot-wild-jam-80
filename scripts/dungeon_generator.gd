@@ -1,5 +1,5 @@
 @tool
-extends Node
+extends Node2D
 class_name DungeonGenerator
 
 @export_tool_button("Generate") var generate_button = generate_map
@@ -24,11 +24,18 @@ var random_room_type_weights: Dictionary[Room.Types, float] = {
 }
 var random_room_type_total_weight: float = 0.0
 
+var first_floor: Array[Room]:
+	get:
+		return map[0]
+
 ## Array of Arrays of Room
 static var map: Array[Array] = []
 
+signal generation_started
+signal generation_ended
 
 func generate_map() -> Array[Array]:
+	generation_started.emit()
 	map = generate_grid()
 	var starting_points: Array[int] = get_random_starting_points()
 
@@ -43,7 +50,6 @@ func generate_map() -> Array[Array]:
 	setup_room_types()
 	
 	#endregion
-	
 
 	#region: Dungeon debug prints
 	
@@ -60,7 +66,8 @@ func generate_map() -> Array[Array]:
 
 	print("Random Starting Points:\t%s" % [starting_points])
 	#endregion
-
+	
+	generation_ended.emit()
 	return map
 
 func setup_boss_room() -> void:
@@ -110,7 +117,6 @@ func setup_room_types() -> void:
 		for room: Room in _floor:
 			for next_room: Room in room.next_rooms:
 				if next_room.type == Room.Types.NONE:
-					print("next_room.type == Room.Types.NONE")
 					_set_room_randomly(next_room)
 
 func _set_room_randomly(room_to_set: Room) -> void:
@@ -185,7 +191,7 @@ func generate_grid() -> Array[Array]:
 			var new_room: Room = Room.new()
 			var offset: Vector2 = Vector2(randf(), randf()) * room_offset
 
-			new_room.position = Vector2(j * distance.x, i * distance.y) + offset
+			new_room.position = Vector2(j * distance.x, i * (-distance.y)) + offset
 
 			new_room.row = i
 			new_room.column = j

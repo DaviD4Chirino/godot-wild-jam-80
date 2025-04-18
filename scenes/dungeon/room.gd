@@ -1,5 +1,6 @@
 @tool
 extends Area2D
+class_name RoomScene
 @export var data: Room: set = set_data
 @export var icons_per_type: Dictionary[Room.Types, Texture2D] = {}
 
@@ -7,26 +8,39 @@ extends Area2D
 @export var sprite_node: Sprite2D
 @export var line_node: Line2D
 
-#region: setters and getter
-
 func _ready() -> void:
 	if !data: return
 
-	if data.is_connected(&"changed", on_data_changed): return
-	data.changed.connect(on_data_changed)
+	if !data.is_connected(&"changed", _on_data_changed):
+		data.changed.connect(_on_data_changed)
 
 	if icons_per_type.has(data.type):
 		sprite_node.texture = icons_per_type[data.type]
+
+
+func update() -> void:
+	if icons_per_type.has(data.type):
+		sprite_node.texture = icons_per_type[data.type]
+	
+
+#region: setters and getter
 
 func set_data(val: Room) -> void:
 	data = val
 	if !data: return
-	if !data.is_connected(&"changed", on_data_changed):
-		data.changed.connect(on_data_changed)
+	if !data.is_connected(&"changed", _on_data_changed):
+		data.changed.connect(_on_data_changed)
 
+	if icons_per_type.has(data.type):
+		sprite_node.texture = icons_per_type[data.type]
 
 #endregion
 
-func on_data_changed() -> void:
+
+#region: signal connections
+
+func _on_data_changed() -> void:
 	if icons_per_type.has(data.type):
 		sprite_node.texture = icons_per_type[data.type]
+
+#endregion

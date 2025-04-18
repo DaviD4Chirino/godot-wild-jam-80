@@ -18,6 +18,8 @@ enum Types {
 @export var next_rooms: Array[Room] = []
 @export var selected: bool = false
 
+func _init() -> void:
+	changed.emit()
 
 func _to_string() -> String:
 	return "%s (%s)" % [column, Types.keys()[type]]

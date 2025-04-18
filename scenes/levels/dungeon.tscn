@@ -1,12 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwlbhqcaj46dw"]
+[gd_scene load_steps=3 format=3 uid="uid://cwlbhqcaj46dw"]
 
-[ext_resource type="Script" uid="uid://dfhslcil80s15" path="res://scripts/dungeon_generator.gd" id="1_wail4"]
+[ext_resource type="Script" uid="uid://cb8qlcj2r1v1t" path="res://scenes/levels/dungeon.gd" id="1_wail4"]
+[ext_resource type="PackedScene" uid="uid://c07rhnvolquak" path="res://scenes/dungeon/room.tscn" id="2_srduu"]
 
-[node name="Dungeon" type="Node"]
+[node name="Dungeon" type="Node2D"]
 script = ExtResource("1_wail4")
-paths = 3
+room_scene = ExtResource("2_srduu")
+floors = 20
+paths = 5
+distance = Vector2(50, 30)
 room_type_weight = Dictionary[int, float]({
 1: 90.0,
 2: 15.0,
 3: 20.0
 })
+metadata/_custom_type_script = "uid://dfhslcil80s15"
+
+[connection signal="generation_ended" from="." to="." method="_on_generation_ended"]

@@ -16,6 +16,7 @@ enum Types {
 @export var column: int = -1
 @export var position: Vector2 = Vector2.ZERO
 @export var next_rooms: Array[Room] = []
+
 @export var selected: bool = false
 
 func _init() -> void:

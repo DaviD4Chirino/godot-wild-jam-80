@@ -4,7 +4,7 @@ class_name DungeonGenerator
 
 @export_tool_button("Generate") var generate_button = generate_map
 
-@export var floors: int = 15
+@export_range(5, 1000, 1) var floors: int = 15
 @export var rooms_per_floor: int = 5
 @export var paths: int = 6
 ## distance between points
@@ -25,7 +25,7 @@ var random_room_type_total_weight: float = 0.0
 
 var first_floor: Array[Room]:
 	get:
-		return map[0]
+		return map[0] if !map.is_empty() else []
 
 ## Array of Arrays of Room
 static var map: Array[Array] = []

@@ -29,6 +29,7 @@ var first_floor: Array[Room]:
 
 ## Array of Arrays of Room
 static var map: Array[Array] = []
+static var dimensions: Vector2 = Vector2.ZERO
 
 signal generation_started
 signal generation_ended
@@ -50,6 +51,8 @@ func generate_map() -> Array[Array]:
 	
 	#endregion
 
+	get_map_dimensions()
+
 	#region: Dungeon debug prints
 	
 	var i: int = 0
@@ -68,6 +71,8 @@ func generate_map() -> Array[Array]:
 	
 	generation_ended.emit()
 	return map
+
+#region: setup the rooms
 
 func setup_boss_room() -> void:
 	var middle: int = floori(rooms_per_floor * 0.5)
@@ -177,6 +182,16 @@ func _get_random_room_type_by_weight() -> Room.Types:
 			return type
 
 	return Room.Types.BATTLE
+
+#endregion
+
+func get_map_dimensions() -> void:
+	# the far right side of the first floor
+	var map_width: float = first_floor[rooms_per_floor - 1].position.x
+	# the position of the boss room
+	var map_height: float = map[floors - 1][floori(rooms_per_floor * 0.5)].position.y
+
+	dimensions = Vector2(map_width, map_height)
 
 #region: Generate the map functions
 

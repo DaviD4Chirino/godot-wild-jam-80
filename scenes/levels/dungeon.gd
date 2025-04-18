@@ -1,5 +1,6 @@
 @tool
 extends DungeonGenerator
+class_name DungeonMap
 
 @export_tool_button("Clear") var clear_button = clear_dungeon
 
@@ -11,6 +12,7 @@ extends DungeonGenerator
 @export var lines_container: Node2D
 @export var camera_node: Camera2D
 
+var rooms_scenes: Array[Array] = []
 
 func _ready() -> void:
 	generate_map()
@@ -18,19 +20,31 @@ func _ready() -> void:
 func _on_generation_ended() -> void:
 	generate_rooms()
 	generate_lines()
-	camera_node.position = first_floor[0].position
+
+	camera_node.position.x = dimensions.x / 2
+
+	for _room_scene: RoomScene in rooms_scenes[0]:
+		_room_scene.enabled = true
+		
 
 func generate_rooms() -> void:
 	free_children(rooms_container)
+	rooms_scenes.clear()
 
 	for _floor: Array[Room] in map:
+		var room_scenes_in_floor: Array[RoomScene] = []
+
 		for room: Room in _floor:
 			if room.type == Room.Types.NONE: continue
-
+			
 			var new_room_scene: RoomScene = room_scene.instantiate()
 			new_room_scene.data = room
 			new_room_scene.position = room.position
+			room_scenes_in_floor.append(new_room_scene)
 			rooms_container.call_deferred("add_child", new_room_scene)
+		
+		rooms_scenes.append(room_scenes_in_floor)
+	
 
 func generate_lines() -> void:
 	free_children(lines_container)

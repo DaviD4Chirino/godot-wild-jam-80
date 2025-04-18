@@ -31,3 +31,7 @@ func pause() -> void:
 func stop() -> void:
 	if !enabled: return
 	animation_player.stop()
+
+func reset() -> void:
+	if !animation_player.has_animation("RESET"): return
+	animation_player.play("RESET")

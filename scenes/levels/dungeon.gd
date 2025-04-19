@@ -76,11 +76,15 @@ func climb_floor(_floor: int) -> void:
 	# And enable only the rooms in this floor
 	for _room_scene: RoomScene in current_floor:
 		_room_scene.enabled = true
+
+		# Connect the selected signal
+		if !_room_scene.is_connected(&"data_was_selected", _on_room_selected):
+			_room_scene.data_was_selected.connect(_on_room_selected.bind(_room_scene))
+
+	camera_node.position.y = current_floor[0].position.y
 	
 	floor_climbed.emit(clamped_floor)
 
-		# Connect the selected signal
-		# _room_scene.data_was_selected.connect(_
 
 func clear_dungeon() -> void:
 	free_children(lines_container)
@@ -89,6 +93,16 @@ func clear_dungeon() -> void:
 func free_children(node: Node = self) -> void:
 	for child in node.get_children():
 		child.queue_free()
+
+#region: Signal connections
+
+func _on_room_selected(room: RoomScene) -> void:
+	climb_floor(room.data.row + 1)
+	room.data_was_selected.disconnect(_on_room_selected)
+
+
+#endregion
+
 
 #* for the path:
 	# all tiles disabled by default

@@ -14,6 +14,11 @@ class_name DungeonMap
 
 var rooms_scenes: Array[Array] = []
 
+#region: signals
+
+signal floor_climbed(_floor: int)
+#endregion
+
 func _ready() -> void:
 	generate_map()
 
@@ -23,10 +28,9 @@ func _on_generation_ended() -> void:
 
 	camera_node.position.x = dimensions.x / 2
 
-	for _room_scene: RoomScene in rooms_scenes[0]:
-		_room_scene.enabled = true
+	climb_floor(0)
 		
-
+		
 func generate_rooms() -> void:
 	free_children(rooms_container)
 	rooms_scenes.clear()
@@ -45,7 +49,6 @@ func generate_rooms() -> void:
 		
 		rooms_scenes.append(room_scenes_in_floor)
 	
-
 func generate_lines() -> void:
 	free_children(lines_container)
 
@@ -61,6 +64,23 @@ func generate_lines() -> void:
 				line.z_index = -1
 				
 				lines_container.call_deferred("add_child", line)
+
+func climb_floor(_floor: int) -> void:
+	var clamped_floor: int = clampi(_floor, 0, floors - 1)
+	var current_floor: Array[RoomScene] = rooms_scenes[clamped_floor]
+
+	# Disable the previous floor
+	for room: RoomScene in rooms_scenes[clampi(_floor - 1, 0, floors - 1)]:
+		room.enabled = false
+
+	# And enable only the rooms in this floor
+	for _room_scene: RoomScene in current_floor:
+		_room_scene.enabled = true
+	
+	floor_climbed.emit(clamped_floor)
+
+		# Connect the selected signal
+		# _room_scene.data_was_selected.connect(_
 
 func clear_dungeon() -> void:
 	free_children(lines_container)

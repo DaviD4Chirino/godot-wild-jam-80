@@ -13,7 +13,7 @@
 [sub_resource type="Resource" id="Resource_gv7lr"]
 script = ExtResource("2_eomb7")
 type = 0
-row = -1
+row = null
 column = -1
 position = Vector2(10, 0)
 next_rooms = Array[ExtResource("2_eomb7")]([])
@@ -23,7 +23,7 @@ metadata/_custom_type_script = "uid://cqv8h3m06f3f6"
 [sub_resource type="Resource" id="Resource_eomb7"]
 script = ExtResource("2_eomb7")
 type = 1
-row = -1
+row = null
 column = -1
 position = Vector2(0, 0)
 next_rooms = Array[ExtResource("2_eomb7")]([SubResource("Resource_gv7lr")])
@@ -187,6 +187,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_uby5c")
 }
 
+[connection signal="data_was_selected" from="." to="PlayShowSelected" method="play_animation"]
+[connection signal="data_was_unselected" from="." to="PlayPulsate" method="play_backwards"]
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="was_disabled" from="." to="PlayPulsate" method="stop"]
 [connection signal="was_enabled" from="." to="PlayPulsate" method="play_animation"]

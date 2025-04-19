@@ -3,6 +3,7 @@ extends DungeonGenerator
 class_name DungeonMap
 
 @export_tool_button("Clear") var clear_button = clear_dungeon
+@export var generate_on_ready: bool = false
 
 @export_group("Scenes")
 @export var room_scene: PackedScene
@@ -20,7 +21,8 @@ signal floor_climbed(_floor: int)
 #endregion
 
 func _ready() -> void:
-	generate_map()
+	if generate_on_ready:
+		generate_map()
 
 func _on_generation_ended() -> void:
 	generate_rooms()

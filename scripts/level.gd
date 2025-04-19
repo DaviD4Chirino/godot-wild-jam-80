@@ -22,11 +22,20 @@ func _ready() -> void:
 	SignalBus.turn_started.connect(_on_turn_started)
 	SignalBus.turn_ended.connect(_on_turn_ended)
 
-	var e_pos = enemy_positions_node.get_children()
+	# var e_pos = enemy_positions_node.get_children()
+
+	var screen_size: Vector2 = get_viewport_rect().size
+	# var section_x: float = screen_size.x / enemies.size()
+
+	# var pos_x = ((screen_size.x * 0.8) / (enemies.size() + 1))
+	# var remainder = (screen_size.x / enemies.size()) - pos_x
 
 	for i: int in enemies.size():
 		var new_enemy = enemies[i].instantiate()
-		new_enemy.position = e_pos[i].position
+		var lerp_value = lerpf(screen_size.x * 0.2, screen_size.x * 0.8, (1.0 / (enemies.size() - 1)) * (i))
+		new_enemy.position.y = screen_size.y / 2
+		new_enemy.position.x = lerp_value # + lerp_value / 2
+
 		turn_queue.add_child(new_enemy)
 
 	await get_tree().create_timer(0.5).timeout

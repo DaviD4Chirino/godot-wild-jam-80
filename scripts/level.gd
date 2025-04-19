@@ -32,10 +32,13 @@ func _ready() -> void:
 
 	for i: int in enemies.size():
 		var new_enemy = enemies[i].instantiate()
-		var lerp_value = lerpf(screen_size.x * 0.2, screen_size.x * 0.8, (1.0 / (enemies.size() - 1)) * (i))
-		new_enemy.position.y = screen_size.y / 2
-		new_enemy.position.x = lerp_value # + lerp_value / 2
-
+		var lerp_value = lerpf(
+			screen_size.x * 0.15,
+			screen_size.x * 0.85,
+			(1.0 / (enemies.size() - 1)) * (i)
+		)
+		new_enemy.position.y = (screen_size.y / 2) + 10 if i % 2 > 0 else (screen_size.y / 2) - 10
+		new_enemy.position.x = lerp_value
 		turn_queue.add_child(new_enemy)
 
 	await get_tree().create_timer(0.5).timeout

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3apwmbf3ipfn"]
+
+[ext_resource type="Script" uid="uid://wmt8qg3gf1be" path="res://classes/MapLine.gd" id="1_empdp"]
+
+[node name="MapLine" type="Line2D"]
+script = ExtResource("1_empdp")

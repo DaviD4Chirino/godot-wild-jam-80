@@ -18,3 +18,20 @@ func _enter_tree() -> void:
 func play_animation() -> void:
 	if !enabled: return
 	animation_player.play(animation_to_play)
+
+func play_backwards() -> void:
+	if !enabled: return
+	animation_player.play_backwards(animation_to_play)
+	
+	
+func pause() -> void:
+	if !enabled: return
+	animation_player.pause()
+
+func stop() -> void:
+	if !enabled: return
+	animation_player.stop()
+
+func reset() -> void:
+	if !animation_player.has_animation("RESET"): return
+	animation_player.play("RESET")

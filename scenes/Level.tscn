@@ -3,14 +3,14 @@
 [ext_resource type="Script" uid="uid://ci1l4cvpsnf2x" path="res://scripts/level.gd" id="1_kl8ac"]
 [ext_resource type="Script" uid="uid://dyvy0tsbhiii1" path="res://components/GameState.gd" id="2_ofymm"]
 [ext_resource type="PackedScene" uid="uid://ds4whqb8apmwn" path="res://scenes/screens/pause_menu.tscn" id="2_xx3c8"]
-[ext_resource type="PackedScene" uid="uid://c6286t6mlemok" path="res://scenes/turn system/turn_queue.tscn" id="4_dke22"]
+[ext_resource type="Script" uid="uid://cu6sswp16nakc" path="res://classes/turn system/TurnQueue.gd" id="4_2eouu"]
 [ext_resource type="Script" uid="uid://dr2kj4hvy2dkm" path="res://classes/custom/CustomButton.gd" id="4_kl8ac"]
 [ext_resource type="PackedScene" uid="uid://c3ssvjrslki2o" path="res://scenes/characters/enemy/enemy.tscn" id="5_4qegb"]
 [ext_resource type="PackedScene" uid="uid://drkxfntv1x338" path="res://scenes/player/player.tscn" id="5_faw0r"]
 [ext_resource type="Texture2D" uid="uid://dbeecasi0psfg" path="res://assets/icons/cancel.png" id="7_2eouu"]
 [ext_resource type="PackedScene" uid="uid://ceulqibd47nbx" path="res://scenes/back_drop.tscn" id="8_faw0r"]
 
-[node name="Level" type="Control" node_paths=PackedStringArray("node_roll_button", "node_controls", "node_turn_timer", "turn_queue")]
+[node name="Level" type="Control" node_paths=PackedStringArray("enemy_positions_node", "node_roll_button", "node_controls", "node_turn_timer", "turn_queue")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,10 +19,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_kl8ac")
+enemies = Array[PackedScene]([ExtResource("5_4qegb"), ExtResource("5_4qegb"), ExtResource("5_4qegb"), ExtResource("5_4qegb"), ExtResource("5_4qegb")])
+enemy_positions_node = NodePath("EnemyPositions")
 node_roll_button = NodePath("VBoxContainer/Controls/Control/RollButton")
 node_controls = NodePath("VBoxContainer/Controls")
 node_turn_timer = NodePath("TurnTimer")
-turn_queue = NodePath("VBoxContainer/Characters/TurnQueue")
+turn_queue = NodePath("VBoxContainer/TurnQueue")
 metadata/_custom_type_script = "uid://d083hnak2dc"
 
 [node name="GameState" type="Node" parent="." node_paths=PackedStringArray("pause_menu")]
@@ -46,25 +48,13 @@ mouse_filter = 2
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Characters" type="Control" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
+[node name="TurnQueue" type="Node2D" parent="VBoxContainer"]
+physics_interpolation_mode = 2
+script = ExtResource("4_2eouu")
+metadata/_custom_type_script = "uid://cu6sswp16nakc"
 
-[node name="TurnQueue" parent="VBoxContainer/Characters" instance=ExtResource("4_dke22")]
-
-[node name="Player" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_faw0r")]
+[node name="Player" parent="VBoxContainer/TurnQueue" instance=ExtResource("5_faw0r")]
 visible = false
-position = Vector2(0, -4)
-
-[node name="Enemy" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
-position = Vector2(49, 41)
-
-[node name="Enemy2" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
-position = Vector2(137.059, 64.4376)
-
-[node name="Enemy3" parent="VBoxContainer/Characters/TurnQueue" instance=ExtResource("5_4qegb")]
-position = Vector2(232, 47)
 
 [node name="Controls" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -93,9 +83,9 @@ metadata/_custom_type_script = "uid://dr2kj4hvy2dkm"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CustomButton" type="Button" parent="VBoxContainer/Controls/Control"]
+[node name="AddEnemyButton" type="Button" parent="VBoxContainer/Controls/Control"]
 layout_mode = 2
-text = "Options"
+text = "Add Enemy"
 script = ExtResource("4_kl8ac")
 metadata/_custom_type_script = "uid://dr2kj4hvy2dkm"
 
@@ -123,14 +113,31 @@ metadata/_edit_use_anchors_ = true
 [node name="TurnTimer" type="Timer" parent="."]
 process_callback = 0
 
-[connection signal="roll_end" from="VBoxContainer/Characters/TurnQueue/Player" to="Dismiss" method="show"]
-[connection signal="roll_start" from="VBoxContainer/Characters/TurnQueue/Player" to="Dismiss" method="hide"]
-[connection signal="turn_ended" from="VBoxContainer/Characters/TurnQueue/Player" to="BackDrop" method="hide"]
-[connection signal="turn_ended" from="VBoxContainer/Characters/TurnQueue/Player" to="Dismiss" method="hide"]
-[connection signal="button_up" from="VBoxContainer/Controls/Control/RollButton" to="VBoxContainer/Characters/TurnQueue/Player" method="show"]
+[node name="EnemyPositions" type="Node2D" parent="."]
+
+[node name="Pos1" type="Marker2D" parent="EnemyPositions"]
+position = Vector2(155, 90)
+
+[node name="Pos2" type="Marker2D" parent="EnemyPositions"]
+position = Vector2(100, 115)
+
+[node name="Pos4" type="Marker2D" parent="EnemyPositions"]
+position = Vector2(215, 115)
+
+[node name="Pos3" type="Marker2D" parent="EnemyPositions"]
+position = Vector2(55, 75)
+
+[node name="Pos5" type="Marker2D" parent="EnemyPositions"]
+position = Vector2(275, 75)
+
+[connection signal="roll_end" from="VBoxContainer/TurnQueue/Player" to="Dismiss" method="show"]
+[connection signal="roll_start" from="VBoxContainer/TurnQueue/Player" to="Dismiss" method="hide"]
+[connection signal="turn_ended" from="VBoxContainer/TurnQueue/Player" to="BackDrop" method="hide"]
+[connection signal="turn_ended" from="VBoxContainer/TurnQueue/Player" to="Dismiss" method="hide"]
+[connection signal="button_up" from="VBoxContainer/Controls/Control/RollButton" to="VBoxContainer/TurnQueue/Player" method="show"]
 [connection signal="button_up" from="VBoxContainer/Controls/Control/RollButton" to="BackDrop" method="show"]
 [connection signal="button_up" from="VBoxContainer/Controls/Control/RollButton" to="Dismiss" method="show"]
-[connection signal="pressed" from="Dismiss" to="VBoxContainer/Characters/TurnQueue/Player" method="hide"]
+[connection signal="pressed" from="Dismiss" to="VBoxContainer/TurnQueue/Player" method="hide"]
 [connection signal="pressed" from="Dismiss" to="BackDrop" method="hide"]
 [connection signal="pressed" from="Dismiss" to="Dismiss" method="hide"]
 [connection signal="timeout" from="TurnTimer" to="." method="_on_turn_timer_timeout"]

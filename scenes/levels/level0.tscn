@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://v7gcreyhby7"]
+
+[ext_resource type="Script" uid="uid://d083hnak2dc" path="res://classes/Level.gd" id="1_o8kyb"]
+[ext_resource type="Script" uid="uid://cu6sswp16nakc" path="res://classes/turn system/TurnQueue.gd" id="2_cperm"]
+[ext_resource type="PackedScene" uid="uid://drkxfntv1x338" path="res://scenes/player/player.tscn" id="3_hghvf"]
+
+[node name="Level0" type="Control" node_paths=PackedStringArray("turn_queue")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o8kyb")
+turn_queue = NodePath("MarginContainer/VBoxContainer/TurnQueue")
+metadata/_custom_type_script = "uid://d083hnak2dc"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PlayerStatus" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TurnQueue" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("2_cperm")
+metadata/_custom_type_script = "uid://cu6sswp16nakc"
+
+[node name="Player" parent="MarginContainer/VBoxContainer/TurnQueue" instance=ExtResource("3_hghvf")]
+visible = false
+
+[node name="Buttons" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+text = "Roll"
+
+[node name="Log" type="PanelContainer" parent="MarginContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3

@@ -3,7 +3,9 @@ extends Node2D
 class_name DungeonGenerator
 
 @export_tool_button("Generate") var generate_button = generate_map
+@export var random_seed: String = ""
 
+@export_group("Config")
 @export_range(5, 1000, 1) var floors: int = 15
 @export var rooms_per_floor: int = 5
 @export var paths: int = 6
@@ -35,6 +37,9 @@ signal generation_started
 signal generation_ended
 
 func generate_map() -> Array[Array]:
+	if random_seed:
+		seed(random_seed.hash())
+		
 	generation_started.emit()
 	map = generate_grid()
 	var starting_points: Array[int] = get_random_starting_points()

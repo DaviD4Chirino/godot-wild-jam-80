@@ -65,21 +65,30 @@ func generate_lines() -> void:
 				
 				lines_container.call_deferred("add_child", line)
 
-func climb_floor(_floor: int) -> void:
+func climb_floor(_floor: int, previous_selected_room: RoomScene = null) -> void:
 	var clamped_floor: int = clampi(_floor, 0, floors - 1)
 	var current_floor: Array[RoomScene] = rooms_scenes[clamped_floor]
+
+	var connect_signal = func(_room_scene: RoomScene):
+		if !_room_scene.is_connected(&"data_was_selected", _on_room_selected):
+			_room_scene.data_was_selected.connect(_on_room_selected.bind(_room_scene))
 
 	# Disable the previous floor
 	for room: RoomScene in rooms_scenes[clampi(_floor - 1, 0, floors - 1)]:
 		room.enabled = false
+	
+	# enable only the next rooms from the previous_selected_room
+	if previous_selected_room:
+		for _room_scene: RoomScene in current_floor:
+			if previous_selected_room.data.next_rooms.has(_room_scene.data):
+				_room_scene.enabled = true
+				connect_signal.call(_room_scene)
+	else:
+		# And enable only the rooms in this floor
+		for _room_scene: RoomScene in current_floor:
+			_room_scene.enabled = true
 
-	# And enable only the rooms in this floor
-	for _room_scene: RoomScene in current_floor:
-		_room_scene.enabled = true
-
-		# Connect the selected signal
-		if !_room_scene.is_connected(&"data_was_selected", _on_room_selected):
-			_room_scene.data_was_selected.connect(_on_room_selected.bind(_room_scene))
+			connect_signal.call(_room_scene)
 
 	camera_node.position.y = current_floor[0].position.y
 	
@@ -97,7 +106,7 @@ func free_children(node: Node = self) -> void:
 #region: Signal connections
 
 func _on_room_selected(room: RoomScene) -> void:
-	climb_floor(room.data.row + 1)
+	climb_floor(room.data.row + 1, room)
 	room.data_was_selected.disconnect(_on_room_selected)
 
 

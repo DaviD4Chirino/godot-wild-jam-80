@@ -14,6 +14,7 @@ func initialize() -> void:
 
 func play_turn() -> void:
 	active_character.start_turn()
+	print("is dead %s" % active_character.is_dead)
 	SignalBus.turn_started.emit(active_character)
 	await active_character.turn_ended
 	var new_index = (active_character.get_index() + 1) % get_child_count()

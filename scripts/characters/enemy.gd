@@ -12,7 +12,6 @@ static var active_enemies: Array[Enemy] = []
 var mouse_in: bool = false
 var shock_time: float = 0.0
 var shock_active: bool = false
-var dead: bool = false
 signal selected
 
 func _ready() -> void:
@@ -66,8 +65,12 @@ func _on_health_component_hp_changed(health: int) -> void:
 	node_progress_bar.value = health
 
 
-func _on_health_component_died() -> void:
+func die() -> void:
+	dead = true
 	died.emit()
+	print("ENEMY DEAD")
 	active_enemies.erase(self)
+	await get_tree().physics_frame
 	end_turn()
-	call_deferred("queue_free")
+	await get_tree().physics_frame
+	queue_free()

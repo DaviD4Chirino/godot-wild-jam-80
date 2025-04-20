@@ -4,7 +4,7 @@ extends Node2D
 class_name Character
 
 @export var hp: HealthComponent = HealthComponent.new()
-
+var dead: bool = false
 ## Emitted externally by TurnQueue
 signal turn_started
 signal turn_ended

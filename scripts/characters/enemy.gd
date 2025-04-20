@@ -2,6 +2,7 @@ extends Character
 class_name Enemy
 
 static var target_enemy: Enemy
+static var active_enemies: Array[Enemy] = []
 
 @export var abilities: Array[Ability]
 @export_group("Nodes", "node_")
@@ -11,14 +12,18 @@ static var target_enemy: Enemy
 var mouse_in: bool = false
 var shock_time: float = 0.0
 var shock_active: bool = false
+var dead: bool = false
+signal selected
 
 func _ready() -> void:
-	SignalBus.enemy_selected.connect(_on_enemy_selected)
 	node_progress_bar.max_value = hp.max_health
 	node_progress_bar.value = hp.max_health
 	hp.changed.connect(_on_health_component_hp_changed)
 
+	active_enemies.append(self)
+
 func play_turn():
+	if dead: return
 	super ()
 	# So it takes a bit to finish animations and stuff
 	await get_tree().create_timer(0.5).timeout
@@ -32,9 +37,16 @@ func _input(event: InputEvent) -> void:
 			target_self()
 
 func target_self() -> void:
+	if dead: return
+	for active_enemy in active_enemies:
+		active_enemy.node_outline_color_rect.hide()
+
 	if TurnQueue.active_character is not Player: return
 	target_enemy = self
-	SignalBus.enemy_selected.emit(target_enemy)
+	selected.emit()
+
+	node_outline_color_rect.show()
+
 
 func set_mouse_in_true() -> void:
 	mouse_in = true
@@ -43,10 +55,19 @@ func set_mouse_in_false() -> void:
 	mouse_in = false
 
 func _on_enemy_selected(enemy: Enemy) -> void:
+	if dead: return
 	if enemy == self:
 		node_outline_color_rect.show()
 		return
 	node_outline_color_rect.hide()
 
 func _on_health_component_hp_changed(health: int) -> void:
+	if dead: return
 	node_progress_bar.value = health
+
+
+func _on_health_component_died() -> void:
+	died.emit()
+	active_enemies.erase(self)
+	end_turn()
+	call_deferred("queue_free")

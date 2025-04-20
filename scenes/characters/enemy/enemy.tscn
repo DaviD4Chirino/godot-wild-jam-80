@@ -126,7 +126,7 @@ shape = SubResource("RectangleShape2D_pwjhn")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_pu3g4")
-max_health = 100
+max_health = 10
 metadata/_custom_type_script = "uid://dw5rivrr5yh8f"
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
@@ -175,3 +175,4 @@ metadata/_custom_type_script = "uid://bdiopgoa8tffj"
 [connection signal="mouse_entered" from="Clickable" to="." method="set_mouse_in_true"]
 [connection signal="mouse_exited" from="Clickable" to="." method="set_mouse_in_false"]
 [connection signal="damaged" from="HealthComponent" to="PlayTakeDamageAnimation" method="play_animation" unbinds=1]
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

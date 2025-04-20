@@ -20,7 +20,8 @@ func _ready():
 	owner.set_meta(self.name, self)
 
 func _exit_tree() -> void:
-	owner.remove_meta(self.name)
+	if owner:
+		owner.remove_meta(self.name)
 
 func enable() -> void:
 	self.enabled = true

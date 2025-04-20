@@ -29,6 +29,7 @@ var first_floor: Array[Room]:
 	get:
 		return map[0] if !map.is_empty() else []
 
+
 ## Array of Arrays of Room
 static var map: Array[Array] = []
 static var dimensions: Vector2 = Vector2.ZERO
@@ -37,6 +38,11 @@ signal generation_started
 signal generation_ended
 
 func generate_map() -> Array[Array]:
+	# If we initiate the dungeon with an already made map, we use that instead
+	if !map.is_empty() && !Engine.is_editor_hint():
+		get_map_dimensions()
+		return map
+
 	if random_seed:
 		seed(random_seed.hash())
 		

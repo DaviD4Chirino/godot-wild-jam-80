@@ -183,11 +183,12 @@ bake_internal = 64
 __follow_timeline = false
 metadata/_custom_type_script = "uid://buwj6deqq8w2v"
 
-[node name="Enemy" type="Node2D" node_paths=PackedStringArray("node_outline_color_rect", "node_progress_bar", "hp") groups=["enemy"]]
+[node name="Enemy" type="Node2D" node_paths=PackedStringArray("node_outline_color_rect", "node_progress_bar", "animation_player", "hp") groups=["enemy"]]
 script = ExtResource("1_pwjhn")
 abilities = Array[ExtResource("2_uqhpy")]([SubResource("Resource_i0x2j")])
 node_outline_color_rect = NodePath("SelectedOutline")
 node_progress_bar = NodePath("ProgressBar")
+animation_player = NodePath("Actions")
 hp = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://jqitimhfjh1p"
 

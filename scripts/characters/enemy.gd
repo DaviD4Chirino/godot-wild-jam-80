@@ -8,6 +8,7 @@ static var active_enemies: Array[Enemy] = []
 @export_group("Nodes", "node_")
 @export var node_outline_color_rect: ColorRect
 @export var node_progress_bar: ProgressBar
+@export var animation_player: AnimationPlayer  
 
 var mouse_in: bool = false
 var shock_time: float = 0.0
@@ -22,8 +23,13 @@ func _ready() -> void:
 	active_enemies.append(self)
 
 func play_turn():
-	if dead: return
+	if animation_player.is_playing():
+		await animation_player.animation_finished
 	super ()
+	if dead: 
+		end_turn()
+		return
+	
 	# So it takes a bit to finish animations and stuff
 	await get_tree().create_timer(0.5).timeout
 	abilities.pick_random().trigger(self, g.player)
@@ -66,11 +72,12 @@ func _on_health_component_hp_changed(health: int) -> void:
 
 
 func die() -> void:
+	if dead: return
 	dead = true
 	died.emit()
 	print("ENEMY DEAD")
 	active_enemies.erase(self)
-	await get_tree().physics_frame
 	end_turn()
-	await get_tree().physics_frame
 	queue_free()
+
+

@@ -13,8 +13,10 @@ class_name BattleEncounter
 func _ready() -> void:
 	super ()
 	assert(turn_queue, "You need a TurnQueue")
+	spawn_enemies()
 	node_roll_button.disabled = true
 	node_controls.hide()
+	
 	turn_queue.initialize()
 
 	if turn_queue.active_character is not Player:
@@ -25,7 +27,6 @@ func _ready() -> void:
 	SignalBus.turn_ended.connect(_on_turn_ended)
 
 	# var e_pos = enemy_positions_node.get_children()
-	spawn_enemies()
 	
 	await get_tree().create_timer(0.5).timeout
 	turn_queue.play_turn()

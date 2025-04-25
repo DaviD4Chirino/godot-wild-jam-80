@@ -8,8 +8,6 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i0x2j"]
 resource_local_to_scene = true
-shader = ExtResource("5_fwk46")
-shader_parameter/cutoff = 1.0
 
 [node name="EnemySprite" type="Sprite2D"]
 material = SubResource("ShaderMaterial_i0x2j")

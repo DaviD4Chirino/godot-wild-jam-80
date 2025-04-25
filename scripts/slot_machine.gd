@@ -52,7 +52,6 @@ func _on_rolled_column(column_id: int, winner_token: Token) -> void:
 func pull_lever() -> void:
 	if lever_node.is_playing(): return
 	
-
 	lever_node.play("rolling")
 	roll_start.emit()
 	if columns_node:
@@ -66,8 +65,11 @@ func pull_lever() -> void:
 		await get_tree().create_timer(0.3).timeout
 
 	lever_node.play("default")
+
 	manage_end_of_roll(winning_tokens)
+
 	roll_end.emit()
+	
 	SignalBus.rolling_ended.emit(winning_tokens)
 	global_multiplier = 1
 

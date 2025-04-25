@@ -34,6 +34,7 @@ func _ready() -> void:
 
 func spawn_enemies() -> void:
 	var screen_size: Vector2 = get_viewport_rect().size
+	var half_screen: Vector2 = (screen_size * 0.5)
 
 	for i: int in enemies.size():
 		var new_enemy: Enemy = enemies[i].instantiate()
@@ -42,7 +43,7 @@ func spawn_enemies() -> void:
 			screen_size.x * 0.85,
 			(1.0 / (enemies.size() - 1)) * (i)
 		)
-		new_enemy.position.y = (screen_size.y / 2) + 10 if i % 2 > 0 else (screen_size.y / 2) - 10
+		new_enemy.position.y = half_screen.y + 10 if i % 2 > 0 else half_screen.y - 10
 		new_enemy.position.x = lerp_value
 		
 		new_enemy.selected.connect(_on_enemy_selected)

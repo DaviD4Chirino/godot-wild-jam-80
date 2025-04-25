@@ -25,6 +25,9 @@ func initialize() -> void:
 
 func play_turn() -> void:
 	await get_tree().physics_frame
+	if get_tree().get_nodes_in_group("enemy").size() <= 0:
+		print("COMBAT ENDED")
+		return
 	print("Playing turn")
 	active_character.start_turn()
 	SignalBus.turn_started.emit(active_character)

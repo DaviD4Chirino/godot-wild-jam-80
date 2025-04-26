@@ -46,7 +46,7 @@ bus = 3
 script = ExtResource("3_07tmx")
 sounds = Array[ExtResource("4_857fn")]([SubResource("Resource_re43u")])
 
-[node name="AudioConfig" type="VBoxContainer"]
+[node name="AudioConfig" type="VBoxContainer" node_paths=PackedStringArray("audio_sliders")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -55,47 +55,58 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_6254l")
+audio_sliders = [NodePath("Master-Music/Master"), NodePath("Master-Music/Music"), NodePath("SFX-UI/SFX"), NodePath("SFX-UI/UI")]
 
-[node name="Master" parent="." instance=ExtResource("2_lftpm")]
+[node name="Master-Music" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="AudioBusName" parent="Master/HBoxContainer" index="0"]
+[node name="Master" parent="Master-Music" instance=ExtResource("2_lftpm")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AudioBusName" parent="Master-Music/Master/HBoxContainer" index="0"]
 text = "Master:"
 
-[node name="VolumeControl" parent="Master" index="1"]
+[node name="VolumeControl" parent="Master-Music/Master" index="1"]
 audio_streams = SubResource("Resource_pwc2s")
 
-[node name="Music" parent="." instance=ExtResource("2_lftpm")]
+[node name="Music" parent="Master-Music" instance=ExtResource("2_lftpm")]
 layout_mode = 2
+size_flags_horizontal = 3
 bus = 1
 
-[node name="AudioBusName" parent="Music/HBoxContainer" index="0"]
+[node name="AudioBusName" parent="Master-Music/Music/HBoxContainer" index="0"]
 text = "Music:"
 
-[node name="VolumeControl" parent="Music" index="1"]
+[node name="VolumeControl" parent="Master-Music/Music" index="1"]
 audio_streams = SubResource("Resource_awx3l")
 
-[node name="SFX" parent="." instance=ExtResource("2_lftpm")]
+[node name="SFX-UI" type="HBoxContainer" parent="."]
 layout_mode = 2
+
+[node name="SFX" parent="SFX-UI" instance=ExtResource("2_lftpm")]
+layout_mode = 2
+size_flags_horizontal = 3
 bus = 2
 
-[node name="AudioBusName" parent="SFX/HBoxContainer" index="0"]
+[node name="AudioBusName" parent="SFX-UI/SFX/HBoxContainer" index="0"]
 text = "Sfx:"
 
-[node name="VolumeControl" parent="SFX" index="1"]
+[node name="VolumeControl" parent="SFX-UI/SFX" index="1"]
 audio_streams = SubResource("Resource_tj2jb")
 
-[node name="UI" parent="." instance=ExtResource("2_lftpm")]
+[node name="UI" parent="SFX-UI" instance=ExtResource("2_lftpm")]
 layout_mode = 2
+size_flags_horizontal = 3
 bus = 3
 
-[node name="AudioBusName" parent="UI/HBoxContainer" index="0"]
+[node name="AudioBusName" parent="SFX-UI/UI/HBoxContainer" index="0"]
 text = "Ui:"
 
-[node name="VolumeControl" parent="UI" index="1"]
+[node name="VolumeControl" parent="SFX-UI/UI" index="1"]
 audio_streams = SubResource("Resource_fs02l")
 
-[editable path="Master"]
-[editable path="Music"]
-[editable path="SFX"]
-[editable path="UI"]
+[editable path="Master-Music/Master"]
+[editable path="Master-Music/Music"]
+[editable path="SFX-UI/SFX"]
+[editable path="SFX-UI/UI"]

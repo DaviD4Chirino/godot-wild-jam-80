@@ -1,0 +1,22 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://ko8d2a833fwq"]
+
+[ext_resource type="FontFile" uid="uid://b2lyikfk212df" path="res://assets/fonts/monogram/ttf/monogram.ttf" id="1_cjywv"]
+[ext_resource type="FontFile" uid="uid://0rcjx737iq5u" path="res://assets/fonts/monogram/ttf/monogram-extended.ttf" id="2_2fwrq"]
+[ext_resource type="FontFile" uid="uid://dus5cnwla2cqe" path="res://assets/fonts/cayetano/CAYETANO.ttf" id="3_2fwrq"]
+[ext_resource type="StyleBox" uid="uid://be3ny2lv2mri7" path="res://resources/panel_opaque.tres" id="4_sete0"]
+
+[resource]
+/font_sizes/fontsize = 24
+/fonts/font = ExtResource("1_cjywv")
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("2_2fwrq")
+Label/font_sizes/font_size = 12
+Label/fonts/font = ExtResource("3_2fwrq")
+MenuButton/font_sizes/font_size = 16
+MenuButton/fonts/font = ExtResource("2_2fwrq")
+OptionButton/font_sizes/font_size = 16
+OptionButton/fonts/font = ExtResource("2_2fwrq")
+TabBar/font_sizes/font_size = 12
+TabContainer/font_sizes/font_size = 16
+TabContainer/fonts/font = ExtResource("2_2fwrq")
+TabContainer/styles/panel = ExtResource("4_sete0")

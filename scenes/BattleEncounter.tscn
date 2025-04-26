@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bx40dl2et5fuu"]
+[gd_scene load_steps=12 format=3 uid="uid://bx40dl2et5fuu"]
 
 [ext_resource type="Script" uid="uid://ci1l4cvpsnf2x" path="res://scripts/BattleEncounter.gd" id="1_hxndq"]
 [ext_resource type="PackedScene" uid="uid://c3ssvjrslki2o" path="res://scenes/characters/enemy/enemy.tscn" id="2_shhuk"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cu6sswp16nakc" path="res://classes/turn system/TurnQueue.gd" id="5_hf03m"]
 [ext_resource type="PackedScene" uid="uid://drkxfntv1x338" path="res://scenes/player/player.tscn" id="6_71jlt"]
 [ext_resource type="Script" uid="uid://dr2kj4hvy2dkm" path="res://classes/custom/CustomButton.gd" id="7_3hea3"]
+[ext_resource type="Theme" uid="uid://ko8d2a833fwq" path="res://theme/global.tres" id="7_shhuk"]
 [ext_resource type="PackedScene" uid="uid://ceulqibd47nbx" path="res://scenes/back_drop.tscn" id="8_kahxj"]
 [ext_resource type="Texture2D" uid="uid://dbeecasi0psfg" path="res://assets/icons/cancel.png" id="9_ighv7"]
 [ext_resource type="PackedScene" uid="uid://67qlw1je564a" path="res://scenes/screens/win_screen.tscn" id="10_nj0id"]
@@ -76,6 +77,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="RollButton" type="Button" parent="VBoxContainer/Controls/Control"]
 layout_mode = 2
+theme = ExtResource("7_shhuk")
 text = "Roll"
 script = ExtResource("7_3hea3")
 metadata/_custom_type_script = "uid://dr2kj4hvy2dkm"
@@ -86,6 +88,7 @@ size_flags_horizontal = 3
 
 [node name="AddEnemyButton" type="Button" parent="VBoxContainer/Controls/Control"]
 layout_mode = 2
+theme = ExtResource("7_shhuk")
 text = "Add Enemy"
 script = ExtResource("7_3hea3")
 metadata/_custom_type_script = "uid://dr2kj4hvy2dkm"

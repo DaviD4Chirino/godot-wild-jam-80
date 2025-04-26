@@ -2,7 +2,7 @@ extends VBoxContainer
 ## The list of action that are allowed to be remapped
 @export var input_actions: InputActionDictionary
 
-const input_button_scene: PackedScene = preload ("res://scenes/screens/config/input_button.tscn")
+const input_button_scene: PackedScene = preload("res://scenes/screens/config/input_button.tscn")
 
 var is_remapping: bool
 var action_to_remap: InputActionData

@@ -1,5 +1,6 @@
 @tool
 extends VBoxContainer
+class_name AudioSlider
 @export var bus: AudioStreamData.AudioBuses = AudioStreamData.AudioBuses.MASTER:
 	set(value):
 		bus = value
@@ -18,7 +19,7 @@ func _ready():
 	update_default_values()
 
 func update_value_text(value: float):
-	VolumeValue.text = str(floor(value * 100)) + "%"
+	VolumeValue.text = str(floori(value * 100)) + "%"
 
 func update_default_values():
 	if Engine.is_editor_hint(): return

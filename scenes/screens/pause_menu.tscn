@@ -1,19 +1,21 @@
-[gd_scene load_steps=9 format=3 uid="uid://ds4whqb8apmwn"]
+[gd_scene load_steps=11 format=3 uid="uid://ds4whqb8apmwn"]
 
 [ext_resource type="Script" uid="uid://cr5anyrrxijmt" path="res://scenes/screens/pause_menu.gd" id="1_5hson"]
 [ext_resource type="StyleBox" uid="uid://be3ny2lv2mri7" path="res://resources/panel_opaque.tres" id="1_ur6q0"]
 [ext_resource type="Script" uid="uid://dr2kj4hvy2dkm" path="res://classes/custom/CustomButton.gd" id="2_ugvg4"]
+[ext_resource type="Theme" uid="uid://ko8d2a833fwq" path="res://theme/global.tres" id="3_1g06u"]
+[ext_resource type="LabelSettings" uid="uid://tlgi342e1usk" path="res://theme/font_sizes/h1.tres" id="3_nkwdc"]
 [ext_resource type="Resource" uid="uid://gq35i5ometpf" path="res://resources/ui sounds/button_sounds.tres" id="4_mow35"]
 [ext_resource type="PackedScene" uid="uid://biat56s5n0eww" path="res://scenes/screens/config/configuration_screen.tscn" id="4_ufvug"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vod4s"]
-bg_color = Color(0.678431, 0, 0.180392, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w6jiq"]
 bg_color = Color(0.392157, 0, 0.0862745, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hqve"]
 bg_color = Color(0.615686, 0, 0.156863, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vod4s"]
+bg_color = Color(0.678431, 0, 0.180392, 1)
 
 [node name="pause_menu" type="CanvasLayer" node_paths=PackedStringArray("options_screen")]
 process_mode = 3
@@ -44,10 +46,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="Panel" type="Panel" parent="Control/ColorRect/MarginContainer"]
 layout_mode = 2
@@ -60,49 +62,55 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 80
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 80
-theme_override_constants/margin_bottom = 15
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/ColorRect/MarginContainer/Panel/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = -5
 
 [node name="title" type="Label" parent="Control/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 48
 text = "PAUSED"
+label_settings = ExtResource("3_nkwdc")
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 10
+theme_override_constants/separation = 3
 
 [node name="ResumeButton" type="Button" parent="Control/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_1g06u")
 text = "Resume"
 script = ExtResource("2_ugvg4")
 audio_streams = ExtResource("4_mow35")
 
 [node name="OptionsButton" type="Button" parent="Control/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_1g06u")
 text = "Options"
 script = ExtResource("2_ugvg4")
 audio_streams = ExtResource("4_mow35")
 
 [node name="MainMenuButton" type="Button" parent="Control/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_1g06u")
 text = "Main Menu"
 script = ExtResource("2_ugvg4")
 audio_streams = ExtResource("4_mow35")
 
 [node name="QuitButton" type="Button" parent="Control/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_vod4s")
+theme = ExtResource("3_1g06u")
 theme_override_styles/hover = SubResource("StyleBoxFlat_w6jiq")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_2hqve")
+theme_override_styles/normal = SubResource("StyleBoxFlat_vod4s")
 text = "Quit Game"
 script = ExtResource("2_ugvg4")
 audio_streams = ExtResource("4_mow35")

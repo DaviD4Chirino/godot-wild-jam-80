@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://btbv6e4wwp4px"]
+[gd_scene load_steps=6 format=3 uid="uid://btbv6e4wwp4px"]
 
 [ext_resource type="Script" uid="uid://dr2kj4hvy2dkm" path="res://classes/custom/CustomButton.gd" id="1_6qigx"]
 [ext_resource type="Script" uid="uid://dsg6ju10q26un" path="res://scenes/screens/main_menu.gd" id="1_w83ax"]
+[ext_resource type="Theme" uid="uid://ko8d2a833fwq" path="res://theme/global.tres" id="2_kacuo"]
 [ext_resource type="PackedScene" uid="uid://biat56s5n0eww" path="res://scenes/screens/config/configuration_screen.tscn" id="3_cosxt"]
 [ext_resource type="Resource" uid="uid://gq35i5ometpf" path="res://resources/ui sounds/button_sounds.tres" id="3_dn3sw"]
 
@@ -23,21 +24,23 @@ anchor_bottom = 1.0
 offset_top = -225.0
 offset_right = 400.0
 grow_vertical = 0
+alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 30
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 250
+theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
+alignment = 2
 
 [node name="StartButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
+theme = ExtResource("2_kacuo")
 theme_override_font_sizes/font_size = 24
 text = "Start"
 script = ExtResource("1_6qigx")
@@ -45,6 +48,7 @@ audio_streams = ExtResource("3_dn3sw")
 
 [node name="OptionsButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_kacuo")
 theme_override_font_sizes/font_size = 24
 text = "Options"
 script = ExtResource("1_6qigx")
@@ -52,6 +56,7 @@ audio_streams = ExtResource("3_dn3sw")
 
 [node name="CreditsButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_kacuo")
 theme_override_font_sizes/font_size = 24
 text = "Credits"
 script = ExtResource("1_6qigx")
@@ -59,6 +64,7 @@ audio_streams = ExtResource("3_dn3sw")
 
 [node name="ExitButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_kacuo")
 theme_override_font_sizes/font_size = 24
 text = "Exit"
 script = ExtResource("1_6qigx")

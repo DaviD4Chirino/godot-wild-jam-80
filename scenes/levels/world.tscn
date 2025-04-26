@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjbxjnly18hq2"]
+
+[ext_resource type="Script" uid="uid://d083hnak2dc" path="res://classes/Level.gd" id="1_tsias"]
+[ext_resource type="Script" uid="uid://dyvy0tsbhiii1" path="res://components/GameState.gd" id="2_lfyvx"]
+[ext_resource type="PackedScene" uid="uid://ds4whqb8apmwn" path="res://scenes/screens/pause_menu.tscn" id="3_w2p53"]
+
+[node name="World" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_tsias")
+metadata/_custom_type_script = "uid://d083hnak2dc"
+
+[node name="GameStateComponent" type="Node" parent="." node_paths=PackedStringArray("pause_menu")]
+script = ExtResource("2_lfyvx")
+pause_menu = NodePath("pause_menu")
+metadata/_custom_type_script = "uid://dyvy0tsbhiii1"
+
+[node name="pause_menu" parent="GameStateComponent" instance=ExtResource("3_w2p53")]
+visible = false

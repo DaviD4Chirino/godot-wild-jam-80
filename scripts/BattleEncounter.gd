@@ -13,16 +13,16 @@ class_name BattleEncounter
 func _ready() -> void:
 	super ()
 	assert(turn_queue, "You need a TurnQueue")
-	spawn_enemies()
+	connect_signals()
 	roll_button.disabled = true
 	controls.hide()
 	
+	spawn_enemies()
 	turn_queue.initialize()
 
 	if turn_queue.active_character is not Player:
 		turn_timer.start()
 
-	connect_signals()
 	
 	await get_tree().create_timer(0.5).timeout
 	turn_queue.play_turn()
@@ -37,24 +37,27 @@ func connect_signals():
 func spawn_enemies() -> void:
 	for enemy in enemies:
 		var new_enemy: Enemy = enemy.instantiate()
-		spawn_enemy(new_enemy)
-
+		new_enemy.died.connect(_on_enemy_dead.bind(new_enemy))
+		turn_queue.add_child(new_enemy)
+	
 	reposition_enemies()
-
 
 func spawn_enemy(character: Character):
 	character.died.connect(_on_enemy_dead.bind(character))
 	turn_queue.add_child(character)
+	reposition_enemies()
 
 func reposition_enemies():
 	var screen_size: Vector2 = get_viewport_rect().size
-	var half_screen: Vector2 = (screen_size * 0.5)
+	var half_screen: Vector2 = (screen_size / 2)
 
 	var group_enemies: Array[Node] = get_tree().get_nodes_in_group("enemy")
+	print(group_enemies)
 
 	if group_enemies.size() == 1:
 		var new_enemy: Enemy = group_enemies[0]
 		new_enemy.position = half_screen
+		return
 
 	for i: int in group_enemies.size():
 		var new_enemy: Enemy = group_enemies[i]

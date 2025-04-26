@@ -1,16 +1,17 @@
-[gd_scene load_steps=10 format=3 uid="uid://bx40dl2et5fuu"]
+[gd_scene load_steps=11 format=3 uid="uid://bx40dl2et5fuu"]
 
-[ext_resource type="Script" uid="uid://ci1l4cvpsnf2x" path="res://scripts/level.gd" id="1_kl8ac"]
-[ext_resource type="Script" uid="uid://dyvy0tsbhiii1" path="res://components/GameState.gd" id="2_ofymm"]
-[ext_resource type="PackedScene" uid="uid://ds4whqb8apmwn" path="res://scenes/screens/pause_menu.tscn" id="2_xx3c8"]
-[ext_resource type="Script" uid="uid://cu6sswp16nakc" path="res://classes/turn system/TurnQueue.gd" id="4_2eouu"]
-[ext_resource type="Script" uid="uid://dr2kj4hvy2dkm" path="res://classes/custom/CustomButton.gd" id="4_kl8ac"]
-[ext_resource type="PackedScene" uid="uid://c3ssvjrslki2o" path="res://scenes/characters/enemy/enemy.tscn" id="5_4qegb"]
-[ext_resource type="PackedScene" uid="uid://drkxfntv1x338" path="res://scenes/player/player.tscn" id="5_faw0r"]
-[ext_resource type="Texture2D" uid="uid://dbeecasi0psfg" path="res://assets/icons/cancel.png" id="7_2eouu"]
-[ext_resource type="PackedScene" uid="uid://ceulqibd47nbx" path="res://scenes/back_drop.tscn" id="8_faw0r"]
+[ext_resource type="Script" uid="uid://ci1l4cvpsnf2x" path="res://scripts/BattleEncounter.gd" id="1_hxndq"]
+[ext_resource type="PackedScene" uid="uid://c3ssvjrslki2o" path="res://scenes/characters/enemy/enemy.tscn" id="2_shhuk"]
+[ext_resource type="Script" uid="uid://dyvy0tsbhiii1" path="res://components/GameState.gd" id="3_nhcc1"]
+[ext_resource type="PackedScene" uid="uid://ds4whqb8apmwn" path="res://scenes/screens/pause_menu.tscn" id="4_lrbf7"]
+[ext_resource type="Script" uid="uid://cu6sswp16nakc" path="res://classes/turn system/TurnQueue.gd" id="5_hf03m"]
+[ext_resource type="PackedScene" uid="uid://drkxfntv1x338" path="res://scenes/player/player.tscn" id="6_71jlt"]
+[ext_resource type="Script" uid="uid://dr2kj4hvy2dkm" path="res://classes/custom/CustomButton.gd" id="7_3hea3"]
+[ext_resource type="PackedScene" uid="uid://ceulqibd47nbx" path="res://scenes/back_drop.tscn" id="8_kahxj"]
+[ext_resource type="Texture2D" uid="uid://dbeecasi0psfg" path="res://assets/icons/cancel.png" id="9_ighv7"]
+[ext_resource type="PackedScene" uid="uid://67qlw1je564a" path="res://scenes/screens/win_screen.tscn" id="10_nj0id"]
 
-[node name="Level" type="Control" node_paths=PackedStringArray("node_roll_button", "node_controls", "node_turn_timer", "turn_queue")]
+[node name="BattleEncounter" type="Control" node_paths=PackedStringArray("roll_button", "controls", "turn_timer", "turn_queue", "win_screen")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,20 +19,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_kl8ac")
-enemies = Array[PackedScene]([ExtResource("5_4qegb"), ExtResource("5_4qegb")])
-node_roll_button = NodePath("VBoxContainer/Controls/Control/RollButton")
-node_controls = NodePath("VBoxContainer/Controls")
-node_turn_timer = NodePath("TurnTimer")
+script = ExtResource("1_hxndq")
+enemies = Array[PackedScene]([ExtResource("2_shhuk")])
+roll_button = NodePath("VBoxContainer/Controls/Control/RollButton")
+controls = NodePath("VBoxContainer/Controls")
+turn_timer = NodePath("TurnTimer")
 turn_queue = NodePath("VBoxContainer/TurnQueue")
+win_screen = NodePath("WinScreen")
 metadata/_custom_type_script = "uid://d083hnak2dc"
 
 [node name="GameState" type="Node" parent="." node_paths=PackedStringArray("pause_menu")]
 process_mode = 3
-script = ExtResource("2_ofymm")
+script = ExtResource("3_nhcc1")
 pause_menu = NodePath("pause_menu")
 
-[node name="pause_menu" parent="GameState" instance=ExtResource("2_xx3c8")]
+[node name="pause_menu" parent="GameState" instance=ExtResource("4_lrbf7")]
 visible = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -49,10 +51,10 @@ mouse_filter = 2
 
 [node name="TurnQueue" type="Node2D" parent="VBoxContainer"]
 physics_interpolation_mode = 2
-script = ExtResource("4_2eouu")
+script = ExtResource("5_hf03m")
 metadata/_custom_type_script = "uid://cu6sswp16nakc"
 
-[node name="Player" parent="VBoxContainer/TurnQueue" instance=ExtResource("5_faw0r")]
+[node name="Player" parent="VBoxContainer/TurnQueue" instance=ExtResource("6_71jlt")]
 visible = false
 
 [node name="Controls" type="MarginContainer" parent="VBoxContainer"]
@@ -75,7 +77,7 @@ metadata/_edit_use_anchors_ = true
 [node name="RollButton" type="Button" parent="VBoxContainer/Controls/Control"]
 layout_mode = 2
 text = "Roll"
-script = ExtResource("4_kl8ac")
+script = ExtResource("7_3hea3")
 metadata/_custom_type_script = "uid://dr2kj4hvy2dkm"
 
 [node name="History" type="PanelContainer" parent="VBoxContainer/Controls/Control"]
@@ -85,10 +87,10 @@ size_flags_horizontal = 3
 [node name="AddEnemyButton" type="Button" parent="VBoxContainer/Controls/Control"]
 layout_mode = 2
 text = "Add Enemy"
-script = ExtResource("4_kl8ac")
+script = ExtResource("7_3hea3")
 metadata/_custom_type_script = "uid://dr2kj4hvy2dkm"
 
-[node name="BackDrop" parent="." instance=ExtResource("8_faw0r")]
+[node name="BackDrop" parent="." instance=ExtResource("8_kahxj")]
 visible = false
 layout_mode = 1
 mouse_filter = 1
@@ -104,13 +106,17 @@ offset_top = 7.83013
 offset_right = 43.8792
 offset_bottom = 47.8301
 mouse_filter = 1
-icon = ExtResource("7_2eouu")
-script = ExtResource("4_kl8ac")
+icon = ExtResource("9_ighv7")
+script = ExtResource("7_3hea3")
 metadata/_custom_type_script = "uid://dr2kj4hvy2dkm"
 metadata/_edit_use_anchors_ = true
 
 [node name="TurnTimer" type="Timer" parent="."]
 process_callback = 0
+
+[node name="WinScreen" parent="." instance=ExtResource("10_nj0id")]
+visible = false
+layout_mode = 1
 
 [connection signal="roll_end" from="VBoxContainer/TurnQueue/Player" to="Dismiss" method="show"]
 [connection signal="roll_start" from="VBoxContainer/TurnQueue/Player" to="Dismiss" method="hide"]

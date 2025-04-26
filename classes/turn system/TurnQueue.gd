@@ -17,6 +17,8 @@ func initialize() -> void:
 	for child: Character in get_children():
 		characters.append(child)
 		child.turn_ended.connect(_on_characters_turn_ended.bind(child))
+		child.died.connect(_on_character_died.bind(child))
+
 	print(characters)
 	active_character = characters[0]
 	current_round = 0
@@ -27,7 +29,9 @@ func play_turn() -> void:
 	await get_tree().physics_frame
 	if get_tree().get_nodes_in_group("enemy").size() <= 0:
 		print("COMBAT ENDED")
+		SignalBus.combat_ended.emit()
 		return
+		
 	print("Playing turn")
 	active_character.start_turn()
 	SignalBus.turn_started.emit(active_character)
@@ -37,6 +41,9 @@ func _input(event):
 	if event.is_action_pressed("ACTION_ACCEPT"):
 		play_turn()
 
+
+func _on_character_died(character: Character) -> void:
+	characters.erase(character)
 
 func _on_characters_turn_ended(character: Character) -> void:
 	await get_tree().physics_frame

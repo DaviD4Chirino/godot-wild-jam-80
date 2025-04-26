@@ -4,12 +4,13 @@ extends Node
 func _ready():
 	process_mode = PROCESS_MODE_ALWAYS
 
-## Engine State Signals
+#region: Engine State Signals
+
 signal game_paused
 signal game_resumed
 signal game_restarted
 signal level_restarted
-##szxf
+#endregion
 
 #region: Slot Machine Signal
 signal rolled_column(column_id: int, winner_token: Token)
@@ -25,6 +26,8 @@ signal target_enemy_changed(enemy: Enemy)
 
 signal turn_started(character: Character)
 signal turn_ended(character: Character)
+
+signal combat_ended()
 
 ## First emitted before the first Character plays his turn
 signal round_changed(current_round: int)

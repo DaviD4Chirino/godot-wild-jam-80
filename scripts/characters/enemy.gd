@@ -14,7 +14,6 @@ var target_enemy: Enemy: set = set_target_enemy
 var mouse_in: bool = false
 var shock_time: float = 0.0
 var shock_active: bool = false
-signal target_enemy_changed
 
 func _ready() -> void:
 	node_progress_bar.max_value = hp.max_health
@@ -51,7 +50,6 @@ func target_self() -> void:
 	if TurnQueue.active_character is not Player: return
 
 	target_enemy = self
-	target_enemy_changed.emit()
 	SignalBus.target_enemy_changed.emit(self)
 
 	node_outline_color_rect.show()
@@ -82,10 +80,9 @@ func die() -> void:
 	if dead: return
 	dead = true
 	died.emit()
+	target_enemy = null
 	print("ENEMY DEAD")
 	active_enemies.erase(self)
-	target_enemy = null
-	target_enemy_changed.emit()
 	node_outline_color_rect.hide()
 	end_turn()
 	queue_free()

@@ -1,32 +1,34 @@
 extends Character
 class_name Enemy
 
-static var target_enemy: Enemy
 static var active_enemies: Array[Enemy] = []
 
 @export var abilities: Array[Ability]
 @export_group("Nodes", "node_")
 @export var node_outline_color_rect: ColorRect
 @export var node_progress_bar: ProgressBar
-@export var animation_player: AnimationPlayer  
+@export var animation_player: AnimationPlayer
+
+var target_enemy: Enemy: set = set_target_enemy
 
 var mouse_in: bool = false
 var shock_time: float = 0.0
 var shock_active: bool = false
-signal selected
+signal target_enemy_changed
 
 func _ready() -> void:
 	node_progress_bar.max_value = hp.max_health
 	node_progress_bar.value = hp.max_health
 	hp.changed.connect(_on_health_component_hp_changed)
 
+	SignalBus.target_enemy_changed.connect(_on_enemy_selected)
 	active_enemies.append(self)
 
 func play_turn():
 	if animation_player.is_playing():
 		await animation_player.animation_finished
 	super ()
-	if dead: 
+	if dead:
 		end_turn()
 		return
 	
@@ -47,8 +49,10 @@ func target_self() -> void:
 		active_enemy.node_outline_color_rect.hide()
 
 	if TurnQueue.active_character is not Player: return
+
 	target_enemy = self
-	selected.emit()
+	target_enemy_changed.emit()
+	SignalBus.target_enemy_changed.emit(self)
 
 	node_outline_color_rect.show()
 
@@ -59,8 +63,11 @@ func set_mouse_in_true() -> void:
 func set_mouse_in_false() -> void:
 	mouse_in = false
 
+func set_target_enemy(val: Enemy) -> void:
+	target_enemy = val
+	SignalBus.target_enemy_changed.emit(val)
+
 func _on_enemy_selected(enemy: Enemy) -> void:
-	if dead: return
 	if enemy == self:
 		node_outline_color_rect.show()
 		return
@@ -77,7 +84,8 @@ func die() -> void:
 	died.emit()
 	print("ENEMY DEAD")
 	active_enemies.erase(self)
+	target_enemy = null
+	target_enemy_changed.emit()
+	node_outline_color_rect.hide()
 	end_turn()
 	queue_free()
-
-

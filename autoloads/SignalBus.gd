@@ -9,7 +9,7 @@ signal game_paused
 signal game_resumed
 signal game_restarted
 signal level_restarted
-##
+##szxf
 
 #region: Slot Machine Signal
 signal rolled_column(column_id: int, winner_token: Token)
@@ -18,7 +18,7 @@ signal multiplier_changed(current_multiplier: float)
 #endregion
 
 #region: Enemy Signals
-signal enemy_selected(enemy: Enemy)
+signal target_enemy_changed(enemy: Enemy)
 #endregion
 
 #region: TurnQueue Signals

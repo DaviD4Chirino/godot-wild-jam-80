@@ -23,8 +23,7 @@ func _ready() -> void:
 		node_turn_timer.start()
 
 	# SignalBus.enemy_selected.connect(_on_enemy_selected)
-	SignalBus.turn_started.connect(_on_turn_started)
-	SignalBus.turn_ended.connect(_on_turn_ended)
+	connect_signals()
 
 	# var e_pos = enemy_positions_node.get_children()
 	
@@ -32,6 +31,11 @@ func _ready() -> void:
 	turn_queue.play_turn()
 
 
+func connect_signals():
+	SignalBus.turn_started.connect(_on_turn_started)
+	SignalBus.turn_ended.connect(_on_turn_ended)
+	SignalBus.target_enemy_changed.connect(_on_enemy_selected)
+		
 func spawn_enemies() -> void:
 	var screen_size: Vector2 = get_viewport_rect().size
 	var half_screen: Vector2 = (screen_size * 0.5)
@@ -46,13 +50,13 @@ func spawn_enemies() -> void:
 		new_enemy.position.y = half_screen.y + 10 if i % 2 > 0 else half_screen.y - 10
 		new_enemy.position.x = lerp_value
 		
-		new_enemy.selected.connect(_on_enemy_selected)
+		new_enemy.target_enemy_changed.connect(_on_enemy_selected)
 		new_enemy.died.connect(_on_enemy_dead)
 		turn_queue.add_child(new_enemy)
 
 
-func _on_enemy_selected() -> void:
-	node_roll_button.disabled = false
+func _on_enemy_selected(enemy: Enemy) -> void:
+	node_roll_button.disabled = false if enemy else true
 
 func _on_enemy_dead() -> void:
 	print("Enemy died")
